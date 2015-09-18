@@ -1,2 +1,2 @@
 # njali
-Execution context for functions. Implemented in .NET
+Execution context of cross-cutting concerns. Implemented in .NET
