@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1-*",
+  "description": "Jali.Logging Logging Context default implementations written in C#.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/latticework/njali"
+  },
+
+  "authors": [ "Latticework" ],
+  "tags": [ "Jali", "NJali", "CSharp", "Logging" ],
+  "projectUrl": "https://github.com/latticework/njali",
+  "licenseUrl": "https://github.com/latticework/njali/blob/master/LICENSE",
+
+  "frameworks": {
+    "dnx451": { },
+    "dnxcore50": {
+      "dependencies": {
+        "Microsoft.CSharp": "4.0.1-beta-23225",
+        "System.Collections": "4.0.11-beta-23225",
+        "System.Linq": "4.0.1-beta-23225",
+        "System.Runtime": "4.0.21-beta-23225",
+        "System.Threading": "4.0.11-beta-23225"
+      }
+    }
+  },
+  "dependencies": {
+    "Jali": "0.0.1-*"
+  }
+}
