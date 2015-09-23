@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6AC98CB4-D2D1-4F5B-AC5C-66C9DE8B2322}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C0126529-02BC-432F-8814-D8E47C485581}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{DA8C95C1-0332-4E36-A674-060C18FF910D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jali.pcl", "src\Jali\Jali.pcl.csproj", "{96E0AF10-4832-4024-9EB7-C8CC6CD7B61F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jali.Core.pcl", "src\Jali.Core\Jali.Core.pcl.csproj", "{BEDAF50B-411C-48E5-81FB-FE2D10D15E29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96E0AF10-4832-4024-9EB7-C8CC6CD7B61F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E0AF10-4832-4024-9EB7-C8CC6CD7B61F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E0AF10-4832-4024-9EB7-C8CC6CD7B61F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96E0AF10-4832-4024-9EB7-C8CC6CD7B61F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEDAF50B-411C-48E5-81FB-FE2D10D15E29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEDAF50B-411C-48E5-81FB-FE2D10D15E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEDAF50B-411C-48E5-81FB-FE2D10D15E29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEDAF50B-411C-48E5-81FB-FE2D10D15E29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{96E0AF10-4832-4024-9EB7-C8CC6CD7B61F} = {6AC98CB4-D2D1-4F5B-AC5C-66C9DE8B2322}
+		{BEDAF50B-411C-48E5-81FB-FE2D10D15E29} = {6AC98CB4-D2D1-4F5B-AC5C-66C9DE8B2322}
+	EndGlobalSection
+EndGlobal
