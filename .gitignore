@@ -28,7 +28,8 @@ nuget.exe
 *.*sdf
 *.ipch
 *.sln.ide
-project.lock.json
+# @kenbrubaker: Copied from https://github.com/JamesNK/Newtonsoft.Json/blob/master/.gitignore
+*.lock.json
 
 # User-specific files
 *.suo

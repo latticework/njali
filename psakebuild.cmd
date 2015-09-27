@@ -1,0 +1,2 @@
+cls
+powershell -Command "& { [Console]::WindowWidth = 150; [Console]::WindowHeight = 50; Start-Transcript %~dp0psakebuild.txt; Import-Module %~dp0tools\psake\eb1f763e5329d59397080da4cb6030f117e64602\psake.psm1; Invoke-psake %~dp0psakefile.ps1 %*; Stop-Transcript; }"

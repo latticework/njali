@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6AC98CB4-D2D1-4F5B-AC5C-66C9DE8B2322}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C0126529-02BC-432F-8814-D8E47C485581}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{DA8C95C1-0332-4E36-A674-060C18FF910D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4A3DEDF6-4F54-4C9D-A5A6-ABF3F1D0078A}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		build.cmd = build.cmd
+		LICENSE = LICENSE
+		makefile.sake = makefile.sake
+		NuGet.Config = NuGet.Config
+		psakebuild.cmd = psakebuild.cmd
+		psakefile.ps1 = psakefile.ps1
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jali.Core.Pcl", "src\Jali.Core.Pcl\Jali.Core.Pcl.csproj", "{758CEF5B-34DB-485C-90FB-E3CCD4AFECDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jali.Pcl", "src\Jali.Pcl\Jali.Pcl.csproj", "{A72FA9E1-E84C-431A-B930-CED3A2E8095C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloJali.Pcl.Net46", "samples\HelloJali.Pcl.Net46\HelloJali.Pcl.Net46.csproj", "{EE92150D-234B-42BE-8315-40F953048545}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{758CEF5B-34DB-485C-90FB-E3CCD4AFECDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{758CEF5B-34DB-485C-90FB-E3CCD4AFECDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{758CEF5B-34DB-485C-90FB-E3CCD4AFECDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{758CEF5B-34DB-485C-90FB-E3CCD4AFECDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A72FA9E1-E84C-431A-B930-CED3A2E8095C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A72FA9E1-E84C-431A-B930-CED3A2E8095C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A72FA9E1-E84C-431A-B930-CED3A2E8095C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A72FA9E1-E84C-431A-B930-CED3A2E8095C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE92150D-234B-42BE-8315-40F953048545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE92150D-234B-42BE-8315-40F953048545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE92150D-234B-42BE-8315-40F953048545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE92150D-234B-42BE-8315-40F953048545}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{758CEF5B-34DB-485C-90FB-E3CCD4AFECDD} = {6AC98CB4-D2D1-4F5B-AC5C-66C9DE8B2322}
+		{A72FA9E1-E84C-431A-B930-CED3A2E8095C} = {6AC98CB4-D2D1-4F5B-AC5C-66C9DE8B2322}
+		{EE92150D-234B-42BE-8315-40F953048545} = {DA8C95C1-0332-4E36-A674-060C18FF910D}
+	EndGlobalSection
+EndGlobal

@@ -5,11 +5,11 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BEDAF50B-411C-48E5-81FB-FE2D10D15E29}</ProjectGuid>
+    <ProjectGuid>{A72FA9E1-E84C-431A-B930-CED3A2E8095C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Jali</RootNamespace>
-    <AssemblyName>Jali.Core.pcl</AssemblyName>
+    <AssemblyName>Jali.Pcl</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,14 +35,27 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="Core\" />
+    <ProjectReference Include="..\Jali.Core.Pcl\Jali.Core.Pcl.csproj">
+      <Project>{758cef5b-34db-485c-90fb-e3ccd4afecdd}</Project>
+      <Name>Jali.Core.Pcl</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Notification\INotificationMessage.cs" />
-    <Compile Include="Notification\MessageCode.cs" />
-    <Compile Include="Notification\MessagePriority.cs" />
-    <Compile Include="Notification\MessageSeverity.cs" />
-    <Compile Include="Notification\NotificationMessage.cs" />
+    <Compile Include="..\Jali\ExecutionContext.cs">
+      <Link>ExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali\IConfigurationContext.cs">
+      <Link>IConfigurationContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali\IExecutionContext.cs">
+      <Link>IExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali\ILogContext.cs">
+      <Link>ILogContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali\IMetricsContext.cs">
+      <Link>IMetricsContext.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
