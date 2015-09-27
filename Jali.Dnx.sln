@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1B320414-5834-46CD-8EA3-0326CE82F3EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28298CCB-EAFB-4B90-820F-E12198EE4050}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		build.cmd = build.cmd
+		global.json = global.json
+		LICENSE = LICENSE
+		makefile.sake = makefile.sake
+		NuGet.Config = NuGet.Config
+		psakebuild.cmd = psakebuild.cmd
+		psakefile.ps1 = psakefile.ps1
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{65A1240E-7B6C-488D-9162-00EF6C917058}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{87B52D83-B01F-4DC7-84DB-5F4E9623FAF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{AE7399BC-ABD8-4FDE-8DD6-23393DE6C495}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{C7100EFB-EA9B-4198-B53B-76BD65C48BF6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "psake", "psake", "{3D72093C-2B6A-4AB9-A0AA-A96295F4F96C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.2.0", "3.2.0", "{6324A625-62E9-41B8-8741-FBDBBAC4917E}"
+	ProjectSection(SolutionItems) = preProject
+		tools\nuget\3.2.0\nuget.exe = tools\nuget\3.2.0\nuget.exe
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{B14C3A2B-048D-4BDD-B737-617727782862}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jali", "Jali", "{A08C9DDF-0DF8-4CC4-815E-FBD1C2317075}"
+	ProjectSection(SolutionItems) = preProject
+		build\Jali\Jali.nuspec = build\Jali\Jali.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eb1f763e5329d59397080da4cb6030f117e64602", "eb1f763e5329d59397080da4cb6030f117e64602", "{EB0E9DAC-0307-4117-B9FB-BD999FC417AC}"
+	ProjectSection(SolutionItems) = preProject
+		tools\psake\eb1f763e5329d59397080da4cb6030f117e64602\psake.psm1 = tools\psake\eb1f763e5329d59397080da4cb6030f117e64602\psake.psm1
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Jali.Core.Dnx", "src\Jali.Core\Jali.Core.Dnx.xproj", "{50516CD0-6BA5-4495-AB6F-CB9E79F906EC}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Jali.Dnx", "src\Jali\Jali.Dnx.xproj", "{BF860044-8761-47E6-933B-E052F482D251}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50516CD0-6BA5-4495-AB6F-CB9E79F906EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50516CD0-6BA5-4495-AB6F-CB9E79F906EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50516CD0-6BA5-4495-AB6F-CB9E79F906EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50516CD0-6BA5-4495-AB6F-CB9E79F906EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF860044-8761-47E6-933B-E052F482D251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF860044-8761-47E6-933B-E052F482D251}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF860044-8761-47E6-933B-E052F482D251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF860044-8761-47E6-933B-E052F482D251}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C7100EFB-EA9B-4198-B53B-76BD65C48BF6} = {AE7399BC-ABD8-4FDE-8DD6-23393DE6C495}
+		{3D72093C-2B6A-4AB9-A0AA-A96295F4F96C} = {AE7399BC-ABD8-4FDE-8DD6-23393DE6C495}
+		{6324A625-62E9-41B8-8741-FBDBBAC4917E} = {C7100EFB-EA9B-4198-B53B-76BD65C48BF6}
+		{A08C9DDF-0DF8-4CC4-815E-FBD1C2317075} = {B14C3A2B-048D-4BDD-B737-617727782862}
+		{EB0E9DAC-0307-4117-B9FB-BD999FC417AC} = {3D72093C-2B6A-4AB9-A0AA-A96295F4F96C}
+		{50516CD0-6BA5-4495-AB6F-CB9E79F906EC} = {1B320414-5834-46CD-8EA3-0326CE82F3EB}
+		{BF860044-8761-47E6-933B-E052F482D251} = {1B320414-5834-46CD-8EA3-0326CE82F3EB}
+	EndGlobalSection
+EndGlobal
