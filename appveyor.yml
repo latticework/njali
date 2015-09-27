@@ -1,5 +1,8 @@
 # http://www.appveyor.com/docs/appveyor-yml
 version: 0.0.{build}
 clone_depth: 1
+configuration: Release
+build:
+  project: Jali.sln
 test: off
 deploy: off
