@@ -1,19 +1,10 @@
-{
-  "version": "0.0.1-*",
-  "description": "HelloJali.Dnx Console Application",
-  "authors": [ "latticework" ],
+﻿{
+  "version": "1.0.0-*",
+  "description": "Jali.Serve.Dnx Class Library",
+  "authors": [ "kBrubaker" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
-
-  "dependencies": {
-    "Jali": "0.0.1-*",
-    "Jali.Core": "0.0.1-*"
-  },
-
-  "commands": {
-    "HelloJali.Dnx": "HelloJali.Dnx"
-  },
 
   "frameworks": {
     "dnx451": { },
@@ -21,8 +12,8 @@
       "dependencies": {
         "Microsoft.CSharp": "4.0.1-beta-23225",
         "System.Collections": "4.0.11-beta-23225",
-        "System.Console": "4.0.0-beta-23225",
         "System.Linq": "4.0.1-beta-23225",
+        "System.Runtime": "4.0.21-beta-23225",
         "System.Threading": "4.0.11-beta-23225"
       }
     }

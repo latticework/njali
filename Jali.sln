@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		appveyor.yml = appveyor.yml
 		build.cmd = build.cmd
 		global.json = global.json
+		Jali.sln.DotSettings = Jali.sln.DotSettings
 		LICENSE = LICENSE
 		makefile.sake = makefile.sake
 		NuGet.Config = NuGet.Config
@@ -47,6 +48,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jali.Core", "Jali.Core", "{
 		build\Jali.Core\Jali.Core.nuspec = build\Jali.Core\Jali.Core.nuspec
 	EndProjectSection
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Jali.Serve.Dnx", "src\Jali.Serve\Jali.Serve.Dnx.xproj", "{36F61F0F-2E17-4EF5-96AE-C84974273F7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jali.Serve.Pcl", "src\Jali.Serve.Pcl\Jali.Serve.Pcl.csproj", "{3B632AB4-CFB5-4EE0-A3E7-D88012613F7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +82,14 @@ Global
 		{EE92150D-234B-42BE-8315-40F953048545}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE92150D-234B-42BE-8315-40F953048545}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE92150D-234B-42BE-8315-40F953048545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F61F0F-2E17-4EF5-96AE-C84974273F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F61F0F-2E17-4EF5-96AE-C84974273F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F61F0F-2E17-4EF5-96AE-C84974273F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F61F0F-2E17-4EF5-96AE-C84974273F7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B632AB4-CFB5-4EE0-A3E7-D88012613F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B632AB4-CFB5-4EE0-A3E7-D88012613F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B632AB4-CFB5-4EE0-A3E7-D88012613F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B632AB4-CFB5-4EE0-A3E7-D88012613F7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,5 +104,7 @@ Global
 		{6E8E6E57-DB01-41CD-90E4-29EBC10F4B4B} = {E4C22BBA-0FE6-4B86-9F54-EE06AE3E416E}
 		{28A233C8-FB15-4382-81E0-FC03BDC2F7A8} = {6E8E6E57-DB01-41CD-90E4-29EBC10F4B4B}
 		{07A2B210-ADCB-4735-94A5-655AE72CC3B4} = {6E8E6E57-DB01-41CD-90E4-29EBC10F4B4B}
+		{36F61F0F-2E17-4EF5-96AE-C84974273F7C} = {4D5BCAC7-DC98-4845-B808-9D8F931C2BC5}
+		{3B632AB4-CFB5-4EE0-A3E7-D88012613F7B} = {4D5BCAC7-DC98-4845-B808-9D8F931C2BC5}
 	EndGlobalSection
 EndGlobal
