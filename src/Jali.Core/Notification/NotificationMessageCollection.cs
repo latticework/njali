@@ -1,14 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Jali.Notification
 {
     public class NotificationMessageCollection : Collection<NotificationMessage>
     {
-        protected NotificationMessageCollection()
+        public NotificationMessageCollection()
+            : this(null)
         {
         }
+
+        public NotificationMessageCollection(IEnumerable<NotificationMessage> messages)
+            :base(NotificationMessageCollection.CreateMessageList(messages))
+        {
+            
+        }
+
+        public MessagePriority Priority => this.Items.Min(m => m.Priority);
+
+        public MessageSeverity Severity => this.Items.Min(m => m.Severity);
 
         public NotificationMessageCollection Prepend(IEnumerable<NotificationMessage> messages)
         {
@@ -32,6 +44,11 @@ namespace Jali.Notification
             }
 
             return this;
+        }
+
+        private static IList<NotificationMessage> CreateMessageList(IEnumerable<NotificationMessage> messages)
+        {
+            return (messages as IList<NotificationMessage>) ?? messages?.ToList() ?? new List<NotificationMessage>();
         }
     }
 }

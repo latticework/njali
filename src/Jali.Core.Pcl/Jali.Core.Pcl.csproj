@@ -35,9 +35,41 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Jali.Core\Core\InternalErrorException.cs">
+      <Link>Core\InternalErrorException.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Core\JaliCoreExtensions.cs">
+      <Link>Core\JaliCoreExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Core\JaliCoreMessages.cs">
+      <Link>Core\JaliCoreMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Core\NotificationMessageException.cs">
+      <Link>Core\NotificationMessageException.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\ArgumentDefinition.cs">
+      <Link>Notification\Definition\ArgumentDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageAuthority.cs">
+      <Link>Notification\Definition\MessageAuthority.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageDefinition.cs">
+      <Link>Notification\Definition\MessageDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageDefinitionFile.cs">
+      <Link>Notification\Definition\MessageDefinitionFile.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageDomain.cs">
+      <Link>Notification\Definition\MessageDomain.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageLibrary.cs">
+      <Link>Notification\Definition\MessageLibrary.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageLibraryRegistry.cs">
+      <Link>Notification\Definition\MessageLibraryRegistry.cs</Link>
+    </Compile>
     <Compile Include="..\Jali.Core\Notification\INotificationMessage.cs">
       <Link>Notification\INotificationMessage.cs</Link>
     </Compile>
@@ -53,7 +85,15 @@
     <Compile Include="..\Jali.Core\Notification\NotificationMessage.cs">
       <Link>Notification\NotificationMessage.cs</Link>
     </Compile>
+    <Compile Include="..\Jali.Core\Notification\NotificationMessageCollection.cs">
+      <Link>Notification\NotificationMessageCollection.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Jali.Core\Core\jali-jali-core.jalinote.json">
+      <Link>Core\jali-jali-core.jalinote.json</Link>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
