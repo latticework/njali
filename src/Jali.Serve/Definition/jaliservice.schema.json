@@ -1,0 +1,35 @@
+﻿{
+	"$schema": "http://json-schema.org/draft-04/schema",
+	"title": "Jali Service Definition Schema",
+
+	"type": "object",
+
+	"properties": {
+    "url": {
+      "type": "string",
+      "description": "URL to this service definition.",
+      "format": "uri"
+    },
+    "version": {
+      "type": "string",
+      "description": "SemVer version of this service definition version. Updated when any resource version changes.",
+      "pattern": ""
+    },
+    "name": {
+      "type": "string",
+      "description": "Service name unique withing a service library.",
+      "pattern": "^[_a-zA-Z][_a-zA-Z0-9]*$",
+      "minLength": 1,
+      "maxLength": 128
+    },
+		"resources": {
+			"type": "array",
+			"description": "Array of relative or absolute URLs to resource files or folders.",
+			"items": {
+        "type": "string",
+        "description": "Relative or absolute URLs to resource files or folders.",
+        "format": "uri"
+			}
+		}
+	}
+}
