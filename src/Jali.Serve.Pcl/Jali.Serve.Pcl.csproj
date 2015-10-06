@@ -40,6 +40,12 @@
     <Compile Include="..\Jali.Serve\Definition\DataTransmissionModes.cs">
       <Link>Definition\DataTransmissionModes.cs</Link>
     </Compile>
+    <Compile Include="..\Jali.Serve\Definition\FileSystemServiceDefinitionSource.cs">
+      <Link>Definition\FileSystemServiceDefinitionSource.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Serve\Definition\IServiceDefinitionSource.cs">
+      <Link>Definition\IServiceDefinitionSource.cs</Link>
+    </Compile>
     <Compile Include="..\Jali.Serve\Definition\Resource.cs">
       <Link>Definition\Resource.cs</Link>
     </Compile>
@@ -76,6 +82,36 @@
     <Compile Include="..\Jali.Serve\Definition\Service.cs">
       <Link>Definition\Service.cs</Link>
     </Compile>
+    <Compile Include="..\Jali.Serve\Definition\ServiceDefinitionManager.cs">
+      <Link>Definition\ServiceDefinitionManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Serve\Definition\ServiceLoadContext.cs">
+      <Link>Definition\ServiceLoadContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Serve\Definition\ServiceLoadResult.cs">
+      <Link>Definition\ServiceLoadResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Serve\EndpointPartition.cs">
+      <Link>EndpointPartition.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Serve\IServiceMessage.cs">
+      <Link>IServiceMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Serve\MessageConnection.cs">
+      <Link>MessageConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Serve\MessageContract.cs">
+      <Link>MessageContract.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Serve\MessageIdentity.cs">
+      <Link>MessageIdentity.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Serve\ServiceMessage.cs">
+      <Link>ServiceMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Serve\TenantIdentity.cs">
+      <Link>TenantIdentity.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,7 +125,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Jali.Serve\Definition\jaliresource.schema.json">
+      <Link>Definition\jaliresource.schema.json</Link>
+    </None>
+    <None Include="..\Jali.Serve\Definition\jaliservice.schema.json">
+      <Link>Definition\jaliservice.schema.json</Link>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jali.Core.Pcl\Jali.Core.Pcl.csproj">
+      <Project>{758cef5b-34db-485c-90fb-e3ccd4afecdd}</Project>
+      <Name>Jali.Core.Pcl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jali.Pcl\Jali.Pcl.csproj">
+      <Project>{a72fa9e1-e84c-431a-b930-ced3a2e8095c}</Project>
+      <Name>Jali.Pcl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

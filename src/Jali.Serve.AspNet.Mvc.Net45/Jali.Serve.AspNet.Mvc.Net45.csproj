@@ -39,6 +39,18 @@
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Nito.AsyncEx, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nito.AsyncEx.3.0.1\lib\net45\Nito.AsyncEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Concurrent, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nito.AsyncEx.3.0.1\lib\net45\Nito.AsyncEx.Concurrent.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Enlightenment, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nito.AsyncEx.3.0.1\lib\net45\Nito.AsyncEx.Enlightenment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -88,15 +100,27 @@
   <ItemGroup>
     <Compile Include="JaliHttpConfigurationExtensions.cs" />
     <Compile Include="JaliHttpMessageHandler.cs" />
+    <Compile Include="JaliHttpMessageResponseBuilder.cs" />
+    <Compile Include="JaliHttpRequestMessageExtensions.cs" />
     <Compile Include="JaliHttpRoute.cs" />
+    <Compile Include="JaliMvcHttpHandler.cs" />
     <Compile Include="JaliMvcRouteHandler.cs" />
+    <Compile Include="JaliMvcServiceMessageExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RouteCollectionExtensions.cs" />
+    <Compile Include="JaliRouteCollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Jali.Core.Pcl\Jali.Core.Pcl.csproj">
+      <Project>{758cef5b-34db-485c-90fb-e3ccd4afecdd}</Project>
+      <Name>Jali.Core.Pcl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jali.Pcl\Jali.Pcl.csproj">
+      <Project>{a72fa9e1-e84c-431a-b930-ced3a2e8095c}</Project>
+      <Name>Jali.Pcl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Jali.Serve.Pcl\Jali.Serve.Pcl.csproj">
       <Project>{3b632ab4-cfb5-4ee0-a3e7-d88012613f7b}</Project>
       <Name>Jali.Serve.Pcl</Name>

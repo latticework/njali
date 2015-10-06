@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http.WebHost;
 using System.Web.Routing;
 using Jali.Serve.Definition;
 
@@ -20,7 +21,7 @@ namespace Jali.Serve.AspNet.Mvc
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            throw new NotImplementedException();
+            return new HttpControllerHandler(new RouteData(), new JaliHttpMessageHandler(this.Service));
         }
     }
 }

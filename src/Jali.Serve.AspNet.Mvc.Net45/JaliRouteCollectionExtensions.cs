@@ -4,7 +4,7 @@ using Jali.Serve.Definition;
 
 namespace System.Web.Routing
 {
-    public static class RouteCollectionExtensions
+    public static class JaliRouteCollectionExtensions
     {
         public static readonly string RouteName = "JaliMvcRoute_" + Guid.NewGuid().ToString("D");
 
@@ -27,7 +27,7 @@ namespace System.Web.Routing
 
             var route = new Route(url: "", defaults: null, constraints: null, dataTokens: null, routeHandler: handler);
 
-            routes.Add(RouteCollectionExtensions.RouteName, route);
+            routes.Add(JaliRouteCollectionExtensions.RouteName, route);
         }
     }
 }

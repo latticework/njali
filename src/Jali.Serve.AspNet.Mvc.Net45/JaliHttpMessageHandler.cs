@@ -21,6 +21,12 @@ namespace Jali.Serve.AspNet.Mvc
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+            var requestMessage = request.AsServiceMessage();
+
+            var responseMessage = (ServiceMessage) null; // TODO: Magic happens here.
+
+            return Task.FromResult(responseMessage.AsResponse(request));
         }
+
     }
 }
