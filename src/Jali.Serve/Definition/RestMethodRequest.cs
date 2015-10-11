@@ -7,7 +7,7 @@ namespace Jali.Serve.Definition
 {
     public class RestMethodRequest
     {
-        public RoutineMessage Message { get; set; }
+        public RoutineMessageReference Message { get; set; }
         public DataTransmissionModes Mode { get; set; }
     }
 }

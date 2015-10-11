@@ -10,6 +10,6 @@ namespace Jali.Serve.Definition
     {
         public SchemaType SchemaType { get; set; }
         public JSchema Schema { get; set; }
-        public ResourceEvent Event { get; set; }
+        public string Event { get; set; }
     }
 }

@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CDE796DD-8F44-4A42-BE96-8A9E2D9CF3EC}</ProjectGuid>
+    <ProjectGuid>{F4FE0161-82BE-4BAC-B0D0-E53F2581D014}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jali.Serve.AspNet.Mvc</RootNamespace>
+    <RootNamespace>Jali.Serve.AspNet.Mvc.Net45</RootNamespace>
     <AssemblyName>Jali.Serve.AspNet.Mvc.Net45</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -98,33 +97,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JaliHttpConfigurationExtensions.cs" />
-    <Compile Include="JaliHttpMessageHandler.cs" />
-    <Compile Include="JaliHttpMessageResponseBuilder.cs" />
-    <Compile Include="JaliHttpRequestMessageExtensions.cs" />
-    <Compile Include="JaliHttpRoute.cs" />
-    <Compile Include="JaliMvcHttpHandler.cs" />
-    <Compile Include="JaliMvcRouteHandler.cs" />
-    <Compile Include="JaliMvcServiceMessageExtensions.cs" />
+    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliHttpConfigurationExtensions.cs">
+      <Link>JaliHttpConfigurationExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliHttpMessageHandler.cs">
+      <Link>JaliHttpMessageHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliHttpMessageResponseBuilder.cs">
+      <Link>JaliHttpMessageResponseBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliHttpRequestMessageExtensions.cs">
+      <Link>JaliHttpRequestMessageExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliHttpRoute.cs">
+      <Link>JaliHttpRoute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliMvcHttpHandler.cs">
+      <Link>JaliMvcHttpHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliMvcRouteHandler.cs">
+      <Link>JaliMvcRouteHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliMvcServiceMessageExtensions.cs">
+      <Link>JaliMvcServiceMessageExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliRouteCollectionExtensions.cs">
+      <Link>JaliRouteCollectionExtensions.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="JaliRouteCollectionExtensions.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Jali.Core.Pcl\Jali.Core.Pcl.csproj">
-      <Project>{758cef5b-34db-485c-90fb-e3ccd4afecdd}</Project>
+      <Project>{53e9c750-56fd-481e-a4ca-f6fa687f4f79}</Project>
       <Name>Jali.Core.Pcl</Name>
     </ProjectReference>
     <ProjectReference Include="..\Jali.Pcl\Jali.Pcl.csproj">
-      <Project>{a72fa9e1-e84c-431a-b930-ced3a2e8095c}</Project>
+      <Project>{8f365500-2edb-486f-be35-bf34d792874b}</Project>
       <Name>Jali.Pcl</Name>
     </ProjectReference>
     <ProjectReference Include="..\Jali.Serve.Pcl\Jali.Serve.Pcl.csproj">
-      <Project>{3b632ab4-cfb5-4ee0-a3e7-d88012613f7b}</Project>
+      <Project>{a5a96225-6183-40e6-865c-4894f925f3c9}</Project>
       <Name>Jali.Serve.Pcl</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

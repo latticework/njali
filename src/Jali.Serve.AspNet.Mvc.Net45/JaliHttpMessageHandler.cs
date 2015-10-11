@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+//using System.Web.Hosting;
 using Jali.Serve.Definition;
 
 namespace Jali.Serve.AspNet.Mvc
@@ -20,13 +21,16 @@ namespace Jali.Serve.AspNet.Mvc
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+
             var requestMessage = request.AsServiceMessage();
 
             var responseMessage = (ServiceMessage) null; // TODO: Magic happens here.
 
             return Task.FromResult(responseMessage.AsResponse(request));
+            //HostingEnvironment.QueueBackgroundWorkItem();
+            throw new NotImplementedException();
         }
 
+        //private BufferBlock
     }
 }

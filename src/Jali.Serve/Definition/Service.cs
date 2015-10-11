@@ -14,6 +14,7 @@ namespace Jali.Serve.Definition
 
         public Uri Url { get; set; }
         public string Name { get; set; }
+        public string Version { get; set; }
         public IDictionary<string, Resource> Resources { get; }
     }
 }
