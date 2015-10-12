@@ -1,12 +1,13 @@
 ﻿using Jali.Serve;
+using Newtonsoft.Json.Linq;
 
 namespace System.Net.Http
 {
     public static class JaliHttpRequestMessageExtensions
     {
-        public static ServiceMessage AsServiceMessage(this HttpRequestMessage request)
+        public static ServiceMessage<JObject> AsServiceMessage(this HttpRequestMessage request)
         {
-            return new ServiceMessage
+            return new ServiceMessage<JObject>
             {
                 Connection = new MessageConnection
                 {

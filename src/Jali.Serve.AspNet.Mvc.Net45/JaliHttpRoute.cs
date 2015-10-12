@@ -32,7 +32,7 @@ namespace Jali.Serve.AspNet.Mvc
             var routeData = new HttpRouteData(this);
 
 
-            if (string.Equals(components, "/", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(components, "/", StringComparison.OrdinalIgnoreCase))
             {
                 return routeData;
             }

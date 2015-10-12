@@ -52,6 +52,9 @@
     <Compile Include="..\..\..\src\Jali.Core\Core\NotificationMessageException.cs">
       <Link>Core\NotificationMessageException.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Core\TryGetResult.cs">
+      <Link>Core\TryGetResult.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Notification\Definition\ArgumentDefinition.cs">
       <Link>Notification\Definition\ArgumentDefinition.cs</Link>
     </Compile>

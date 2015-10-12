@@ -24,7 +24,7 @@ namespace Jali.Serve.AspNet.Mvc
 
             var requestMessage = request.AsServiceMessage();
 
-            var responseMessage = (ServiceMessage) null; // TODO: Magic happens here.
+            var responseMessage = (IServiceMessage) null; // TODO: Magic happens here.
 
             return Task.FromResult(responseMessage.AsResponse(request));
             //HostingEnvironment.QueueBackgroundWorkItem();

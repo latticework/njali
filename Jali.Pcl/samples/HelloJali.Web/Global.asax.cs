@@ -29,17 +29,20 @@ namespace HelloJali.Web
 
         private static Service GetServiceDefinition()
         {
+            var serviceUri = new Uri("http://hello.servcies.tempuri.org");
+            var resourceUri = new Uri(serviceUri, "resources/hello");
+
             return new Service
             {
                 Name = "hello",
-                Url = new Uri("http://hello.servcies.tempuri.org"),
+                Url = serviceUri,
                 Version = "0.1.0",
                 Resources =
                     {
                         ["hello"] = new Resource
                         {
                             Name = "hello",
-                            Url = new Uri("resources/hello"),
+                            Url = resourceUri,
                             Version = "0.1.0",
                             Schema = JSchema.Parse(@"
 {
@@ -53,7 +56,7 @@ namespace HelloJali.Web
                             {
                                 ["added-hello"] = new ResourceEvent
                                 {
-                                    Url = new Uri("events/added-hello"),
+                                    Url = new Uri(resourceUri, "events/added-hello"),
                                     Name = "added-hello",
                                     Schema = new JaliSchemaReference
                                     {
@@ -69,7 +72,7 @@ namespace HelloJali.Web
                                 ["get-hello"] = new Routine
                                 {
                                     Name = "get-hello",
-                                    Url = new Uri("resources/get-hello"),
+                                    Url = new Uri(resourceUri, "routines/get-hello"),
                                     Messages =
                                     {
                                         ["get-hello-request"] = new RoutineMessage
@@ -105,7 +108,7 @@ namespace HelloJali.Web
                                 ["new-hello"] = new Routine
                                 {
                                     Name = "create-hello",
-                                    Url =  new Uri("routines/new-hello"),
+                                    Url =  new Uri(resourceUri, "routines/new-hello"),
                                     Messages =
                                     {
                                         ["new-hello-request"] = new RoutineMessage

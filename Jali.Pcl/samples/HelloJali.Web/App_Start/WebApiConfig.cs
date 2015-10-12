@@ -12,7 +12,7 @@ namespace HelloJali.Web
             // Web API configuration and services
 
             // Web API routes
-            config.UseJaliService(MvcApplication.ServiceDefinition.Value);
+            //config.UseJaliService(MvcApplication.ServiceDefinition.Value);
 
             config.MapHttpAttributeRoutes();
 

@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using Jali.Notification;
 
 namespace Jali.Serve.AspNet.Mvc
 {
     public class JaliHttpMessageResponseBuilder
     {
-        public JaliHttpMessageResponseBuilder(ServiceMessage message, HttpRequestMessage request)
+        public JaliHttpMessageResponseBuilder(IServiceMessage message, HttpRequestMessage request)
         {
             this.Messages = new NotificationMessageCollection();
 
@@ -38,7 +33,7 @@ namespace Jali.Serve.AspNet.Mvc
             this.SetContent();
         }
 
-        public ServiceMessage Message { get; }
+        public IServiceMessage Message { get; }
         public HttpRequestMessage Request { get; }
         public HttpResponseMessage Response { get; private set; }
 

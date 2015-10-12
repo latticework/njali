@@ -13,4 +13,9 @@ namespace Jali.Serve
         MessageConnection Connection { get; set; }
         TenantIdentity Tenant { get; set; }
     }
+
+    public interface IServiceMessage<TData>: IServiceMessage
+    {
+        new TData Data { get; set; }
+    }
 }

@@ -108,8 +108,29 @@
     <Compile Include="..\..\..\src\Jali.Serve\EndpointPartition.cs">
       <Link>EndpointPartition.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IResource.cs">
+      <Link>IResource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IResourceContext.cs">
+      <Link>IResourceContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IRoutine.cs">
+      <Link>IRoutine.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IRoutineContext.cs">
+      <Link>IRoutineContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IService.cs">
+      <Link>IService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IServiceContext.cs">
+      <Link>IServiceContext.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\IServiceMessage.cs">
       <Link>IServiceMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IStageContext.cs">
+      <Link>IStageContext.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\MessageConnection.cs">
       <Link>MessageConnection.cs</Link>
@@ -119,6 +140,15 @@
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\MessageIdentity.cs">
       <Link>MessageIdentity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\ResourceBase.cs">
+      <Link>ResourceBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\RoutineBase.cs">
+      <Link>RoutineBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\ServiceBase.cs">
+      <Link>ServiceBase.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\ServiceMessage.cs">
       <Link>ServiceMessage.cs</Link>
