@@ -42,14 +42,23 @@
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServer.cs">
       <Link>JaliServer.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServerService.cs">
-      <Link>JaliServerService.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\JaliService.cs">
+      <Link>JaliService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\ResourceContext.cs">
+      <Link>ResourceContext.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\ResourceManager.cs">
       <Link>ResourceManager.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\RoutineContext.cs">
+      <Link>RoutineContext.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\RoutineManager.cs">
       <Link>RoutineManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\ServiceContext.cs">
+      <Link>ServiceContext.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\ServiceDescription\GetServiceDescriptionRequest.cs">
       <Link>ServiceDescription\GetServiceDescriptionRequest.cs</Link>
@@ -74,6 +83,10 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Schema, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.Schema.1.0.11\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.Schema.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">

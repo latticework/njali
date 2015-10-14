@@ -1,5 +1,5 @@
-using System;
 using System.Threading.Tasks;
+using Jali.Serve.Definition;
 
 namespace Jali.Serve
 {
@@ -14,16 +14,21 @@ namespace Jali.Serve
 
         public IRoutineContext Context { get; private set; }
 
-        public abstract Task<IServiceMessage> Execute(IExecutionContext context, IServiceMessage request);
+        public Routine Definition { get; }
+        public ResourceBase Resource { get; }
+
+        public abstract Task<IServiceMessage> ExecuteProcedure(
+            IExecutionContext context, string requestAction, string responseAction, IServiceMessage request);
+
+        protected RoutineBase(ResourceBase resource, Routine routine)
+        {
+            this.Definition = routine;
+            this.Resource = resource;
+        }
 
         protected virtual async Task InitCore()
         {
             await Task.FromResult(true);
-        }
-
-        async Task<IServiceMessage> IRoutine.Execute(IExecutionContext context, IServiceMessage request)
-        {
-            return await this.Execute(context, (IServiceMessage) request);
         }
     }
 
@@ -31,24 +36,37 @@ namespace Jali.Serve
         where TRequestMessage : IServiceMessage
         where TResponseMessage : IServiceMessage
     {
-        public override async Task<IServiceMessage> Execute(IExecutionContext context, IServiceMessage request)
+        public override async Task<IServiceMessage> ExecuteProcedure(
+            IExecutionContext context, string requestAction, string responseAction, IServiceMessage request)
         {
-            return await this.Execute(context, (TRequestMessage) request);
+            return await this.ExecuteProcedure(context, requestAction, responseAction, (TRequestMessage) request);
         }
 
-        private async Task<TResponseMessage> Execute(IExecutionContext context, TRequestMessage request)
+        private RoutineProcedureContext<TRequestMessage, TResponseMessage> CreateProcedureContext()
         {
-            this.Request = request;
+            return new RoutineProcedureContext<TRequestMessage, TResponseMessage>();
+        }  
 
-            await this.ExecuteCore(context);
+        private async Task<TResponseMessage> ExecuteProcedure(
+            IExecutionContext context, string requestAction, string responseAction, TRequestMessage request)
+        {
+            var procedureContext = this.CreateProcedureContext();
 
-            return this.Response;
+            procedureContext.RequestMessageDefinition = this.Definition.Messages[requestAction];
+            procedureContext.ResponseMessageDefinition = this.Definition.Messages[responseAction];
+            procedureContext.Request = request;
+
+            await this.ExecuteProcedureCore(context, procedureContext);
+
+            return procedureContext.Response;
         }
 
-        protected abstract Task ExecuteCore(IExecutionContext context);
+        protected RoutineBase(ResourceBase resource, Routine routine) : base(resource, routine)
+        {
+            
+        }
 
-        protected TRequestMessage Request { get; private set; }
-
-        protected TResponseMessage Response { get; set; }
+        protected abstract Task ExecuteProcedureCore(
+            IExecutionContext context, RoutineProcedureContext<TRequestMessage, TResponseMessage> procedureContext);
     }
 }

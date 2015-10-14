@@ -24,6 +24,9 @@ namespace Jali.Serve
             return result.Value;
         }
 
+        public Resource Definition { get; }
+        public ServiceBase Service { get; }
+
         protected virtual async Task InitCore()
         {
             await Task.FromResult(true);
@@ -34,14 +37,13 @@ namespace Jali.Serve
             return await Task.FromResult((RoutineBase)null);
         }
 
-        protected ResourceBase(Resource resource)
+        protected ResourceBase(ServiceBase service, Resource resource)
         {
             this._routines = new Dictionary<string, RoutineBase>();
 
             this.Definition = resource;
+            this.Service = service;
         }
-
-        public Resource Definition { get; }
 
         private readonly IDictionary<string, RoutineBase> _routines;
     }

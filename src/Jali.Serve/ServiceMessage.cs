@@ -19,16 +19,18 @@ namespace Jali.Serve
         public MessageConnection Connection { get; set; }
         public TenantIdentity Tenant { get; set; }
 
+        // ReSharper disable once UnassignedGetOnlyAutoProperty
         IEnumerable<NotificationMessage> IServiceMessage.Messages { get; }
 
-        public ServiceMessage<TData> CreateResponseMessage(TData data, IEnumerable<NotificationMessage> messages)
+        public ServiceMessage<TResponseData> CreateFromMessage<TResponseData>(
+            TResponseData data, IEnumerable<NotificationMessage> messages)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            var response = new ServiceMessage<TData>
+            var response = new ServiceMessage<TResponseData>
             {
                 Connection = this.Connection.CreateResponseConnection(),
                 Data = data,

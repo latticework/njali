@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloJali.Web", "samples\He
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jali.Serve.Server.Pcl", "src\Jali.Serve.Server.Pcl\Jali.Serve.Server.Pcl.csproj", "{6CAF7D9E-3258-430D-97A0-C6D31FA9E7B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jali.Serve.Samples.HelloServices", "samples\Jali.Serve.Samples.HelloServices\Jali.Serve.Samples.HelloServices.csproj", "{DE1FB7CC-5483-4606-95E4-91AC69911090}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{6CAF7D9E-3258-430D-97A0-C6D31FA9E7B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CAF7D9E-3258-430D-97A0-C6D31FA9E7B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CAF7D9E-3258-430D-97A0-C6D31FA9E7B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE1FB7CC-5483-4606-95E4-91AC69911090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE1FB7CC-5483-4606-95E4-91AC69911090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE1FB7CC-5483-4606-95E4-91AC69911090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE1FB7CC-5483-4606-95E4-91AC69911090}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{F4FE0161-82BE-4BAC-B0D0-E53F2581D014} = {00430371-BF6B-4238-9EFD-99EA01609F82}
 		{0F225589-4E66-49AC-93BF-98733AF12B92} = {4136657F-B248-4234-8C4B-A3F8A5DC495F}
 		{6CAF7D9E-3258-430D-97A0-C6D31FA9E7B2} = {00430371-BF6B-4238-9EFD-99EA01609F82}
+		{DE1FB7CC-5483-4606-95E4-91AC69911090} = {4136657F-B248-4234-8C4B-A3F8A5DC495F}
 	EndGlobalSection
 EndGlobal

@@ -37,8 +37,11 @@ namespace Jali.Serve.AspNet.Mvc
         public HttpRequestMessage Request { get; }
         public HttpResponseMessage Response { get; private set; }
 
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private NotificationMessageCollection Messages { get; }
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private string Reason { get; set; }
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private HttpStatusCode Status { get; set; }
 
         private void SetContent()

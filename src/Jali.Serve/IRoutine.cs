@@ -1,11 +1,16 @@
 using System.Threading.Tasks;
+using Jali.Serve.Definition;
 
 namespace Jali.Serve
 {
     public interface IRoutine
     {
+        Routine Definition { get; }
+
         Task Init(IExecutionContext context, IRoutineContext routineContext);
-        Task<IServiceMessage> Execute(IExecutionContext context, IServiceMessage request);
+
+        Task<IServiceMessage> ExecuteProcedure(
+            IExecutionContext context, string requestAction, string responseAction, IServiceMessage request);
     }
 
     // TODO: IRoutine: Determine whether typed routine interface makes sense.

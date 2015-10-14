@@ -147,6 +147,9 @@
     <Compile Include="..\..\..\src\Jali.Serve\RoutineBase.cs">
       <Link>RoutineBase.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\RoutineProcedureContext.cs">
+      <Link>RoutineProcedureContext.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\ServiceBase.cs">
       <Link>ServiceBase.cs</Link>
     </Compile>

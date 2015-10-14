@@ -6,6 +6,7 @@ namespace Jali.Serve.Definition
     {
         public async Task Load(ServiceLoadContext context)
         {
+            await Task.FromResult(true);
             throw new System.NotImplementedException();
         }
     }

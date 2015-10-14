@@ -50,6 +50,6 @@ namespace Jali.Core
 
         public MessageSeverity Severity => this.Error.Severity;
 
-        public NotificationMessageCollection Messages { get; private set; }
+        public NotificationMessageCollection Messages { get; }
     }
 }

@@ -17,6 +17,7 @@ namespace Jali.Serve.Definition
         public Uri Url { get; set; }
         public string Name { get; set; }
         public string Version { get; set; }
+        public string Description { get; set; }
         public JSchema Schema { get; set; }
         public IDictionary<string, Routine> Routines { get; }
         public IDictionary<string, RestMethod> Methods { get; }

@@ -1,11 +1,11 @@
 using System;
-using Jali.Serve.Definition;
+using System.Threading.Tasks;
 
 namespace Jali.Serve.Server
 {
-    public class RoutineManager
+    internal sealed class RoutineManager
     {
-        public RoutineManager(ResourceManager resourceManager, Routine routine)
+        public RoutineManager(ResourceManager resourceManager, IRoutine routine)
         {
             if (resourceManager == null) throw new ArgumentNullException(nameof(resourceManager));
             if (routine == null) throw new ArgumentNullException(nameof(routine));
@@ -13,10 +13,28 @@ namespace Jali.Serve.Server
 
             this.ResourceManager = resourceManager;
             this.Routine = routine;
+
+            this.Context = new RoutineContext
+            {
+                ResourceContext = resourceManager.Context,
+                Manager = this,
+                Definition = routine.Definition,
+            };
         }
 
-        public Routine Routine { get; }
+        public IRoutine Routine { get; }
+
+        public RoutineContext Context { get; }
 
         public ResourceManager ResourceManager { get; }
+
+        public async Task<IServiceMessage> ExecuteProcedure(
+            string requestAction, string responseAction, IServiceMessage request)
+        {
+            // TODO: RoutineManager.ExecuteProcedure: Should Init be called by a Run method instead?
+            await this.Routine.Init(new ExecutionContext(), this.Context);
+
+            return await this.Routine.ExecuteProcedure(new ExecutionContext(), requestAction, responseAction, request);
+        }
     }
 }

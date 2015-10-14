@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Jali.Serve.Definition
 {
@@ -14,6 +12,7 @@ namespace Jali.Serve.Definition
 
         public Uri Url { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public Uri EntryPoint { get; set; }
         public IDictionary<string, RoutineMessage> Messages { get; }
     }

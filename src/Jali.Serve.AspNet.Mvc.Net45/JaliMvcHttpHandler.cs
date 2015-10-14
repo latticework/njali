@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Jali.Serve.Definition;
@@ -40,6 +37,7 @@ namespace Jali.Serve.AspNet.Mvc
 
         public async Task ProcessRequestAsync(HttpContextBase context)
         {
+            await Task.CompletedTask;
             throw new NotImplementedException();
         }
 

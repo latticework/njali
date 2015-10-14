@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Net.Http;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
-using Jali.Serve.Definition;
+using Jali.Serve.Server.ServiceDescription;
 
-namespace Jali.Serve.Server.Pcl
+namespace Jali.Serve.Server
 {
+    using JaliSchemaReference = Definition.SchemaReference;
+
     public sealed class JaliServer
     {
-        public JaliServer(Service service)
+        public JaliServer(IService service)
         {
             this.Running = false;
             this.Service = service;
@@ -17,7 +18,7 @@ namespace Jali.Serve.Server.Pcl
 
         public bool Running { get; private set; }
 
-        public Service Service { get; }
+        public IService Service { get; }
 
         public async Task Run(CancellationToken ct)
         {
@@ -26,8 +27,13 @@ namespace Jali.Serve.Server.Pcl
                 throw  new InvalidOperationException("The 'JaliService' is already running.");
             }
 
-            this._serviceManager = new ServiceManager(this.Service);
+            var jaliServiceDefinition = JaliService.GetDefinition();
+            var jaliService = new JaliService(jaliServiceDefinition);
+            this._jaliServiceManager = new ServiceManager(jaliService);
 
+            await this._jaliServiceManager.Run();
+
+            this._serviceManager = new ServiceManager(this.Service);
             await this._serviceManager.Run();
 
             this.Running = true;
@@ -39,13 +45,21 @@ namespace Jali.Serve.Server.Pcl
         // How to get HttpRequest/Response in a PCL package: http://blogs.msdn.com/b/bclteam/archive/2013/02/18/portable-httpclient-for-net-framework-and-windows-phone.aspx
         public async Task<HttpResponseMessage> Send(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             var uri = request.RequestUri;
 
             var components = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
 
             if (string.Equals(components, "/", StringComparison.OrdinalIgnoreCase))
             {
+                var getServiceDescriptionRequest = new ServiceMessage<GetServiceDescriptionRequest>
+                {
+                    
+                };
 
+                var result = await this._jaliServiceManager.SendMethod(
+                    "servicedescription", "GET", getServiceDescriptionRequest);
             }
 
 
@@ -57,11 +71,12 @@ namespace Jali.Serve.Server.Pcl
         //    ServiceMessage getServiceMessageRequest)
         //{
 
-        //    var response = getServiceMessageRequest.CreateResponseMessage(null, null);
+        //    var response = getServiceMessageRequest.CreateFromMessage(null, null);
 
         //    return Task.FromResult(response);
         //}
 
+        private ServiceManager _jaliServiceManager;
         private ServiceManager _serviceManager;
     }
 }
