@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using Jali.Notification;
 
-namespace Jali.Serve.AspNet.Mvc
+namespace Jali.Serve.Server
 {
     public class JaliHttpMessageResponseBuilder
     {
@@ -17,8 +17,6 @@ namespace Jali.Serve.AspNet.Mvc
 
         public void Build()
         {
-            var messages = new NotificationMessageCollection();
-
             this.GetStatus();
             this.GetReason();
 

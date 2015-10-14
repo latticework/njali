@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using Jali.Serve;
 using Jali.Serve.AspNet.Mvc;
-using Jali.Serve.Definition;
 
 namespace System.Web.Routing
 {
@@ -8,7 +8,7 @@ namespace System.Web.Routing
     {
         public static readonly string RouteName = "JaliMvcRoute_" + Guid.NewGuid().ToString("D");
 
-        public static void UseJaliService(this RouteCollection routes, Service service)
+        public static void UseJaliService(this RouteCollection routes, IService service)
         {
             if (routes == null)
             {

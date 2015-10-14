@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Jali.Serve.Samples.HelloServices;
 
 namespace HelloJali.Web
 {
@@ -9,7 +10,9 @@ namespace HelloJali.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.UseJaliService(MvcApplication.ServiceDefinition.Value);
+            var helloService = new HelloService();
+
+            routes.UseJaliService(helloService);
 
             routes.MapRoute(
                 name: "Default",

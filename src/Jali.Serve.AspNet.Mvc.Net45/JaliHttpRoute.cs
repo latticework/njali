@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web.Http.Routing;
-using Jali.Serve.Definition;
 
 namespace Jali.Serve.AspNet.Mvc
 {
     public class JaliHttpRoute : IHttpRoute
     {
-        public JaliHttpRoute(Service service)
+        public JaliHttpRoute(IService service)
         {
             this.Handler = new JaliHttpMessageHandler(service);
         }
@@ -28,17 +27,19 @@ namespace Jali.Serve.AspNet.Mvc
             var routeData = new HttpRouteData(this);
 
 
-            if (string.Equals(components, "/", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(components, "/", StringComparison.OrdinalIgnoreCase) && request.Method.Method == "GET")
             {
                 return routeData;
             }
 
-            if (Regex.IsMatch(components, @"^resources/[_a-zA-Z][_a-zA-Z0-9]*(/[_a-zA-Z0-9]+)?$"))
+            if (Regex.IsMatch(components, 
+@"^resources/(?<resourceName>[_a-zA-Z][_a-zA-Z0-9]*)(/(?<resourceKey>[_a-zA-Z0-9]+))?$"))
             {
                 return routeData;
             }
 
-            if (Regex.IsMatch(components, @"^resources/[_a-zA-Z][_a-zA-Z0-9]*(/[_a-zA-Z0-9]+)?/routines/[_a-zA-Z][_a-zA-Z0-9]*$"))
+            if (Regex.IsMatch(components,
+@"^resources/(?<resourceName>[_a-zA-Z][_a-zA-Z0-9]*)(/(?<resourceKey>[_a-zA-Z0-9]+))?/routines/(?<routineName>[_a-zA-Z][_a-zA-Z0-9]*)$"))
             {
                 return routeData;
             }

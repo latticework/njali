@@ -9,7 +9,7 @@ namespace Jali.Serve.Server
 {
     internal class JaliService : ServiceBase
     {
-        public JaliService(Service definition) : base(definition)
+        public JaliService() : base(JaliService.GetDefinition())
         {
         }
 

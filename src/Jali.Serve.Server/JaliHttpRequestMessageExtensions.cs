@@ -5,6 +5,7 @@ namespace System.Net.Http
 {
     public static class JaliHttpRequestMessageExtensions
     {
+        // TODO: JaliHttpRequestMessageExtensions.AsServiceMessage: Implement.
         public static ServiceMessage<JObject> AsServiceMessage(this HttpRequestMessage request)
         {
             return new ServiceMessage<JObject>

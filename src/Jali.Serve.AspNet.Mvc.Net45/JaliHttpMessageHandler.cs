@@ -1,35 +1,26 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-//using System.Web.Hosting;
-using Jali.Serve.Definition;
+using Jali.Serve.Server;
 
 namespace Jali.Serve.AspNet.Mvc
 {
     public class JaliHttpMessageHandler : HttpMessageHandler
     {
-        public JaliHttpMessageHandler(Service service)
+        public JaliHttpMessageHandler(IService service)
         {
             this.Service = service;
+            this.Server = new JaliServer(this.Service);
         }
 
-        public Service Service { get; }
+        public JaliServer Server { get; }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        public IService Service { get; }
+
+        protected override async Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request, CancellationToken cancellationToken)
         {
-
-            var requestMessage = request.AsServiceMessage();
-
-
-
-            var responseMessage = (IServiceMessage) null; // TODO: Magic happens here.
-
-            return Task.FromResult(responseMessage.AsResponse(request));
-            //HostingEnvironment.QueueBackgroundWorkItem();
-            throw new NotImplementedException();
+            return await this.Server.Send(request, cancellationToken);
         }
-
-        //private BufferBlock
     }
 }

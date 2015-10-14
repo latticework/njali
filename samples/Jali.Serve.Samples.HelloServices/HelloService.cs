@@ -6,13 +6,10 @@ using Jali.Serve.Definition;
 namespace Jali.Serve.Samples.HelloServices
 {
     using System.Threading.Tasks;
-    // ReSharper disable RedundantNameQualifier
-    using JaliSchemaReference = Jali.Serve.Definition.SchemaReference;
-    // ReSharper restore RedundantNameQualifier
 
     public class HelloService : ServiceBase
     {
-        public HelloService(Service definition) : base(definition)
+        public HelloService() : base(HelloService.GetDefinition())
         {
         }
 

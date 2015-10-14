@@ -182,6 +182,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Jali.Core.Pcl\Jali.Core.Pcl.csproj">
+      <Project>{53e9c750-56fd-481e-a4ca-f6fa687f4f79}</Project>
+      <Name>Jali.Core.Pcl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Jali.Pcl\Jali.Pcl.csproj">
+      <Project>{8f365500-2edb-486f-be35-bf34d792874b}</Project>
+      <Name>Jali.Pcl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Jali.Serve.AspNet.Mvc.Net45\Jali.Serve.AspNet.Mvc.Net45.csproj">
       <Project>{f4fe0161-82be-4bac-b0d0-e53f2581d014}</Project>
       <Name>Jali.Serve.AspNet.Mvc.Net45</Name>
@@ -189,6 +197,14 @@
     <ProjectReference Include="..\..\src\Jali.Serve.Pcl\Jali.Serve.Pcl.csproj">
       <Project>{a5a96225-6183-40e6-865c-4894f925f3c9}</Project>
       <Name>Jali.Serve.Pcl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Jali.Serve.Server.Pcl\Jali.Serve.Server.Pcl.csproj">
+      <Project>{6caf7d9e-3258-430d-97a0-c6d31fa9e7b2}</Project>
+      <Name>Jali.Serve.Server.Pcl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jali.Serve.Samples.HelloServices\Jali.Serve.Samples.HelloServices.csproj">
+      <Project>{de1fb7cc-5483-4606-95e4-91ac69911090}</Project>
+      <Name>Jali.Serve.Samples.HelloServices</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

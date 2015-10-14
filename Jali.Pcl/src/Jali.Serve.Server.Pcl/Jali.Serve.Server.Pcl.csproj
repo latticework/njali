@@ -39,8 +39,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\JaliHttpMessageResponseBuilder.cs">
+      <Link>JaliHttpMessageResponseBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\JaliHttpRequestMessageExtensions.cs">
+      <Link>JaliHttpRequestMessageExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServer.cs">
       <Link>JaliServer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServerServiceMessageExtensions.cs">
+      <Link>JaliServerServiceMessageExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliService.cs">
       <Link>JaliService.cs</Link>

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Jali.Core;
 using Jali.Serve.Server.ServiceDescription;
 
 namespace Jali.Serve.Server
 {
-    using JaliSchemaReference = Definition.SchemaReference;
-
     public sealed class JaliServer
     {
         public JaliServer(IService service)
@@ -27,8 +27,7 @@ namespace Jali.Serve.Server
                 throw  new InvalidOperationException("The 'JaliService' is already running.");
             }
 
-            var jaliServiceDefinition = JaliService.GetDefinition();
-            var jaliService = new JaliService(jaliServiceDefinition);
+            var jaliService = new JaliService();
             this._jaliServiceManager = new ServiceManager(jaliService);
 
             await this._jaliServiceManager.Run();
@@ -53,28 +52,44 @@ namespace Jali.Serve.Server
 
             if (string.Equals(components, "/", StringComparison.OrdinalIgnoreCase))
             {
-                var getServiceDescriptionRequest = new ServiceMessage<GetServiceDescriptionRequest>
-                {
-                    
-                };
+                var getServiceDescriptionRequest = new ServiceMessage<GetServiceDescriptionRequest>();
 
                 var result = await this._jaliServiceManager.SendMethod(
-                    "servicedescription", "GET", getServiceDescriptionRequest);
+                    ServiceDescriptionResource.Name, "GET", getServiceDescriptionRequest);
+
+                return result.AsResponse(request);
+            }
+
+            var resourceMatch = Regex.Match(
+                components,
+                @"^resources/(?<resourceName>[_a-zA-Z][_a-zA-Z0-9]*)(/(?<resourceKey>[_a-zA-Z0-9]+))?$");
+
+            if (resourceMatch.Success)
+            {
+                var resourceName = resourceMatch.Groups["resourceName"].Value;
+                var resourceKey = resourceMatch.Groups["resourceKey"].Value;
+
+                var requestMessage = request.AsServiceMessage();
+
+                var result = await this._serviceManager.SendMethod(resourceName, request.Method.Method, requestMessage);
+
+                return result.AsResponse(request);
             }
 
 
-            //request.RequestUri
-            return await Task.FromResult((HttpResponseMessage) null);
+            var routeMatch = Regex.Match(
+                components,
+                @"^resources/(?<resourceName>[_a-zA-Z][_a-zA-Z0-9]*)(/(?<resourceKey>[_a-zA-Z0-9]+))?/routines/(?<routineName>[_a-zA-Z][_a-zA-Z0-9]*)$");
+
+            if (routeMatch.Success)
+            {
+                throw new NotImplementedException("Jali Server has not yet implemented direct route message support.");
+            }
+
+            var message = $"Jali Server cannot handle route HTTP {request.Method.Method} {request.RequestUri}. The request should not have been forwarded to it.";
+            throw new InternalErrorException(message);
         }
 
-        //public Task<ServiceMessage> GetServiceDescription(
-        //    ServiceMessage getServiceMessageRequest)
-        //{
-
-        //    var response = getServiceMessageRequest.CreateFromMessage(null, null);
-
-        //    return Task.FromResult(response);
-        //}
 
         private ServiceManager _jaliServiceManager;
         private ServiceManager _serviceManager;

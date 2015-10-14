@@ -98,23 +98,11 @@
     <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliHttpMessageHandler.cs">
       <Link>JaliHttpMessageHandler.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliHttpMessageResponseBuilder.cs">
-      <Link>JaliHttpMessageResponseBuilder.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliHttpRequestMessageExtensions.cs">
-      <Link>JaliHttpRequestMessageExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliHttpRoute.cs">
       <Link>JaliHttpRoute.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliMvcHttpHandler.cs">
-      <Link>JaliMvcHttpHandler.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliMvcRouteHandler.cs">
       <Link>JaliMvcRouteHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliMvcServiceMessageExtensions.cs">
-      <Link>JaliMvcServiceMessageExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliRouteCollectionExtensions.cs">
       <Link>JaliRouteCollectionExtensions.cs</Link>
@@ -129,6 +117,10 @@
     <ProjectReference Include="..\Jali.Serve.Pcl\Jali.Serve.Pcl.csproj">
       <Project>{a5a96225-6183-40e6-865c-4894f925f3c9}</Project>
       <Name>Jali.Serve.Pcl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jali.Serve.Server.Pcl\Jali.Serve.Server.Pcl.csproj">
+      <Project>{6caf7d9e-3258-430d-97a0-c6d31fa9e7b2}</Project>
+      <Name>Jali.Serve.Server.Pcl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
