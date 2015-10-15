@@ -1,14 +1,37 @@
 ﻿{
   "version": "0.0.1-*",
   "description": "Jali.Core.Dnx Class Library",
-  "authors": [ "kBrubaker" ],
+  "authors": [ "latticework" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
 
+  "configurations": {
+    "Debug": {
+      "compilationOptions": {
+        "define": [ "DEBUG", "TRACE" ]
+      },
+      "optimize": false
+    },
+    "Release": {
+      "compilationOptions": {
+        "define": [ "DEBUG", "TRACE" ]
+      },
+      "optimize": true
+    }
+  },
+
+  
+  "compilationOptions": {
+    "define": [ "DNX" ]
+  },
+
   "frameworks": {
     "dnx451": { },
     "dnxcore50": {
+      "compilationOptions": {
+        "define": [ "DNX" ]
+      },
       "dependencies": {
         "Microsoft.CSharp": "4.0.1-beta-23225",
         "System.Collections": "4.0.11-beta-23225",

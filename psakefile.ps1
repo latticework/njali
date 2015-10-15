@@ -162,7 +162,8 @@ task Package -depends Build {
 
       Write-Host "Building NuGet package with ID $packageId and version $nugetVersion" -ForegroundColor Green
       Write-Host
-
+      
+      // TODO: https://oren.codes/2015/09/23/enabling-source-code-debugging-for-your-nuget-packages-with-gitlink/
       exec { & $workingDir\tools\nuget\3.2.0\nuget.exe pack $nuspecPath -Symbols }
       move -Path .\*.nupkg -Destination $packageDropPath
     }

@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A5A96225-6183-40E6-865C-4894F925F3C9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jali.Serve</RootNamespace>
+    <AssemblyName>Jali.Serve.Pcl</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PCL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <ProjectReference Include="..\Jali.Core.Pcl\Jali.Core.Pcl.csproj">
+      <Project>{53e9c750-56fd-481e-a4ca-f6fa687f4f79}</Project>
+      <Name>Jali.Core.Pcl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jali.Pcl\Jali.Pcl.csproj">
+      <Project>{8f365500-2edb-486f-be35-bf34d792874b}</Project>
+      <Name>Jali.Pcl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\ActionDirection.cs">
+      <Link>Definition\ActionDirection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\DataTransmissionModes.cs">
+      <Link>Definition\DataTransmissionModes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\FileSystemServiceDefinitionSource.cs">
+      <Link>Definition\FileSystemServiceDefinitionSource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\IServiceDefinitionSource.cs">
+      <Link>Definition\IServiceDefinitionSource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\Resource.cs">
+      <Link>Definition\Resource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\ResourceConverter.cs">
+      <Link>Definition\ResourceConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\ResourceEvent.cs">
+      <Link>Definition\ResourceEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\RestMethod.cs">
+      <Link>Definition\RestMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\RestMethodRequest.cs">
+      <Link>Definition\RestMethodRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\RestMethodResponse.cs">
+      <Link>Definition\RestMethodResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\Routine.cs">
+      <Link>Definition\Routine.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\RoutineMessage.cs">
+      <Link>Definition\RoutineMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\RoutineMessageReference.cs">
+      <Link>Definition\RoutineMessageReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\SchemaConversion.cs">
+      <Link>Definition\SchemaConversion.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\SchemaReference.cs">
+      <Link>Definition\SchemaReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\SchemaType.cs">
+      <Link>Definition\SchemaType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\Service.cs">
+      <Link>Definition\Service.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\ServiceDefinitionManager.cs">
+      <Link>Definition\ServiceDefinitionManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\ServiceLoadContext.cs">
+      <Link>Definition\ServiceLoadContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\ServiceLoadResult.cs">
+      <Link>Definition\ServiceLoadResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\EndpointPartition.cs">
+      <Link>EndpointPartition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IResource.cs">
+      <Link>IResource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IResourceContext.cs">
+      <Link>IResourceContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IRoutine.cs">
+      <Link>IRoutine.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IRoutineContext.cs">
+      <Link>IRoutineContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IService.cs">
+      <Link>IService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IServiceContext.cs">
+      <Link>IServiceContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IServiceMessage.cs">
+      <Link>IServiceMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\IStageContext.cs">
+      <Link>IStageContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConnection.cs">
+      <Link>MessageConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageContract.cs">
+      <Link>MessageContract.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageIdentity.cs">
+      <Link>MessageIdentity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\ResourceBase.cs">
+      <Link>ResourceBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\RoutineBase.cs">
+      <Link>RoutineBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\RoutineProcedureContext.cs">
+      <Link>RoutineProcedureContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\ServiceBase.cs">
+      <Link>ServiceBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\ServiceMessage.cs">
+      <Link>ServiceMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\TenantIdentity.cs">
+      <Link>TenantIdentity.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\Jali.Serve\Definition\jaliresource.schema.json">
+      <Link>Definition\jaliresource.schema.json</Link>
+    </None>
+    <None Include="..\..\..\src\Jali.Serve\Definition\jaliservice.schema.json">
+      <Link>Definition\jaliservice.schema.json</Link>
+    </None>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Schema, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.Schema.1.0.11\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.Schema.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

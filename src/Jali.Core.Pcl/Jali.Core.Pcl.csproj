@@ -2,26 +2,26 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{758CEF5B-34DB-485C-90FB-E3CCD4AFECDD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jali.Core</RootNamespace>
+    <RootNamespace>Jali</RootNamespace>
     <AssemblyName>Jali.Core.Pcl</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile328</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PCL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -29,15 +29,47 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;PCL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Jali.Core\Core\InternalErrorException.cs">
+      <Link>Core\InternalErrorException.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Core\JaliCoreExtensions.cs">
+      <Link>Core\JaliCoreExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Core\JaliCoreMessages.cs">
+      <Link>Core\JaliCoreMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Core\NotificationMessageException.cs">
+      <Link>Core\NotificationMessageException.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\ArgumentDefinition.cs">
+      <Link>Notification\Definition\ArgumentDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageAuthority.cs">
+      <Link>Notification\Definition\MessageAuthority.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageDefinition.cs">
+      <Link>Notification\Definition\MessageDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageDefinitionFile.cs">
+      <Link>Notification\Definition\MessageDefinitionFile.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageDomain.cs">
+      <Link>Notification\Definition\MessageDomain.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageLibrary.cs">
+      <Link>Notification\Definition\MessageLibrary.cs</Link>
+    </Compile>
+    <Compile Include="..\Jali.Core\Notification\Definition\MessageLibraryRegistry.cs">
+      <Link>Notification\Definition\MessageLibraryRegistry.cs</Link>
+    </Compile>
     <Compile Include="..\Jali.Core\Notification\INotificationMessage.cs">
       <Link>Notification\INotificationMessage.cs</Link>
     </Compile>
@@ -53,7 +85,15 @@
     <Compile Include="..\Jali.Core\Notification\NotificationMessage.cs">
       <Link>Notification\NotificationMessage.cs</Link>
     </Compile>
+    <Compile Include="..\Jali.Core\Notification\NotificationMessageCollection.cs">
+      <Link>Notification\NotificationMessageCollection.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Jali.Core\Core\jali-jali-core.jalinote.json">
+      <Link>Core\jali-jali-core.jalinote.json</Link>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

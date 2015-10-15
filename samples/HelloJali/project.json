@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0-*",
+  "version": "0.0.1-*",
   "description": "HelloJali.Dnx Console Application",
-  "authors": [ "kBrubaker" ],
+  "authors": [ "latticework" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",

@@ -4,10 +4,14 @@ namespace Jali.Notification
 {
     public interface INotificationMessage
     {
-        int MessageCode { get; }
+        string MessageCode { get; }
         MessagePriority Priority { get; }
         MessageSeverity Severity { get; }
         string Message { get; }
-        IEnumerable<object> Args { get; }
+        bool IdentifyingMessage { get; }
+        IList<object> Args { get; }
+        IList<int> IdentifyingArgs { get; }
+        string ObjectKey { get; }
+        IList<string> PropertyNames { get; }
     }
 }
