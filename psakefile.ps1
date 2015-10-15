@@ -3,7 +3,7 @@ properties {
   $zipFileName = "Jali00r1.zip"
   $majorVersion = "0.0"
   $majorWithReleaseVersion = "0.0.1"
-  $nugetPrelease = "prealpha1"
+  $nugetPrelease = "prealpha2"
   $version = GetVersion $majorWithReleaseVersion
   $signAssemblies = $false
 #  $signKeyPath = "C:\Development\Releases\newtonsoft.snk"
@@ -23,12 +23,15 @@ properties {
   $workingDir = "$baseDir\..\$workingName"
   $workingSourceDir = "$workingDir\src"
   $builds = @(
-    @{Name = "Jali.Dnx"; ClrType = "Dnx"; SeparateProjectFolder = $false; TestsName = "Jali.Tests.Dnx"; BuildFunction = "DnxBuild"; TestsFunction = "DnxTests"; Constants="DNX"; FinalDir="Dnx"; NuGetDir = "dnx"; Framework=$null},
+#    @{Name = "Jali.Dnx"; ClrType = "Dnx"; SeparateProjectFolder = $false; TestsName = "Jali.Tests.Dnx"; BuildFunction = "DnxBuild"; TestsFunction = "DnxTests"; Constants="DNX"; FinalDir="Dnx"; NuGetDir = "dnx"; Framework=$null},
     @{Name = "Jali.Pcl"; ClrType = "Pcl"; SeparateProjectFolder = $true; TestsName = "Jali.Tests.Pcl"; BuildFunction = "MSBuildBuild"; TestsFunction = "XUnitTests"; Constants="PCL"; FinalDir="Pcl"; NuGetDir = "portable-net40+sl5+wp80+win8+wpa81"; Framework="net-4.0"}
   )
   $packages = @(
     @{Name = "Jali.Core"}
     @{Name = "Jali"}
+    @{Name = "Jali.Serve"}
+    @{Name = "Jali.Serve.Server"}
+    @{Name = "Jali.Serve.AspNet.Mvc"; ClrType = "Net45"}
   )
 }
 
@@ -92,10 +95,30 @@ task Package -depends Build {
       {
         continue
       }
+      
+      if ($package.ClrType -ne $null)
+      {
+        $projectFolder = $package.Name + "." + $package.ClrType
+      }
+      elseif ($build.SeparateProjectFolder)
+      {
+        $projectFolder = $package.Name + "." + $build.ClrType
+      }
+      else
+      {
+          $projectFolder = $package.Name
+      }
 
-      $projectFolder = $package.Name + $(if ($build.SeparateProjectFolder) {"." + $build.ClrType} else {""})
-      $artifactPath = "$workingDir\src\$projectFolder\bin\Release\$finalDir"
-      $artifactRoot = $package.Name + "." + $finalDir
+      $artifactPath = "$workingDir\$($build.Name)\src\$projectFolder\bin\Release\$finalDir"
+
+      if ($package.ClrType -ne $null)
+      {
+        $artifactRoot = $package.Name + "." + $package.ClrType
+      }
+      else
+      {
+        $artifactRoot = $package.Name + "." + $finalDir
+      }
 
       robocopy $artifactPath $workingDir\Package\Bin\$finalDir "$artifactRoot.dll" "$artifactRoot.pdb" "$artifactRoot.xml" /NFL /NDL /NJS /NC /NS /NP /XO /XF *.CodeAnalysisLog.xml | Out-Default
     }
@@ -119,6 +142,11 @@ task Package -depends Build {
 
       New-Item -Path $packageDropPath -ItemType Directory
 
+      Write-Host -ForegroundColor DarkRed "PackageID: '$packageId'"
+      Write-Host -ForegroundColor DarkRed "Nuspec Name: '$nuspecName'"
+      Write-Host -ForegroundColor DarkRed "Build Dir: '$buildDir'"
+      Write-Host -ForegroundColor DarkRed "BuildNuspecPath: '$buildNuspecPath'"
+
       Copy-Item -Path "$buildNuspecPath" -Destination $nuspecPath -recurse
 
       Write-Host "Updating nuspec file at $nuspecPath" -ForegroundColor Green
@@ -141,11 +169,34 @@ task Package -depends Build {
         {
           $finalDir = $build.FinalDir
           $frameworkDirs = $build.NuGetDir.Split(",")
+          
+          $projectLinkFolder = $package.Name
+          if ($package.ClrType -ne $null)
+          {
+            $projectFolder = $package.Name + "." + $package.ClrType
+          }
+          elseif ($build.SeparateProjectFolder)
+          {
+            $projectFolder = $package.Name + "." + $build.ClrType
+          }
+          else
+          {
+              $projectFolder = $package.Name
+          }
+          
 
-          $projectFolder = $package.Name + $(if ($build.SeparateProjectFolder) {"." + $build.ClrType} else {""})
-          $projectPath = "$workingDir\src\$projectFolder"
+          $projectLinkPath = "$workingDir\src\$projectLinkFolder"
+          $projectPath = "$workingDir\$($build.Name)\src\$projectFolder"
           $artifactPath = "$projectPath\bin\Release\$finalDir"
-          $artifactRoot = $package.Name + "." + $finalDir
+
+          if ($package.ClrType -ne $null)
+          {
+            $artifactRoot = $package.Name + "." + $package.ClrType
+          }
+          else
+          {
+            $artifactRoot = $package.Name + "." + $finalDir
+          }
         
           if ($build.BuildFunction -ne 'DnxBuild')
           {
@@ -156,6 +207,7 @@ task Package -depends Build {
           }
         }
     
+        robocopy $projectLinkPath $packageDropPath\src *.cs /S /NFL /NDL /NJS /NC /NS /NP /XD Jali.Tests Jali.TestConsole obj .vs artifacts | Out-Default
         robocopy $projectPath $packageDropPath\src *.cs /S /NFL /NDL /NJS /NC /NS /NP /XD Jali.Tests Jali.TestConsole obj .vs artifacts | Out-Default
       }
 
@@ -163,8 +215,8 @@ task Package -depends Build {
       Write-Host "Building NuGet package with ID $packageId and version $nugetVersion" -ForegroundColor Green
       Write-Host
       
-      // TODO: https://oren.codes/2015/09/23/enabling-source-code-debugging-for-your-nuget-packages-with-gitlink/
-      exec { & $workingDir\tools\nuget\3.2.0\nuget.exe pack $nuspecPath -Symbols }
+      # TODO: https://oren.codes/2015/09/23/enabling-source-code-debugging-for-your-nuget-packages-with-gitlink/
+      exec { & $workingDir\tools\nuget\3.2.0\nuget.exe pack $nuspecPath -Symbols -Properties "version=$nugetVersion" }
       move -Path .\*.nupkg -Destination $packageDropPath
     }
   }
@@ -222,6 +274,7 @@ task Package -depends Build {
 function MSBuildBuild($build)
 {
   $name = $build.Name
+  $targetPath = "$workingDir\$name\$name.sln"
   $finalDir = $build.FinalDir
 
   Write-Host
@@ -229,13 +282,13 @@ function MSBuildBuild($build)
   [Environment]::SetEnvironmentVariable("EnableNuGetPackageRestore", "true", "Process")
   exec { .\tools\nuget\3.2.0\NuGet.exe update -self }
 #  exec { .\tools\nuget\3.2.0\NuGet.exe restore "$workingSourceDir\$name.sln" -verbosity detailed -configfile $workingSourceDir\..\nuget.config | Out-Default } "Error restoring $name"
-  exec { .\tools\nuget\3.2.0\NuGet.exe restore "$workingDir\$name.sln" -verbosity detailed -configfile $workingDir\nuget.config | Out-Default } "Error restoring $name"
+  exec { .\tools\nuget\3.2.0\NuGet.exe restore $targetPath -verbosity detailed -configfile $workingDir\nuget.config | Out-Default } "Error restoring $name"
 
   $constants = GetConstants $build.Constants $signAssemblies
 
   Write-Host
-  Write-Host "Building $workingDir\$name.sln" -ForegroundColor Green
-  exec { msbuild "/t:Clean;Rebuild" /p:Configuration=Release "/p:CopyNuGetImplementations=true" "/p:Platform=Any CPU" "/p:PlatformTarget=AnyCPU" /p:OutputPath=bin\Release\$finalDir\ /p:AssemblyOriginatorKeyFile=$signKeyPath "/p:SignAssembly=$signAssemblies" "/p:TreatWarningsAsErrors=$treatWarningsAsErrors" "/p:VisualStudioVersion=14.0" /p:DefineConstants=`"$constants`" "$workingDir\$name.sln" | Out-Default } "Error building $name"
+  Write-Host "Building $targetPath" -ForegroundColor Green
+  exec { msbuild "/t:Clean;Rebuild" /p:Configuration=Release "/p:CopyNuGetImplementations=true" "/p:Platform=Any CPU" "/p:PlatformTarget=AnyCPU" /p:OutputPath=bin\Release\$finalDir\ /p:AssemblyOriginatorKeyFile=$signKeyPath "/p:SignAssembly=$signAssemblies" "/p:TreatWarningsAsErrors=$treatWarningsAsErrors" "/p:VisualStudioVersion=14.0" /p:DefineConstants=`"$constants`" "$targetPath" | Out-Default } "Error building $name"
 }
 
 function DnxBuild($build)

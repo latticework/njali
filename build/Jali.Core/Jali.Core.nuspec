@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Jali.Core</id>
+    <version>$version$</version>
+    <title>Jali.Core</title>
+    <description>Jali.Core is a cross platform library supporting the Jali library suite. NJali.Core is the .NET implementation.</description>
+    <authors>Latticework</authors>
+    <language>en-US</language>
+    <projectUrl>http://www.github.com/latticework/Jali</projectUrl>
+    <!--<iconUrl>http://www.newtonsoft.com/content/images/nugeticon.png</iconUrl>-->
+    <licenseUrl>https://raw.githubusercontent.com/latticework/njali/master/LICENSE</licenseUrl>
+    <tags>logging configuration metrics security</tags>
+    <dependencies>
+      <group targetFramework="net45" />
+      <group targetFramework="wp8" />
+      <group targetFramework="win8" />
+      <group targetFramework="wpa81" />
+      <group targetFramework="xamarin.ios" />
+      <group targetFramework="monotouch" />
+      <group targetFramework="monoandroid" />
+      <group targetFramework=".NETPlatform5.0">
+      </group>
+    </dependencies>
+  </metadata>
+</package>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Jali.Serve.AspNet.Mvc</id>
+    <version>$version$</version>
+    <title>Jali.Serve.AspNet.Mvc</title>
+    <description>Jali.Serve.AspNet.Mvc integrates ASP.NET Mvc with Jali.Serve.Server. NJali is the .NET implementation.</description>
+    <authors>Latticework</authors>
+    <language>en-US</language>
+    <projectUrl>http://www.github.com/latticework/Jali</projectUrl>
+    <!--<iconUrl>http://www.newtonsoft.com/content/images/nugeticon.png</iconUrl>-->
+    <licenseUrl>https://raw.githubusercontent.com/latticework/njali/master/LICENSE</licenseUrl>
+    <tags>microservice</tags>
+    <dependencies>
+      <group>
+        <dependency id="Jali.Serve.Server" version="$version$" />
+      </group>
+      <group targetFramework="net45" />
+      <group targetFramework="wp8" />
+      <group targetFramework="win8" />
+      <group targetFramework="wpa81" />
+      <group targetFramework="xamarin.ios" />
+      <group targetFramework="monotouch" />
+      <group targetFramework="monoandroid" />
+      <group targetFramework=".NETPlatform5.0" />
+    </dependencies>
+  </metadata>
+</package>

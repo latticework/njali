@@ -59,7 +59,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jali.Serve", "Jali.Serve", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jali.Serve.Server", "Jali.Serve.Server", "{E60D21FA-66DC-4806-8340-4B903EC9A93B}"
 	ProjectSection(SolutionItems) = preProject
-		..\build\Jali.Serve.Server\JaliServe.Server.nuspec = ..\build\Jali.Serve.Server\JaliServe.Server.nuspec
+		..\build\Jali.Serve.Server\Jali.Serve.Server.nuspec = ..\build\Jali.Serve.Server\Jali.Serve.Server.nuspec
 	EndProjectSection
 EndProject
 Global
