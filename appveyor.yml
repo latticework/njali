@@ -3,7 +3,7 @@ version: 0.0.{build}
 clone_depth: 1
 configuration: Release
 before_build:
-  - nuget restore
+  - nuget restore Jali.Pcl\Jali.Pcl.sln
 build:
   project: Jali.Pcl\Jali.Pcl.sln
 test: off
