@@ -9,16 +9,8 @@
         {
             return new MessageConnection
             {
-                Sender = new EndpointPartition
-                {
-                    ServiceCenterId = this.Receiver.ServiceCenterId,
-                    DataCenterId = this.Receiver.DataCenterId,
-                },
-                Receiver = new EndpointPartition
-                {
-                    ServiceCenterId = this.Sender.ServiceCenterId,
-                    DataCenterId = this.Sender.DataCenterId,
-                },
+                Sender = this.Receiver,
+                Receiver = this.Sender,
             };
         }
     }

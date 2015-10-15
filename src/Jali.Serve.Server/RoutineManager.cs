@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server
 {
@@ -29,7 +30,7 @@ namespace Jali.Serve.Server
         public ResourceManager ResourceManager { get; }
 
         public async Task<IServiceMessage> ExecuteProcedure(
-            string requestAction, string responseAction, IServiceMessage request)
+            string requestAction, string responseAction, ServiceMessage<JObject> request)
         {
             // TODO: RoutineManager.ExecuteProcedure: Should Init be called by a Run method instead?
             await this.Routine.Init(new ExecutionContext(), this.Context);

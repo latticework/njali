@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Jali.Core;
 using Jali.Serve.Server.ServiceDescription;
+using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server
 {
@@ -24,7 +27,7 @@ namespace Jali.Serve.Server
         {
             if (this.Running)
             {
-                throw  new InvalidOperationException("The 'JaliService' is already running.");
+                throw  new InvalidOperationException("The Jali Server is already running.");
             }
 
             var jaliService = new JaliService();
@@ -50,14 +53,35 @@ namespace Jali.Serve.Server
 
             var components = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
 
-            if (string.Equals(components, "/", StringComparison.OrdinalIgnoreCase))
+            if (components == string.Empty)
             {
-                var getServiceDescriptionRequest = new ServiceMessage<GetServiceDescriptionRequest>();
+                // TODO: JaliServer.Send: Determine correct default request service message content.
+                // TODO: JaliServer.Send: Determine better way to pass typed ServiceMessages.
+                var getServiceDescriptionRequest = new ServiceMessage<JObject>
+                {
+                    Connection = new MessageConnection { },
+                    Data = JObject.FromObject(new GetServiceDescriptionRequest
+                    {
+                        Service = this.Service.Definition,
+                    }),
+                    Contract = new MessageContract { },
+                    Identity = new MessageIdentity { },
+                    Tenant = new TenantIdentity { },
+                };
+
 
                 var result = await this._jaliServiceManager.SendMethod(
                     ServiceDescriptionResource.Name, "GET", getServiceDescriptionRequest);
 
-                return result.AsResponse(request);
+                var typedResult = (ServiceMessage<GetServiceDescriptionResponse>) result;
+
+                return new HttpResponseMessage
+                {
+                    RequestMessage = request,
+                    StatusCode = HttpStatusCode.OK,
+                    ReasonPhrase = "OK",
+                    Content = new StringContent(typedResult.Data.Html, Encoding.UTF8, "text/html"),
+                };
             }
 
             var resourceMatch = Regex.Match(
@@ -69,7 +93,7 @@ namespace Jali.Serve.Server
                 var resourceName = resourceMatch.Groups["resourceName"].Value;
                 var resourceKey = resourceMatch.Groups["resourceKey"].Value;
 
-                var requestMessage = request.AsServiceMessage();
+                var requestMessage = await request.AsServiceMessage();
 
                 var result = await this._serviceManager.SendMethod(resourceName, request.Method.Method, requestMessage);
 

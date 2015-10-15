@@ -40,7 +40,7 @@ namespace Jali.Serve.Server
             var resourceResult = this.Definition.Resources.GetValueOrDefault(name);
 
 
-            if (!resourceResult.Succeeded)
+            if (!resourceResult.Found)
             {
                 throw new InternalErrorException(
                     $"Jali server has been requested to create invalid internal resource '{name}'.");

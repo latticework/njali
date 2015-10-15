@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Jali.Serve.Definition;
+using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve
 {
@@ -18,7 +19,7 @@ namespace Jali.Serve
         public ResourceBase Resource { get; }
 
         public abstract Task<IServiceMessage> ExecuteProcedure(
-            IExecutionContext context, string requestAction, string responseAction, IServiceMessage request);
+            IExecutionContext context, string requestAction, string responseAction, ServiceMessage<JObject> request);
 
         protected RoutineBase(ResourceBase resource, Routine routine)
         {
@@ -32,23 +33,23 @@ namespace Jali.Serve
         }
     }
 
-    public abstract class RoutineBase<TRequestMessage, TResponseMessage> : RoutineBase
-        where TRequestMessage : IServiceMessage
-        where TResponseMessage : IServiceMessage
+    public abstract class RoutineBase<TRequestData, TResponseData> : RoutineBase
     {
         public override async Task<IServiceMessage> ExecuteProcedure(
-            IExecutionContext context, string requestAction, string responseAction, IServiceMessage request)
+            IExecutionContext context, string requestAction, string responseAction, ServiceMessage<JObject> request)
         {
-            return await this.ExecuteProcedure(context, requestAction, responseAction, (TRequestMessage) request);
+            var typedRequest = request.ToTypedMessages<TRequestData>();
+
+            return await this.ExecuteProcedure(context, requestAction, responseAction, typedRequest);
         }
 
-        private RoutineProcedureContext<TRequestMessage, TResponseMessage> CreateProcedureContext()
+        private RoutineProcedureContext<TRequestData, TResponseData> CreateProcedureContext()
         {
-            return new RoutineProcedureContext<TRequestMessage, TResponseMessage>();
+            return new RoutineProcedureContext<TRequestData, TResponseData>();
         }  
 
-        private async Task<TResponseMessage> ExecuteProcedure(
-            IExecutionContext context, string requestAction, string responseAction, TRequestMessage request)
+        private async Task<ServiceMessage<TResponseData>> ExecuteProcedure(
+            IExecutionContext context, string requestAction, string responseAction, ServiceMessage<TRequestData> request)
         {
             var procedureContext = this.CreateProcedureContext();
 
@@ -67,6 +68,6 @@ namespace Jali.Serve
         }
 
         protected abstract Task ExecuteProcedureCore(
-            IExecutionContext context, RoutineProcedureContext<TRequestMessage, TResponseMessage> procedureContext);
+            IExecutionContext context, RoutineProcedureContext<TRequestData, TResponseData> procedureContext);
     }
 }

@@ -3,15 +3,17 @@ using Jali.Serve.Definition;
 
 namespace Jali.Serve.Samples.HelloServices
 {
-    public class GetHelloRoutine : RoutineBase<ServiceMessage<GetHelloRequest>, ServiceMessage<GetHelloResponse>>
+    public class GetHelloRoutine : RoutineBase<GetHelloRequest, GetHelloResponse>
     {
+        public const string Name = "get-hello";
+
         public GetHelloRoutine(ResourceBase resource, Routine routine) : base(resource, routine)
         {
         }
 
         protected override async Task ExecuteProcedureCore(
             IExecutionContext context, 
-            RoutineProcedureContext<ServiceMessage<GetHelloRequest>, ServiceMessage<GetHelloResponse>> procedureContext)
+            RoutineProcedureContext<GetHelloRequest, GetHelloResponse> procedureContext)
         {
             var name = procedureContext.Request.Data.Name;
 

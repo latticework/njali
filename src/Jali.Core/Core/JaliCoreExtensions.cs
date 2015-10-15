@@ -36,7 +36,7 @@ namespace Jali.Core
             return new TryGetResult<TValue>
             {
                 Value = value,
-                Succeeded = succeeded,
+                Found = succeeded,
             };
         }
 
@@ -49,7 +49,7 @@ namespace Jali.Core
             return new TryGetResult<TValue>
             {
                 Value = value,
-                Succeeded = succeeded,
+                Found = succeeded,
             };
         }
 
@@ -64,7 +64,7 @@ namespace Jali.Core
         {
             var result = await reference.GetValueOrDefaultAsync(key, factory);
 
-            if (!result.Succeeded && result.Value != null)
+            if (!result.Found && result.Value != null)
             {
                 reference[key] = result.Value;
             }
@@ -77,7 +77,7 @@ namespace Jali.Core
         {
             var result = reference.GetValueOrDefault(key, factory);
 
-            if (!result.Succeeded && result.Value != null)
+            if (!result.Found && result.Value != null)
             {
                 reference[key] = result.Value;
             }

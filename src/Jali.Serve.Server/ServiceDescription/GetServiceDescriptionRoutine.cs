@@ -1,13 +1,11 @@
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Jali.Serve.Definition;
 
 namespace Jali.Serve.Server.ServiceDescription
 {
-    public class GetServiceDescriptionRoutine : RoutineBase<
-        ServiceMessage<GetServiceDescriptionRequest>, ServiceMessage<GetServiceDescriptionResponse>>
+    public class GetServiceDescriptionRoutine : RoutineBase<GetServiceDescriptionRequest, GetServiceDescriptionResponse>
     {
         public const string Name = "get-servicedescription";
 
@@ -18,9 +16,9 @@ namespace Jali.Serve.Server.ServiceDescription
 
         protected override async Task ExecuteProcedureCore(
             IExecutionContext context, 
-            RoutineProcedureContext<ServiceMessage<GetServiceDescriptionRequest>, ServiceMessage<GetServiceDescriptionResponse>> procedureContext)
+            RoutineProcedureContext<GetServiceDescriptionRequest, GetServiceDescriptionResponse> procedureContext)
         {
-            var serviceDefinition = this.Resource.Service.Definition;
+            var serviceDefinition = procedureContext.Request.Data.Service;
             var serviceTitle = $"{serviceDefinition.Name} Service Version {serviceDefinition.Version}";
             var serviceUrl = serviceDefinition.Url;
 
@@ -68,7 +66,7 @@ namespace Jali.Serve.Server.ServiceDescription
 
             var data = new GetServiceDescriptionResponse
             {
-                Html = WebUtility.HtmlEncode(htmlBuilder.ToString()),
+                Html = htmlBuilder.ToString(),
             };
 
             procedureContext.Response = procedureContext.Request.CreateFromMessage(data, null);

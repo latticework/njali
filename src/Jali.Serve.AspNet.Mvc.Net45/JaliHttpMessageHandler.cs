@@ -11,6 +11,9 @@ namespace Jali.Serve.AspNet.Mvc
         {
             this.Service = service;
             this.Server = new JaliServer(this.Service);
+
+            // TODO: JaliHttpMessageHandler.ctor: this should be handled lazily on first request.
+            this.Server.Run(CancellationToken.None).Wait();
         }
 
         public JaliServer Server { get; }

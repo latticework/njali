@@ -1,9 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using Jali.Notification;
+using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve
 {
+    public static class ServiceMessageExtensions
+    {
+        public static ServiceMessage<TData> ToTypedMessages<TData>(this ServiceMessage<JObject> receiver)
+        {
+            var data = receiver.Data.ToObject<TData>();
+
+            var message = new ServiceMessage<TData>
+            {
+                Contract = receiver.Contract,
+                Data = data,
+                Connection = receiver.Connection,
+                Identity = receiver.Identity,
+                Tenant = receiver.Tenant
+            };
+
+            message.Messages.Append(receiver.Messages);
+
+            return message;
+        } 
+    }
+
     public class ServiceMessage<TData> : IServiceMessage<TData>
     {
         public ServiceMessage()
@@ -19,8 +41,7 @@ namespace Jali.Serve
         public MessageConnection Connection { get; set; }
         public TenantIdentity Tenant { get; set; }
 
-        // ReSharper disable once UnassignedGetOnlyAutoProperty
-        IEnumerable<NotificationMessage> IServiceMessage.Messages { get; }
+        IEnumerable<NotificationMessage> IServiceMessage.Messages => this.Messages;
 
         public ServiceMessage<TResponseData> CreateFromMessage<TResponseData>(
             TResponseData data, IEnumerable<NotificationMessage> messages)
@@ -30,6 +51,8 @@ namespace Jali.Serve
                 throw new ArgumentNullException(nameof(data));
             }
 
+            // TODO: ServiceMessage.CreateFromMessage: Rename.
+            // TODO: ServiceMessage.CreateFromMessage: Create copies of everything.
             var response = new ServiceMessage<TResponseData>
             {
                 Connection = this.Connection.CreateResponseConnection(),

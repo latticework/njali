@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Jali.Serve.Samples.HelloServices;
 
 namespace HelloJali.Web
 {
@@ -9,7 +10,10 @@ namespace HelloJali.Web
             // Web API configuration and services
 
             // Web API routes
-            //config.UseJaliService(MvcApplication.ServiceDefinition.Value);
+
+            var helloService = new HelloService();
+
+            config.UseJaliService(helloService);
 
             config.MapHttpAttributeRoutes();
 

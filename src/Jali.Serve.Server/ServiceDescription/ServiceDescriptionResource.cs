@@ -52,11 +52,11 @@ namespace Jali.Serve.Server.ServiceDescription
                                 {
                                     SchemaType = SchemaType.Direct,
                                     Schema = JSchema.Parse(@"{
-""$schema"": ""http://json-schema.org/draft-04/schema#"",
+  ""$schema"": ""http://json-schema.org/draft-04/schema#"",
 
-""type"": ""object"",
-""properties"": {
-}
+  ""type"": ""object"",
+  ""properties"": {
+  }
 }"),
                                 },
                             },
@@ -113,7 +113,7 @@ namespace Jali.Serve.Server.ServiceDescription
             var routineResult = this.Definition.Routines.GetValueOrDefault(name);
 
 
-            if (!routineResult.Succeeded)
+            if (!routineResult.Found)
             {
                 throw new InternalErrorException(
                     $"Jail server internal resource '{nameof(ServiceDescriptionResource)}' has been requested to create invalid routine '{name}'.");

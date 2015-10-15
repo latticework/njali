@@ -41,7 +41,7 @@ namespace Jali.Serve.Samples.HelloServices
             var resourceResult = this.Definition.Resources.GetValueOrDefault(name);
 
 
-            if (!resourceResult.Succeeded)
+            if (!resourceResult.Found)
             {
                 throw new InternalErrorException(
                     $"Hello service has been requested to create invalid resource '{name}'.");

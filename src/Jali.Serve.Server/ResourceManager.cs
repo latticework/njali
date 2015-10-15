@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Jali.Core;
+using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server
 {
@@ -50,14 +51,14 @@ namespace Jali.Serve.Server
 
         public bool Running { get; set; }
 
-        public async Task<IServiceMessage> SendMethod(string method, IServiceMessage request)
+        public async Task<IServiceMessage> SendMethod(string method, ServiceMessage<JObject> request)
         {
             if (method == null) throw new ArgumentNullException(nameof(method));
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             var methodResult = this.Resource.Definition.Methods.GetValueOrDefault(method);
 
-            if (!methodResult.Succeeded)
+            if (!methodResult.Found)
             {
                 var message = $"Method '{method}' for Resource '{this.Resource.Definition.Name}' of Service '{this.ServiceManager.Service.Definition.Name}' was not found.";
                 throw new ArgumentException(message, nameof(method));
@@ -101,7 +102,7 @@ namespace Jali.Serve.Server
                 return await Task.FromResult(manager);
             });
 
-            if (!result.Succeeded)
+            if (!result.Found && result.Value == null)
             {
                 var message = $"Invalid Service Manager State: Could not create a '{nameof(RoutineManager)}'";
                 throw new InternalErrorException(message);

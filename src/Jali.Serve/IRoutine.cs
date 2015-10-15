@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Jali.Serve.Definition;
+using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve
 {
@@ -10,7 +11,7 @@ namespace Jali.Serve
         Task Init(IExecutionContext context, IRoutineContext routineContext);
 
         Task<IServiceMessage> ExecuteProcedure(
-            IExecutionContext context, string requestAction, string responseAction, IServiceMessage request);
+            IExecutionContext context, string requestAction, string responseAction, ServiceMessage<JObject> request);
     }
 
     // TODO: IRoutine: Determine whether typed routine interface makes sense.
