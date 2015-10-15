@@ -3,6 +3,6 @@ version: 0.0.{build}
 clone_depth: 1
 configuration: Release
 build:
-  project: Jali.Pcl.sln
+  project: Jali.Pcl\Jali.Pcl.sln
 test: off
 deploy: off

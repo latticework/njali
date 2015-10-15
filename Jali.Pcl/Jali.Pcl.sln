@@ -21,6 +21,47 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jali.Serve.Server.Pcl", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jali.Serve.Samples.HelloServices", "samples\Jali.Serve.Samples.HelloServices\Jali.Serve.Samples.HelloServices.csproj", "{DE1FB7CC-5483-4606-95E4-91AC69911090}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0748AE3-5DE8-4D81-9BC3-F5B00D5A1574}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\appveyor.yml = ..\appveyor.yml
+		..\build.cmd = ..\build.cmd
+		..\Jali.sln.DotSettings = ..\Jali.sln.DotSettings
+		..\LICENSE = ..\LICENSE
+		..\makefile.sake = ..\makefile.sake
+		..\psakebuild.cmd = ..\psakebuild.cmd
+		..\psakefile.ps1 = ..\psakefile.ps1
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{95CE8DEE-A14A-4A73-8D94-B357696613B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jali", "Jali", "{263737A6-52C9-4FF2-B5D8-ECEC4F0D17E0}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\Jali\Jali.nuspec = ..\build\Jali\Jali.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jali.Core", "Jali.Core", "{94EAAB25-5980-4C85-B405-B977EAE50A12}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\Jali.Core\Jali.Core.nuspec = ..\build\Jali.Core\Jali.Core.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jali.Serve.AspNet.Mvc", "Jali.Serve.AspNet.Mvc", "{1BF4B2F9-6D04-4F19-A200-035DCCA6CA44}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\Jali.Serve.AspNet.Mvc\Jali.Serve.AspNet.Mvc.nuspec = ..\build\Jali.Serve.AspNet.Mvc\Jali.Serve.AspNet.Mvc.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jali.Serve", "Jali.Serve", "{497F70A7-39D2-405F-B756-376647EC55AE}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\Jali.Serve\Jali.Serve.nuspec = ..\build\Jali.Serve\Jali.Serve.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jali.Serve.Server", "Jali.Serve.Server", "{E60D21FA-66DC-4806-8340-4B903EC9A93B}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\Jali.Serve.Server\JaliServe.Server.nuspec = ..\build\Jali.Serve.Server\JaliServe.Server.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,5 +108,10 @@ Global
 		{0F225589-4E66-49AC-93BF-98733AF12B92} = {4136657F-B248-4234-8C4B-A3F8A5DC495F}
 		{6CAF7D9E-3258-430D-97A0-C6D31FA9E7B2} = {00430371-BF6B-4238-9EFD-99EA01609F82}
 		{DE1FB7CC-5483-4606-95E4-91AC69911090} = {4136657F-B248-4234-8C4B-A3F8A5DC495F}
+		{263737A6-52C9-4FF2-B5D8-ECEC4F0D17E0} = {95CE8DEE-A14A-4A73-8D94-B357696613B9}
+		{94EAAB25-5980-4C85-B405-B977EAE50A12} = {95CE8DEE-A14A-4A73-8D94-B357696613B9}
+		{1BF4B2F9-6D04-4F19-A200-035DCCA6CA44} = {95CE8DEE-A14A-4A73-8D94-B357696613B9}
+		{497F70A7-39D2-405F-B756-376647EC55AE} = {95CE8DEE-A14A-4A73-8D94-B357696613B9}
+		{E60D21FA-66DC-4806-8340-4B903EC9A93B} = {95CE8DEE-A14A-4A73-8D94-B357696613B9}
 	EndGlobalSection
 EndGlobal
