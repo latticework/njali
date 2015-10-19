@@ -17,12 +17,6 @@ namespace Jali.Notification
             
         }
 
-        public bool HasErrors => this.Severity <= MessageSeverity.Error;
-
-        public MessagePriority Priority => this.Items.Min(m => m.Priority);
-
-        public MessageSeverity Severity => this.Items.Min(m => m.Severity);
-
         public NotificationMessageCollection Prepend(IEnumerable<NotificationMessage> messages)
         {
             var messageArray = messages as NotificationMessage[] ?? messages.ToArray();

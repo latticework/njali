@@ -161,7 +161,10 @@
     <Compile Include="..\..\..\src\Jali.Serve\TenantIdentity.cs">
       <Link>TenantIdentity.cs</Link>
     </Compile>
+    <Compile Include="MessageCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceMessageExtensions.cs" />
+    <Compile Include="ServiceMesssageConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\src\Jali.Serve\Definition\jaliresource.schema.json">

@@ -69,7 +69,7 @@ namespace Jali.Serve.Server.ServiceDescription
                 Html = htmlBuilder.ToString(),
             };
 
-            procedureContext.Response = procedureContext.Request.CreateFromMessage(data, null);
+            procedureContext.Response = procedureContext.Request.CreateOutboundMessage(new MessageCredentials(), data, null);
 
             await Task.FromResult(true);
         }

@@ -19,6 +19,7 @@ namespace Jali.Serve.Definition
         public string Version { get; set; }
         public string Description { get; set; }
         public JSchema Schema { get; set; }
+        public JSchema KeySchema { get; set; }
         public IDictionary<string, Routine> Routines { get; }
         public IDictionary<string, RestMethod> Methods { get; }
         public IDictionary<string, ResourceEvent> Events { get; }

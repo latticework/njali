@@ -96,6 +96,9 @@
     <Compile Include="..\..\..\src\Jali.Core\Notification\NotificationMessageCollection.cs">
       <Link>Notification\NotificationMessageCollection.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Notification\NotificationMessageExtensions.cs">
+      <Link>Notification\NotificationMessageExtensions.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

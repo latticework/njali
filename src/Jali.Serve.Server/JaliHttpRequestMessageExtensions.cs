@@ -41,7 +41,7 @@ namespace System.Net.Http
             return queryStringData;
         }
 
-        // From https://weblog.west-wind.com/posts/2013/Apr/15/WebAPI-Getting-Headers-QueryString-and-Cookie-Values
+        // Outbound https://weblog.west-wind.com/posts/2013/Apr/15/WebAPI-Getting-Headers-QueryString-and-Cookie-Values
         public static IDictionary<string, string> GetQueryStrings(this HttpRequestMessage request)
         {
             return request.GetQueryNameValuePairs()
@@ -103,13 +103,10 @@ namespace System.Net.Http
                 Identity = new MessageIdentity
                 {
                     ConversationId = null,
-                    DeputyId = null,
-                    ImpersonatorId = null,
                     MessageId = null,
                     MessageTransmissionId = null,
                     SessionId = null,
                     TransactionId = null,
-                    UserId = null,
                 },
                 Tenant = new TenantIdentity
                 {

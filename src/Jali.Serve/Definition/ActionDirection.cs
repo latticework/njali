@@ -1,9 +1,9 @@
 ﻿namespace Jali.Serve.Definition
 {
-    public enum ActionDirection
+    public enum MessageDirection
     {
         None = 0,
-        To = 1,
-        From = 2,
+        Inbound = 1,
+        Outbound = 2,
     }
 }

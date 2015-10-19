@@ -24,7 +24,7 @@ namespace Jali.Serve.Samples.HelloServices
                 Message = $"Hello{nameClause}!",
             };
 
-            procedureContext.Response = procedureContext.Request.CreateFromMessage(data, null);
+            procedureContext.Response = procedureContext.Request.CreateOutboundMessage(new MessageCredentials(), data, null);
 
             await Task.FromResult(true);
         }

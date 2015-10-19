@@ -57,7 +57,7 @@ namespace Jali.Serve.Samples.HelloServices
                             ["get-hello-request"] = new RoutineMessage
                             {
                                 Action = "get-hello-request",
-                                Direction = ActionDirection.To,
+                                Direction = MessageDirection.Inbound,
                                 Description = "Criteria for the get-hello routine",
                                 Schema = new SchemaReference
                                 {
@@ -68,7 +68,7 @@ namespace Jali.Serve.Samples.HelloServices
                             ["get-hello-result"] = new RoutineMessage
                             {
                                 Action = "get-hello-result",
-                                Direction = ActionDirection.From,
+                                Direction = MessageDirection.Outbound,
                                 Description = "The hello message.",
                                 Schema = new SchemaReference
                                 {
