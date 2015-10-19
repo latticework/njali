@@ -13,7 +13,7 @@ namespace HelloJali.Web
 
             var helloService = new HelloService();
 
-            config.UseJaliService(helloService);
+            config.UseJaliService(helloService, null);
 
             config.MapHttpAttributeRoutes();
 

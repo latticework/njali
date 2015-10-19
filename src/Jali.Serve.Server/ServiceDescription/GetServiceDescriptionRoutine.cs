@@ -2,6 +2,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Jali.Serve.Definition;
+using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server.ServiceDescription
 {
@@ -16,7 +17,7 @@ namespace Jali.Serve.Server.ServiceDescription
 
         protected override async Task ExecuteProcedureCore(
             IExecutionContext context, 
-            RoutineProcedureContext<GetServiceDescriptionRequest, GetServiceDescriptionResponse> procedureContext)
+            RoutineProcedureContext<GetServiceDescriptionRequest, GetServiceDescriptionResponse, JObject> procedureContext)
         {
             var serviceDefinition = procedureContext.Request.Data.Service;
             var serviceTitle = $"{serviceDefinition.Name} Service Version {serviceDefinition.Version}";

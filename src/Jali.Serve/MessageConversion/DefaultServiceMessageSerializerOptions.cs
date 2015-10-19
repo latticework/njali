@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Jali.Serve.Server.MessageConversion
+namespace Jali.Serve.MessageConversion
 {
     /// <summary>
     ///     Provides configuration options for a <see cref="DefaultServiceMessageSerializer"/> instance.

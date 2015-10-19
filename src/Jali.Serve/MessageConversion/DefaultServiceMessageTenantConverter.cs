@@ -2,17 +2,16 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.Server.MessageConversion
+namespace Jali.Serve.MessageConversion
 {
     /// <summary>
-    ///     A utility that converts between an http request, http response, and a service message identity. This 
-    ///     implementation performs no conversions.
+    ///     Represents a utility that converts between an http request, http response, and a service message tenant. 
+    ///     This implementation performs no conversions.
     /// </summary>
-    public class DefaultMessageIdentityConverter : IMessageIdentityConverter
+    public class DefaultServiceMessageTenantConverter : IServiceMessageTenantConverter
     {
         /// <summary>
-        ///     Converts from an http request to a service message contract. This implementation performs no 
-        ///     conversions.
+        ///     Converts from an http request to a service message tenant. This implementation performs no conversions.
         /// </summary>
         /// <param name="request">
         ///     The http request.
@@ -23,17 +22,17 @@ namespace Jali.Serve.Server.MessageConversion
         /// <returns>
         ///     <see langword="null"/> so the message remains unmodified.
         /// </returns>
-        public Task<MessageIdentity> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message)
+        public Task<TenantIdentity> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message)
         {
-            return Task.FromResult<MessageIdentity>(null);
+            return Task.FromResult<TenantIdentity>(null);
         }
 
-
         /// <summary>
-        ///     Uses a response service message contract to modify an http response.
+        ///     Uses a response service message tenant to modify an http response. This implementation performs no 
+        ///     conversions.
         /// </summary>
-        /// <param name="identity">
-        ///     The response service message identity.
+        /// <param name="tenant">
+        ///     The response service message tenant.
         /// </param>
         /// <param name="request">
         ///     The initial http request.
@@ -47,8 +46,7 @@ namespace Jali.Serve.Server.MessageConversion
         /// <returns>
         ///     A value indicating that the http response was not modified.
         /// </returns>
-        public Task<bool> ToResponse(MessageIdentity identity, HttpRequestMessage request, IServiceMessage message,
-            HttpResponseMessage response)
+        public Task<bool> ToResponse(TenantIdentity tenant, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
         {
             return Task.FromResult(false);
         }

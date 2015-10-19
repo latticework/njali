@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Jali.Serve.Definition;
+using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Samples.HelloServices
 {
@@ -7,13 +8,13 @@ namespace Jali.Serve.Samples.HelloServices
     {
         public const string Name = "get-hello";
 
-        public GetHelloRoutine(ResourceBase resource, Routine routine) : base(resource, routine)
+        public GetHelloRoutine(ResourceBase resource, Routine routine, string key = null) : base(resource, routine)
         {
         }
 
         protected override async Task ExecuteProcedureCore(
             IExecutionContext context, 
-            RoutineProcedureContext<GetHelloRequest, GetHelloResponse> procedureContext)
+            RoutineProcedureContext<GetHelloRequest, GetHelloResponse, JObject> procedureContext)
         {
             var name = procedureContext.Request.Data.Name;
 

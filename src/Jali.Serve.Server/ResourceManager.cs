@@ -51,7 +51,7 @@ namespace Jali.Serve.Server
 
         public bool Running { get; set; }
 
-        public async Task<IServiceMessage> SendMethod(string method, ServiceMessage<JObject> request)
+        public async Task<IServiceMessage> SendMethod(string method, ServiceMessage<JObject> request, string key = null)
         {
             if (method == null) throw new ArgumentNullException(nameof(method));
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -72,12 +72,17 @@ namespace Jali.Serve.Server
                 throw new InvalidOperationException(message);
             }
 
+            var resourceKey = (key == null) 
+                ? null 
+                : this.ServiceManager.Server.Options.KeyConverter.ToResourceKey(
+                    this.Resource.Definition.KeySchema, key);
+
             var routineManager = await this.GetRoutineManager(methodResult.Value.Routine);
 
             var requestAction = methodResult.Value.Request.Message.Action;
             var responseAction = methodResult.Value.Response.Message.Action;
 
-            var result = await routineManager.ExecuteProcedure(requestAction, responseAction, request);
+            var result = await routineManager.ExecuteProcedure(requestAction, responseAction, request, resourceKey);
 
             return result;
         }

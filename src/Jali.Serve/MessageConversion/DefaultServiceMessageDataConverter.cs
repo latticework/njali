@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Jali.Notification;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.Server.MessageConversion
+namespace Jali.Serve.MessageConversion
 {
     /// <summary>
     ///     A utility converts between an http request, http response, and an json object representing the service 

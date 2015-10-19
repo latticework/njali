@@ -1,7 +1,7 @@
-using System;
 // ReSharper disable All
+using System;
 
-namespace Jali.Serve.Server
+namespace Jali.Serve.Decompiled
 {
     internal static class Error
     {

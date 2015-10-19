@@ -43,26 +43,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\Error.cs">
-      <Link>Decompiled\Error.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\FormDataCollection.cs">
-      <Link>Decompiled\FormDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\FormDataCollectionExtensions.cs">
-      <Link>Decompiled\FormDataCollectionExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\FormUrlEncodedParser.cs">
-      <Link>Decompiled\FormUrlEncodedParser.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliHttpMessageResponseBuilder.cs">
       <Link>JaliHttpMessageResponseBuilder.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\JaliHttpRequestMessageExtensions.cs">
-      <Link>JaliHttpRequestMessageExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServer.cs">
       <Link>JaliServer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServerOptions.cs">
+      <Link>JaliServerOptions.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServerServiceMessageExtensions.cs">
       <Link>JaliServerServiceMessageExtensions.cs</Link>
@@ -103,29 +91,6 @@
     <Compile Include="..\..\..\src\Jali.Serve.Server\StageManager.cs">
       <Link>StageManager.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\UriQueryUtility.cs">
-      <Link>Decompiled\UriQueryUtility.cs</Link>
-    </Compile>
-    <Compile Include="MessageConversion\CompositeServiceMessageConverterOptions.cs" />
-    <Compile Include="MessageConversion\DefaultMessageConnectionConverter.cs" />
-    <Compile Include="MessageConversion\DefaultMessageContractConverter.cs" />
-    <Compile Include="MessageConversion\DefaultMessageCredentialConverter.cs" />
-    <Compile Include="MessageConversion\DefaultMessageIdentityConverter.cs" />
-    <Compile Include="MessageConversion\DefaultNotificationMessageConverter.cs" />
-    <Compile Include="MessageConversion\DefaultServiceMessageDataConverter.cs" />
-    <Compile Include="MessageConversion\DefaultServiceMessageSerializer.cs" />
-    <Compile Include="MessageConversion\DefaultServiceMessageSerializerOptions.cs" />
-    <Compile Include="MessageConversion\DefaultServiceMessageTenantConverter.cs" />
-    <Compile Include="MessageConversion\IMessageConnectionConverter.cs" />
-    <Compile Include="MessageConversion\IMessageCredentialConverter.cs" />
-    <Compile Include="MessageConversion\IMessageIdentityConverter.cs" />
-    <Compile Include="MessageConversion\INotificationMessageConverter.cs" />
-    <Compile Include="MessageConversion\IServiceMessageDataConverter.cs" />
-    <Compile Include="MessageConversion\CompositeServiceMessageConverter.cs" />
-    <Compile Include="MessageConversion\IMessageContractConverter.cs" />
-    <Compile Include="MessageConversion\IServiceMessageConverter.cs" />
-    <Compile Include="MessageConversion\IServiceMessageSerializer.cs" />
-    <Compile Include="MessageConversion\IServiceMessageTenantConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +128,9 @@
       <Project>{a5a96225-6183-40e6-865c-4894f925f3c9}</Project>
       <Name>Jali.Serve.Pcl</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Decompiled\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

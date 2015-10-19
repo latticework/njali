@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web.Http.Routing;
+using Jali.Serve.Server;
 
 namespace Jali.Serve.AspNet.Mvc
 {
     public class JaliHttpRoute : IHttpRoute
     {
-        public JaliHttpRoute(IService service)
+        public JaliHttpRoute(IService service, JaliServerOptions options)
         {
-            this.Handler = new JaliHttpMessageHandler(service);
+            this.Handler = new JaliHttpMessageHandler(service, options);
         }
 
         public IHttpRouteData GetRouteData(string virtualPathRoot, HttpRequestMessage request)

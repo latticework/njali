@@ -2,17 +2,15 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.Server.MessageConversion
+namespace Jali.Serve.MessageConversion
 {
     /// <summary>
-    ///     Represents a utility that converts between an http request, http response, and service message credentials. 
-    ///     This implementation performs no conversions.
+    ///     Represents a utility that converts between an http request, http response, and service message credentials.
     /// </summary>
-    public class DefaultMessageCredentialConverter : IMessageCredentialConverter
+    public interface IMessageCredentialConverter
     {
         /// <summary>
-        ///     Converts from an http request to service message credentials. This implementation performs no 
-        /// conversions.
+        ///     Converts from an http request to service message credentials.
         /// </summary>
         /// <param name="request">
         ///     The http request.
@@ -24,14 +22,10 @@ namespace Jali.Serve.Server.MessageConversion
         ///     The request service <see cref="MessageCredentials"/> or <see langword="null"/> if the message should 
         ///     remain unmodified.
         /// </returns>
-        public async Task<MessageCredentials> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message)
-        {
-            return await Task.FromResult<MessageCredentials>(null);
-        }
+        Task<MessageCredentials> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message);
 
         /// <summary>
-        ///     Uses response service message credentials to modify an http response. This implementation performs no 
-        ///     conversions.
+        ///     Uses response service message credentials to modify an http response.
         /// </summary>
         /// <param name="contract">
         ///     The response service message contract.
@@ -48,13 +42,10 @@ namespace Jali.Serve.Server.MessageConversion
         /// <returns>
         ///     A value indicating whether the converter modified the http response.
         /// </returns>
-        public async Task<bool> ToResponse(
+        Task<bool> ToResponse(
             MessageCredentials contract,
             HttpRequestMessage request,
             IServiceMessage message,
-            HttpResponseMessage response)
-        {
-            return await Task.FromResult(false);
-        }
+            HttpResponseMessage response);
     }
 }

@@ -7,10 +7,10 @@ namespace Jali.Serve.AspNet.Mvc
 {
     public class JaliHttpMessageHandler : HttpMessageHandler
     {
-        public JaliHttpMessageHandler(IService service)
+        public JaliHttpMessageHandler(IService service, JaliServerOptions options)
         {
             this.Service = service;
-            this.Server = new JaliServer(this.Service);
+            this.Server = new JaliServer(this.Service, options);
 
             // TODO: JaliHttpMessageHandler.ctor: this should be handled lazily on first request.
             this.Server.Run(CancellationToken.None).Wait();

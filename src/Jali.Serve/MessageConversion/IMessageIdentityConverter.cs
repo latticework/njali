@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Jali.Notification;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.Server.MessageConversion
+namespace Jali.Serve.MessageConversion
 {
     /// <summary>
-    ///     Represents a utility converts between an http request, an http response, and a sequence of Jali notification 
-    ///     messages.
+    ///     Represents a utility that converts between an http request, http response, and a service message identity.
     /// </summary>
-    public interface INotificationMessageConverter
+    public interface IMessageIdentityConverter
     {
         /// <summary>
-        ///     Converts from an http request to a sequence of Jali notification messages.
+        ///     Converts from an http request to a service message contract.
         /// </summary>
         /// <param name="request">
         ///     The http request.
@@ -22,16 +19,16 @@ namespace Jali.Serve.Server.MessageConversion
         ///     The partially constructed request service message. The message should not be modified directly.
         /// </param>
         /// <returns>
-        ///     The request service message <see cref="NotificationMessage"/> list or <see langword="null"/> if 
-        ///     the message should remain unmodified.
+        ///     The request <see cref="MessageIdentity"/> or <see langword="null"/> if the message should remain 
+        ///     unmodified.
         /// </returns>
-        Task<IEnumerable<NotificationMessage>> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message);
+        Task<MessageIdentity> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message);
 
         /// <summary>
-        ///     Uses a response service message notification message sequence to modify an http response.
+        ///     Uses a response service message contract to modify an http response.
         /// </summary>
-        /// <param name="messages">
-        ///     The response service message <see cref="NotificationMessage"/> sequence.
+        /// <param name="identity">
+        ///     The response service message identity.
         /// </param>
         /// <param name="request">
         ///     The initial http request.
@@ -46,7 +43,7 @@ namespace Jali.Serve.Server.MessageConversion
         ///     A value indicating whether the converter modified the http response.
         /// </returns>
         Task<bool> ToResponse(
-            IEnumerable<NotificationMessage> messages,
+            MessageIdentity identity,
             HttpRequestMessage request,
             IServiceMessage message,
             HttpResponseMessage response);

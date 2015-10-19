@@ -47,6 +47,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\Error.cs">
+      <Link>Decompled\Error.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\FormDataCollection.cs">
+      <Link>Decompled\FormDataCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\FormDataCollectionExtensions.cs">
+      <Link>Decompled\FormDataCollectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\FormUrlEncodedParser.cs">
+      <Link>Decompled\FormUrlEncodedParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\JaliHttpRequestMessageExtensions.cs">
+      <Link>JaliHttpRequestMessageExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\UriQueryUtility.cs">
+      <Link>Decompled\UriQueryUtility.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\Definition\ActionDirection.cs">
       <Link>Definition\ActionDirection.cs</Link>
     </Compile>
@@ -140,6 +158,75 @@
     <Compile Include="..\..\..\src\Jali.Serve\MessageContract.cs">
       <Link>MessageContract.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\CompositeServiceMessageConverter.cs">
+      <Link>MessageConversion\CompositeServiceMessageConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\CompositeServiceMessageConverterOptions.cs">
+      <Link>MessageConversion\CompositeServiceMessageConverterOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\DefaultMessageConnectionConverter.cs">
+      <Link>MessageConversion\DefaultMessageConnectionConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\DefaultMessageContractConverter.cs">
+      <Link>MessageConversion\DefaultMessageContractConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\DefaultMessageCredentialConverter.cs">
+      <Link>MessageConversion\DefaultMessageCredentialConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\DefaultMessageIdentityConverter.cs">
+      <Link>MessageConversion\DefaultMessageIdentityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\DefaultNotificationMessageConverter.cs">
+      <Link>MessageConversion\DefaultNotificationMessageConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\DefaultResourceKeyConverter.cs">
+      <Link>MessageConversion\DefaultResourceKeyConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\DefaultServiceMessageDataConverter.cs">
+      <Link>MessageConversion\DefaultServiceMessageDataConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\DefaultServiceMessageSerializer.cs">
+      <Link>MessageConversion\DefaultServiceMessageSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\DefaultServiceMessageSerializerOptions.cs">
+      <Link>MessageConversion\DefaultServiceMessageSerializerOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\DefaultServiceMessageTenantConverter.cs">
+      <Link>MessageConversion\DefaultServiceMessageTenantConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\IMessageConnectionConverter.cs">
+      <Link>MessageConversion\IMessageConnectionConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\IMessageContractConverter.cs">
+      <Link>MessageConversion\IMessageContractConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\IMessageCredentialConverter.cs">
+      <Link>MessageConversion\IMessageCredentialConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\IMessageIdentityConverter.cs">
+      <Link>MessageConversion\IMessageIdentityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\INotificationMessageConverter.cs">
+      <Link>MessageConversion\INotificationMessageConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\IResourceKeyConverter.cs">
+      <Link>MessageConversion\IResourceKeyConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\IServiceMessageConverter.cs">
+      <Link>MessageConversion\IServiceMessageConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\IServiceMessageDataConverter.cs">
+      <Link>MessageConversion\IServiceMessageDataConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\IServiceMessageSerializer.cs">
+      <Link>MessageConversion\IServiceMessageSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\IServiceMessageTenantConverter.cs">
+      <Link>MessageConversion\IServiceMessageTenantConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageCredentials.cs">
+      <Link>MessageCredentials.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\MessageIdentity.cs">
       <Link>MessageIdentity.cs</Link>
     </Compile>
@@ -158,13 +245,16 @@
     <Compile Include="..\..\..\src\Jali.Serve\ServiceMessage.cs">
       <Link>ServiceMessage.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\ServiceMessageExtensions.cs">
+      <Link>ServiceMessageExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\ServiceMesssageConverter.cs">
+      <Link>ServiceMesssageConverter.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\TenantIdentity.cs">
       <Link>TenantIdentity.cs</Link>
     </Compile>
-    <Compile Include="MessageCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceMessageExtensions.cs" />
-    <Compile Include="ServiceMesssageConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\src\Jali.Serve\Definition\jaliresource.schema.json">
@@ -198,6 +288,7 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

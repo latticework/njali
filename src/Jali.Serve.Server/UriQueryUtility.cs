@@ -5,9 +5,8 @@
 // MVID: DD5D1303-5E4D-4A2E-812D-07EC2F066876
 // Assembly location: C:\git\latticework\njali\Jali.Pcl\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll
 
-using System;
 using System.Text;
-using Jali.Serve.Server;
+using Jali.Serve.Decompiled;
 
 namespace System.Web.Http
 {
