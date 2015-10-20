@@ -16,7 +16,8 @@ namespace Jali.Serve.Samples.HelloServices
             IExecutionContext context, 
             RoutineProcedureContext<GetHelloRequest, GetHelloResponse, JObject> procedureContext)
         {
-            var name = procedureContext.Request.Data.Name;
+
+            var name = procedureContext.Request.Data?.Name;
 
             var nameClause = string.IsNullOrEmpty(name) ? " World" : $", {name}";
 

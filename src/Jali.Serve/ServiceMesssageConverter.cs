@@ -4,7 +4,6 @@ using Jali.Core;
 using Jali.Notification;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 namespace Jali.Serve
 {
@@ -75,8 +74,10 @@ namespace Jali.Serve
 
             messages = messages ?? Enumerable.Empty<NotificationMessage>();
 
-            // ReSharper disable once ConvertClosureToMethodGroup
-            json.Add(new JArray(messages.Select(nm => JObject.FromObject(nm, serializer)).Cast<object>().ToArray()));
+            var messageArray =
+                new JArray(messages.Select(nm => JObject.FromObject(nm, serializer)).Cast<object>().ToArray());
+
+            json.Add("messages", messageArray);
 
 
             if (identity != null)
@@ -174,20 +175,25 @@ namespace Jali.Serve
             }
 
             var data = GetObjectProperty(json, "data");
-            var dataType = objectType.GetGenericTypeDefinition().GenericTypeArguments[0];
+            var dataType = objectType.GenericTypeArguments[0];
 
             message.Data = dataType == typeof (JObject) ? data : serializer.Deserialize(reader, dataType);
 
             var messages = GetJsonProperty<JArray>(json, "messages", JTokenType.Array);
 
-            var messageCollection = new NotificationMessageCollection();
-            var index = 0;
-            foreach (var notification in messages)
+            if (messages != null)
             {
-                ++index;
-                VerifyElementType($"message[{index}]", JTokenType.Object, notification.Type);
+                var messageCollection = new NotificationMessageCollection();
+                var index = 0;
+                foreach (var notification in messages)
+                {
+                    ++index;
+                    VerifyElementType($"message[{index}]", JTokenType.Object, notification.Type);
 
-                messageCollection.Add(serializer.Deserialize<NotificationMessage>(new JTokenReader(notification)));
+                    messageCollection.Add(serializer.Deserialize<NotificationMessage>(new JTokenReader(notification)));
+                }
+
+                message.Messages = messageCollection;
             }
 
             var identity = GetObjectProperty(json, "identity");

@@ -23,7 +23,7 @@ namespace Jali.Serve.MessageConversion
             var overrideOptions = options ?? new DefaultServiceMessageSerializerOptions();
             this.Options = new DefaultServiceMessageSerializerOptions
             {
-                SerializerSettings = overrideOptions.SerializerSettings ?? _default.SerializerSettings,
+                SerializerSettings = overrideOptions.SerializerSettings ?? _default.Value.SerializerSettings,
             };
         }
 
@@ -86,10 +86,11 @@ namespace Jali.Serve.MessageConversion
 
         static DefaultServiceMessageSerializer()
         {
-            _default = new DefaultServiceMessageSerializerOptions();
+            _default = new Lazy<DefaultServiceMessageSerializerOptions>(() =>
+                new DefaultServiceMessageSerializerOptions());
         }
 
-        private static readonly DefaultServiceMessageSerializerOptions _default;
+        private static readonly Lazy<DefaultServiceMessageSerializerOptions> _default;
 
         private readonly Lazy<JsonSerializer> _serializer;
     }

@@ -36,7 +36,7 @@ namespace Jali.Serve.MessageConversion
                 PreserveReferencesHandling = PreserveReferencesHandling.All,
                 ReferenceLoopHandling = ReferenceLoopHandling.Error,
                 StringEscapeHandling = StringEscapeHandling.Default,
-                TypeNameAssemblyFormat = FormatterAssemblyStyle.Full,
+                //TypeNameAssemblyFormat = FormatterAssemblyStyle.Full,
                 TypeNameHandling = TypeNameHandling.None,
             };
         }

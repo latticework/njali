@@ -18,7 +18,7 @@ namespace Jali.Serve.Samples.HelloServices
 
         public static Resource GetDefinition(Uri helloServiceUrl)
         {
-            var helloResourceUrl = new Uri(helloServiceUrl, "resources/hello/v0.0.1");
+            var helloResourceUrl = new Uri(helloServiceUrl, "resources/hello/v1.0.0");
 
             var resourceSchema = JSchema.Parse(@"{
   ""$schema"": ""http://json-schema.org/draft-04/schema#"",

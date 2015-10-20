@@ -147,6 +147,11 @@ namespace Jali.Serve.Server
                 var resourceName = resourceMatch.Groups["resourceName"].Value;
                 var resourceKey = resourceMatch.Groups["resourceKey"].Value;
 
+                if (resourceKey == string.Empty)
+                {
+                    resourceKey = null;
+                }
+
                 var requestMessage = await this.Options.MessageConverter.FromRequest(request);
 
                 var result = await this._serviceManager.SendMethod(

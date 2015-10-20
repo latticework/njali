@@ -254,6 +254,7 @@
     <Compile Include="..\..\..\src\Jali.Serve\TenantIdentity.cs">
       <Link>TenantIdentity.cs</Link>
     </Compile>
+    <Compile Include="Definition\RestMethodVerbs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

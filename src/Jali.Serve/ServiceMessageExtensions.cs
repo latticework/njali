@@ -21,8 +21,9 @@ namespace Jali.Serve
         ///     The new typed service message.
         /// </returns>
         public static ServiceMessage<TData> ToTypedMessages<TData>(this ServiceMessage<JObject> receiver)
+            where TData : class
         {
-            var data = receiver.Data.ToObject<TData>();
+            var data = receiver.Data?.ToObject<TData>();
 
             var message = new ServiceMessage<TData>
             {
