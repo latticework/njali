@@ -23,7 +23,10 @@ namespace Jali.Serve
         public static ServiceMessage<TData> ToTypedMessages<TData>(this ServiceMessage<JObject> receiver)
             where TData : class
         {
-            var data = receiver.Data?.ToObject<TData>();
+            // TODO: RoutineBase.ToTypedKey: Determine whether any json serialization settings are needed.
+            var data = (typeof(TData) == typeof(JObject)) 
+                ? (TData)(object)receiver.Data 
+                : receiver.Data?.ToObject<TData>();
 
             var message = new ServiceMessage<TData>
             {

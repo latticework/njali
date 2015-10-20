@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Jali.Serve.Definition;
+using Jali.Serve.Samples.HelloServices.GreetingData;
 using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Samples.HelloServices
@@ -8,7 +9,7 @@ namespace Jali.Serve.Samples.HelloServices
     {
         public const string Name = "get-hello";
 
-        public GetHelloRoutine(ResourceBase resource, Routine routine, string key = null) : base(resource, routine)
+        public GetHelloRoutine(ResourceBase resource, Routine routine) : base(resource, routine)
         {
         }
 
@@ -16,14 +17,16 @@ namespace Jali.Serve.Samples.HelloServices
             IExecutionContext context, 
             RoutineProcedureContext<GetHelloRequest, GetHelloResponse, JObject> procedureContext)
         {
+            var greetingData = GreetingDataResource.GetGreetingDataByLanguage(
+                procedureContext.Request.Data.Lang ?? "en");
 
             var name = procedureContext.Request.Data?.Name;
 
-            var nameClause = string.IsNullOrEmpty(name) ? " World" : $", {name}";
+            var nameClause = string.IsNullOrEmpty(name) ? " World" : $"{greetingData.Separator} {name}";
 
             var data = new GetHelloResponse
             {
-                Message = $"Hello{nameClause}!",
+                Message = $"{greetingData.Greeting}{nameClause}!",
             };
 
             procedureContext.Response = procedureContext.Request.CreateOutboundMessage(new MessageCredentials(), data, null);

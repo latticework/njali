@@ -157,7 +157,10 @@ namespace Jali.Serve.Server
                 var result = await this._serviceManager.SendMethod(
                     resourceName, request.Method.Method, requestMessage, resourceKey);
 
-                return result.AsResponse(request);
+                return await this.Options.MessageConverter.ToResponse(result, request);
+
+                // TODO: JaliServer.Send: Remove these types.
+                //return result.AsResponse(request);
             }
 
 

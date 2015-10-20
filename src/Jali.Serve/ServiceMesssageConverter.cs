@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using Jali.Core;
 using Jali.Notification;
@@ -69,7 +70,14 @@ namespace Jali.Serve
 
             if (data != null)
             {
-                json.Add("data", JObject.FromObject(data, serializer));
+                if (data is IEnumerable)
+                {
+                    json.Add("data", JArray.FromObject(data, serializer));
+                }
+                else
+                {
+                    json.Add("data", JObject.FromObject(data, serializer));
+                }
             }
 
             messages = messages ?? Enumerable.Empty<NotificationMessage>();

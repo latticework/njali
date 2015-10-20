@@ -10,7 +10,7 @@ namespace Jali.Serve.Samples.HelloServices.GreetingData
     {
         public const string Name = "get-greetingdata";
 
-        public GetGreetingDataRoutine(ResourceBase resource, Routine routine) : base(resource, routine)
+        public GetGreetingDataRoutine(ResourceBase resource) : base(resource, GetDefinition(resource.Definition.Url))
         {
         }
 
@@ -19,10 +19,25 @@ namespace Jali.Serve.Samples.HelloServices.GreetingData
             RoutineProcedureContext<GetGreetingDataRequest, IEnumerable<GreetingData>, GreetingDataKey> 
                 procedureContext)
         {
+            var result = new List<GreetingData>();
+
             if (procedureContext.Key != null)
             {
-                
+                result.Add(GreetingDataResource.GetGreetingDataByKey(procedureContext.Key.Id));
             }
+            else if (procedureContext.Request.Data.Lang != null)
+            {
+                result.Add(GreetingDataResource.GetGreetingDataByLanguage(procedureContext.Request.Data.Lang));
+            }
+            else
+            {
+                result.AddRange(GreetingDataResource.GetAllGreetingData());
+            }
+
+            procedureContext.Response = procedureContext.Request.CreateOutboundMessage(
+                new MessageCredentials(), (IEnumerable<GreetingData>)result, null);
+
+            await Task.FromResult(true);
         }
 
         public static Routine GetDefinition(Uri resourceUrl)

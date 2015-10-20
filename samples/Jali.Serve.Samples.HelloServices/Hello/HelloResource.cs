@@ -34,6 +34,7 @@ namespace Jali.Serve.Samples.HelloServices
 
   ""type"": ""object"",
   ""properties"": {
+    ""lang"": {""type"": ""string"", ""description"": ""Language to say hello in.""},
     ""name"": {""type"": ""string"", ""description"": ""Name of requester to say hello to.""}
   }
 }");

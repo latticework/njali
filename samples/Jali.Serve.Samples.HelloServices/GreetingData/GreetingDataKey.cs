@@ -2,6 +2,6 @@
 {
     public class GreetingDataKey
     {
-         public string GreetingDataId { get; set; }
+         public string Id { get; set; }
     }
 }

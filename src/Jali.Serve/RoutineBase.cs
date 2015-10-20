@@ -134,7 +134,9 @@ namespace Jali.Serve
         private TResourceKey ToTypedKey(JObject key)
         {
             // TODO: RoutineBase.ToTypedKey: Determine whether any json serialization settings are needed.
-            return key?.ToObject<TResourceKey>();
+            return (typeof(TResourceKey) == typeof(JObject))
+                ? (TResourceKey)(object)key
+                : key?.ToObject<TResourceKey>();
         }
 
         private RoutineProcedureContext<TRequestData, TResponseData, TResourceKey> CreateProcedureContext()

@@ -7,12 +7,12 @@ namespace Jali.Notification
     {
         public static MessagePriority GetPriority(this IEnumerable<NotificationMessage> messages)
         {
-            return messages.Min(m => m.Priority);
+            return (messages.Any()) ? messages.Min(m => m.Priority) : (MessagePriority)15;
         }
 
         public static MessageSeverity GetSeverity(this IEnumerable<NotificationMessage> messages)
         {
-            return messages.Min(m => m.Severity);
+            return (messages.Any()) ? messages.Min(m => m.Severity) : (MessageSeverity)15;
         }
 
         public static bool HasErrors(this IEnumerable<NotificationMessage> messages)

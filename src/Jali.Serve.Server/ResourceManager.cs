@@ -79,7 +79,10 @@ namespace Jali.Serve.Server
 
             var routineManager = await this.GetRoutineManager(methodResult.Value.Routine);
 
-            var requestAction = methodResult.Value.Request.Message.Action;
+            var requestAction = (key == null)
+                ? methodResult.Value.Request.Message.Action
+                : methodResult.Value.KeyRequest.Message.Action;
+
             var responseAction = methodResult.Value.Response.Message.Action;
 
             var result = await routineManager.ExecuteProcedure(requestAction, responseAction, request, resourceKey);
