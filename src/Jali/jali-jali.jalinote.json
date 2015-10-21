@@ -1,0 +1,39 @@
+{
+  "name": "JaliMessages",
+  "authority": "jali",
+  "domain": "jali",
+  "library": "jali",
+  "messages": [
+    {
+      "baseCode": "0001",
+      "name": "AuthorizationError",
+      "description": "Informs that the authenticated user is not authorized for the requested resource access.",
+      "severity": "error",
+      "template": "User '${args[0]}'is not authorized to access resource '${args[2]}' of type '${args[1]}'.",
+      "args": [
+        {
+          "position": 0,
+          "name": "userId",
+          "type": "string",
+          "description": "The Jali UserId of the authenticated user.",
+          "identifying": false
+        },
+        {
+          "position": 1,
+          "name": "claimType",
+          "type": "string",
+          "description": "The type of the required claim.",
+          "identifying": false
+        },
+        {
+          "position": 2,
+          "name": "claimValue",
+          "type": "string",
+          "description": "The value of the required claim.",
+          "identifying": false
+        }
+      ],
+      "identifying": false
+    }
+  ]
+}
