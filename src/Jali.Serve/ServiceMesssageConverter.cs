@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Linq;
 using Jali.Core;
-using Jali.Notification;
+using Jali.Note;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

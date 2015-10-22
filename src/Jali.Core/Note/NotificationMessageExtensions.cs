@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Jali.Notification
+namespace Jali.Note
 {
     public static class NotificationMessageExtensions
     {

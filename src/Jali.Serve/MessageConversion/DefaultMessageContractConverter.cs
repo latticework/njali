@@ -14,7 +14,12 @@ namespace Jali.Serve.MessageConversion
         ///     Converts from an http request to a service message contract. This implementation performs no 
         ///     conversions.
         /// </summary>
-        /// <param name="request">
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>        /// <param name="request">
         ///     The http request.
         /// </param>
         /// <param name="message">
@@ -23,7 +28,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     <see langword="null"/> so the message remains unmodified.
         /// </returns>
-        public Task<MessageContract> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message)
+        public virtual Task<MessageContract> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
         {
             return Task.FromResult<MessageContract>(null);
         }
@@ -32,6 +37,8 @@ namespace Jali.Serve.MessageConversion
         ///     Uses a response service message contract to modify an http response. This implementation performs no 
         ///     conversions.
         /// </summary>
+        /// <param name="context"></param>
+        /// <param name="conversionContext"></param>
         /// <param name="contract">
         ///     The response service message contract.
         /// </param>
@@ -47,8 +54,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     A value indicating that the http response was not modified.
         /// </returns>
-        public Task<bool> ToResponse(MessageContract contract, HttpRequestMessage request, IServiceMessage message,
-            HttpResponseMessage response)
+        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, MessageContract contract, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
         {
             return Task.FromResult(false);
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Jali
+namespace Jali.Secure
 {
     /// <summary>
     ///     Represents a security claim.

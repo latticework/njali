@@ -6,6 +6,23 @@
   "messages": [
     {
       "baseCode": "0001",
+      "name": "AuthenticationError",
+      "description": "Informs that the requester is not an authenticated user.",
+      "severity": "error",
+      "template": "Access to requested resource${args[0] != null ? \" '${args[0]}'\" : \"\"} requires an authenticated user.",
+      "args": [
+        {
+          "position": 0,
+          "name": "resourceName",
+          "type": "string",
+          "description": "The name of the resource being accessed.",
+          "identifying": false
+        }
+      ],
+      "identifying": false
+    },
+    {
+      "baseCode": "0002",
       "name": "AuthorizationError",
       "description": "Informs that the authenticated user is not authorized for the requested resource access.",
       "severity": "error",

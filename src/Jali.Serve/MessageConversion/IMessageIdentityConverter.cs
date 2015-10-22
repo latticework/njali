@@ -12,6 +12,12 @@ namespace Jali.Serve.MessageConversion
         /// <summary>
         ///     Converts from an http request to a service message contract.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="request">
         ///     The http request.
         /// </param>
@@ -22,11 +28,18 @@ namespace Jali.Serve.MessageConversion
         ///     The request <see cref="MessageIdentity"/> or <see langword="null"/> if the message should remain 
         ///     unmodified.
         /// </returns>
-        Task<MessageIdentity> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message);
+        Task<MessageIdentity> FromRequest(
+            IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message);
 
         /// <summary>
         ///     Uses a response service message contract to modify an http response.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="identity">
         ///     The response service message identity.
         /// </param>
@@ -43,6 +56,8 @@ namespace Jali.Serve.MessageConversion
         ///     A value indicating whether the converter modified the http response.
         /// </returns>
         Task<bool> ToResponse(
+            IExecutionContext context, 
+            MessageConversionContext conversionContext,
             MessageIdentity identity,
             HttpRequestMessage request,
             IServiceMessage message,

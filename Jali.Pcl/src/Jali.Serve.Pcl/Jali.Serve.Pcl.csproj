@@ -224,6 +224,9 @@
     <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\IServiceMessageTenantConverter.cs">
       <Link>MessageConversion\IServiceMessageTenantConverter.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\MessageConversion\MessageConversionContext.cs">
+      <Link>MessageConversion\MessageConversionContext.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\MessageCredentials.cs">
       <Link>MessageCredentials.cs</Link>
     </Compile>
@@ -238,6 +241,9 @@
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\RoutineProcedureContext.cs">
       <Link>RoutineProcedureContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Secure\IAuthenticator.cs">
+      <Link>Secure\IAuthenticator.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\ServiceBase.cs">
       <Link>ServiceBase.cs</Link>

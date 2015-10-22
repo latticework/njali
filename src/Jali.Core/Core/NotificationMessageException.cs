@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Jali.Notification;
+using Jali.Note;
 
 #if !DNX && !PCL
 using System.Runtime.Serialization;

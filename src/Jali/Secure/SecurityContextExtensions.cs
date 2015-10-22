@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace Jali
+namespace Jali.Secure
 {
     /// <summary>
     ///     Extension methods for the <see cref="ISecurityContext"/> class.
@@ -24,7 +24,7 @@ namespace Jali
         /// </returns>
         public static bool HasClaim(this ISecurityContext context, string type, string value)
         {
-            return context.UserClaims.HasClaim(type, value);
+            return context.User.HasClaim(type, value);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Jali
         /// </returns>
         public static bool HasImpersonator(this ISecurityContext context)
         {
-            return context.DeputyClaims != null;
+            return context.Impersonator != null;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Jali
         /// </returns>
         public static bool HasDeputy(this ISecurityContext context)
         {
-            return context.ImpersonatorClaims != null;
+            return context.Deputy != null;
         }
     }
 

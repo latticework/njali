@@ -14,6 +14,12 @@ namespace Jali.Serve.MessageConversion
         ///     Converts from an http request to a service message contract. This implementation performs no 
         ///     conversions.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="request">
         ///     The http request.
         /// </param>
@@ -23,7 +29,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     <see langword="null"/> so the message remains unmodified.
         /// </returns>
-        public Task<MessageIdentity> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message)
+        public virtual Task<MessageIdentity> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
         {
             return Task.FromResult<MessageIdentity>(null);
         }
@@ -32,6 +38,12 @@ namespace Jali.Serve.MessageConversion
         /// <summary>
         ///     Uses a response service message contract to modify an http response.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="identity">
         ///     The response service message identity.
         /// </param>
@@ -47,8 +59,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     A value indicating that the http response was not modified.
         /// </returns>
-        public Task<bool> ToResponse(MessageIdentity identity, HttpRequestMessage request, IServiceMessage message,
-            HttpResponseMessage response)
+        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, MessageIdentity identity, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
         {
             return Task.FromResult(false);
         }

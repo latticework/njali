@@ -13,6 +13,8 @@ namespace Jali.Serve.MessageConversion
         /// <summary>
         ///     Converts from an http request to a service message tenant. This implementation performs no conversions.
         /// </summary>
+        /// <param name="context"></param>
+        /// <param name="conversionContext"></param>
         /// <param name="request">
         ///     The http request.
         /// </param>
@@ -22,7 +24,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     <see langword="null"/> so the message remains unmodified.
         /// </returns>
-        public Task<TenantIdentity> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message)
+        public virtual Task<TenantIdentity> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
         {
             return Task.FromResult<TenantIdentity>(null);
         }
@@ -31,6 +33,8 @@ namespace Jali.Serve.MessageConversion
         ///     Uses a response service message tenant to modify an http response. This implementation performs no 
         ///     conversions.
         /// </summary>
+        /// <param name="context"></param>
+        /// <param name="conversionContext"></param>
         /// <param name="tenant">
         ///     The response service message tenant.
         /// </param>
@@ -46,7 +50,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     A value indicating that the http response was not modified.
         /// </returns>
-        public Task<bool> ToResponse(TenantIdentity tenant, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
+        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, TenantIdentity tenant, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
         {
             return Task.FromResult(false);
         }

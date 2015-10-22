@@ -34,20 +34,25 @@ namespace Jali.Serve.Server
         public JaliServer Server { get; }
         public IService Service { get; }
 
-        public async Task Run()
+        public async Task Run(IExecutionContext context)
         {
             if (this.Running)
             {
                 throw new InvalidOperationException("'ServiceManager' is already running.");
             }
 
-            await this.Service.Init(new ExecutionContext(), this.Context);
+            await this.Service.Init(context, this.Context);
 
             this.Running = true;
         }
 
         public async Task<IServiceMessage> SendMethod(
-            string resourceName, string method, ServiceMessage<JObject> request, string key = null)
+            IExecutionContext context, 
+            ISecurityContext user,
+            string resourceName, 
+            string method, 
+            ServiceMessage<JObject> request, 
+            string key = null)
         {
             if (resourceName == null) throw new ArgumentNullException(nameof(resourceName));
             if (method == null) throw new ArgumentNullException(nameof(method));
@@ -59,24 +64,22 @@ namespace Jali.Serve.Server
                 throw new InvalidOperationException(message);
             }
 
-            var resourceManager = await this.GetResourceManager(resourceName);
+            var resourceManager = await this.GetResourceManager(context, resourceName);
 
-            return await resourceManager.SendMethod(method, request, key);
+            return await resourceManager.SendMethod(context, user, method, request, key);
         }
 
-        private async Task<ResourceManager> GetResourceManager(string resourceName)
+        private async Task<ResourceManager> GetResourceManager(IExecutionContext context, string resourceName)
         {
             if (resourceName == null) throw new ArgumentNullException(nameof(resourceName));
 
             var result = await this._resourcesManagers.GetOrCreateValueAsync(resourceName, async () =>
             {
-                var context = new ExecutionContext();
-
                 var resource = await this.Service.GetResource(context, resourceName);
 
                 var manager = new ResourceManager(this, resource);
 
-                await manager.Run();
+                await manager.Run(context);
 
                 return manager;
             });

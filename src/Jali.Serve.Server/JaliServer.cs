@@ -20,14 +20,19 @@ namespace Jali.Serve.Server
         /// <summary>
         ///     Initializes a new instance of the <see cref="JaliServer"/> class.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
         /// <param name="service">
         ///     The Jali service being hosted.
         /// </param>
         /// <param name="options">
         ///     Initialization options.
         /// </param>
-        public JaliServer(IService service, JaliServerOptions options)
+        public JaliServer(IExecutionContext context, IService service, JaliServerOptions options)
         {
+            // TODO: JaliServer.ctor: Verify that it's ok to set the server's execution context as a property even though it will cross threads.
+            this.ExecutionContext = context;
             this.Running = false;
             this.Service = service;
 
@@ -39,6 +44,11 @@ namespace Jali.Serve.Server
                 KeyConverter = overrideOptions.KeyConverter ?? new DefaultResourceKeyConverter(),
             };
         }
+
+        /// <summary>
+        ///     The execution context of the Jali server.
+        /// </summary>
+        public IExecutionContext ExecutionContext { get; }
 
         /// <summary>
         ///     Initialization options.
@@ -58,13 +68,16 @@ namespace Jali.Serve.Server
         /// <summary>
         ///     Starts the host runtime.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
         /// <param name="ct">
         ///     A cancellation token.
         /// </param>
         /// <returns>
         ///     A <see cref="Task"/>.
         /// </returns>
-        public async Task Run(CancellationToken ct)
+        public async Task Run(IExecutionContext context, CancellationToken ct)
         {
             if (this.Running)
             {
@@ -74,10 +87,10 @@ namespace Jali.Serve.Server
             var jaliService = new JaliService();
             this._jaliServiceManager = new ServiceManager(this, jaliService);
 
-            await this._jaliServiceManager.Run();
+            await this._jaliServiceManager.Run(context);
 
             this._serviceManager = new ServiceManager(this, this.Service);
-            await this._serviceManager.Run();
+            await this._serviceManager.Run(context);
 
             this.Running = true;
 
@@ -123,9 +136,12 @@ namespace Jali.Serve.Server
                     Tenant = new TenantIdentity { },
                 };
 
-
                 var result = await this._jaliServiceManager.SendMethod(
-                    ServiceDescriptionResource.Name, "GET", getServiceDescriptionRequest);
+                    this.ExecutionContext, 
+                    this.ExecutionContext.Security, 
+                    ServiceDescriptionResource.Name, 
+                    "GET", 
+                    getServiceDescriptionRequest);
 
                 var typedResult = (ServiceMessage<GetServiceDescriptionResponse>) result;
 
@@ -152,12 +168,19 @@ namespace Jali.Serve.Server
                     resourceKey = null;
                 }
 
-                var requestMessage = await this.Options.MessageConverter.FromRequest(request);
+                var user = await this.Options.Authenticator.Authenticate(this.ExecutionContext, request);
+                //await this.Options.Authorizer.Authorize(securityContext);
+
+                var conversionContext = new MessageConversionContext(user);
+
+                var requestMessage = await this.Options.MessageConverter.FromRequest(
+                    this.ExecutionContext, conversionContext, request);
 
                 var result = await this._serviceManager.SendMethod(
-                    resourceName, request.Method.Method, requestMessage, resourceKey);
+                    this.ExecutionContext, user, resourceName, request.Method.Method, requestMessage, resourceKey);
 
-                return await this.Options.MessageConverter.ToResponse(result, request);
+                return await this.Options.MessageConverter.ToResponse(
+                    this.ExecutionContext, conversionContext, result, request);
 
                 // TODO: JaliServer.Send: Remove these types.
                 //return result.AsResponse(request);

@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Jali.Notification;
+using Jali.Note;
 using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.MessageConversion
@@ -12,7 +12,7 @@ namespace Jali.Serve.MessageConversion
     /// <summary>
     ///     Implementation of <see cref="IServiceMessageConverter"/> that delegates to converters for each
     /// </summary>
-    public class CompositeServiceMessageConverter : IServiceMessageConverter
+    public sealed class CompositeServiceMessageConverter : IServiceMessageConverter
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="CompositeServiceMessageConverter"/> class with the 
@@ -47,13 +47,20 @@ namespace Jali.Serve.MessageConversion
         /// <summary>
         ///     Converts from a <see cref="HttpRequestMessage"/> to a <see cref="ServiceMessage{JObject}"/>.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="request">
         ///     The http request.
         /// </param>
         /// <returns>
         ///     The request service message.
         /// </returns>
-        public async Task<ServiceMessage<JObject>> FromRequest(HttpRequestMessage request)
+        public async Task<ServiceMessage<JObject>> FromRequest(
+            IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
@@ -83,46 +90,50 @@ namespace Jali.Serve.MessageConversion
 
             var json = JObject.Parse(jsonString);
 
-            var message = await this.Options.Serializer.ToServiceMessage(json);
+            var message = await this.Options.Serializer.ToServiceMessage(context, conversionContext, json);
 
-            var contract = await this.Options.ContractConverter.FromRequest(request, message);
+            var contract = await this.Options.ContractConverter.FromRequest(
+                context, conversionContext, request, message);
+
             if (contract != null)
             {
                 message.Contract = contract;
             }
 
-            var credentials = await this.Options.CredentialsConverter.FromRequest(request, message);
+            var credentials = await this.Options.CredentialsConverter.FromRequest(
+                context, conversionContext, request, message);
+
             if (contract != null)
             {
                 message.Credentials = credentials;
             }
 
-            var messages = await this.Options.NotificationConverter.FromRequest(request, message);
+            var messages = await this.Options.NotificationConverter.FromRequest(context, conversionContext, request, message);
             if (contract != null)
             {
                 // Eplicit interface implementation replaces all elements.
                 ((IServiceMessage) message).Messages = messages;
             }
 
-            var identity = await this.Options.IdentityConverter.FromRequest(request, message);
+            var identity = await this.Options.IdentityConverter.FromRequest(context, conversionContext, request, message);
             if (identity != null)
             {
                 message.Identity = identity;
             }
 
-            var connection = await this.Options.ConnectionConverter.FromRequest(request, message);
+            var connection = await this.Options.ConnectionConverter.FromRequest(context, conversionContext, request, message);
             if (connection != null)
             {
                 message.Connection = connection;
             }
 
-            var tenant = await this.Options.TenantConverter.FromRequest(request, message);
+            var tenant = await this.Options.TenantConverter.FromRequest(context, conversionContext, request, message);
             if (tenant != null)
             {
                 message.Tenant = tenant;
             }
 
-            var data = await this.Options.DataConverter.FromRequest(request, message);
+            var data = await this.Options.DataConverter.FromRequest(context, conversionContext, request, message);
             if (data != null)
             {
                 message.Data = data;
@@ -135,6 +146,12 @@ namespace Jali.Serve.MessageConversion
         /// <summary>
         ///     Converts from an <see cref="IServiceMessage"/> to an <see cref="HttpResponseMessage"/>.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="message">
         ///     The response service message.
         /// </param>
@@ -144,7 +161,8 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     The http response.
         /// </returns>
-        public async Task<HttpResponseMessage> ToResponse(IServiceMessage message, HttpRequestMessage request)
+        public async Task<HttpResponseMessage> ToResponse(
+            IExecutionContext context, MessageConversionContext conversionContext, IServiceMessage message, HttpRequestMessage request)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -181,30 +199,30 @@ namespace Jali.Serve.MessageConversion
             // TODO: CompositeMessageConverter.ToResponse: Use 'changed' for diagnostics.
             var changed = false;
             changed |= await this.Options.ContractConverter.ToResponse(
-                message.Contract, request, outgoingMessage, response);
+                context, conversionContext, message.Contract, request, outgoingMessage, response);
 
             changed |= await this.Options.CredentialsConverter.ToResponse(
-                message.Credentials, request, outgoingMessage, response);
+                context, conversionContext, message.Credentials, request, outgoingMessage, response);
 
             changed |= await this.Options.NotificationConverter.ToResponse(
-                message.Messages, request, outgoingMessage, response);
+                context, conversionContext, message.Messages, request, outgoingMessage, response);
 
             changed |= await this.Options.IdentityConverter.ToResponse(
-                message.Identity, request, outgoingMessage, response);
+                context, conversionContext, message.Identity, request, outgoingMessage, response);
 
             changed |= await this.Options.ConnectionConverter.ToResponse(
-                message.Connection, request, outgoingMessage, response);
+                context, conversionContext, message.Connection, request, outgoingMessage, response);
 
             changed |= await this.Options.TenantConverter.ToResponse(
-                message.Tenant, request, outgoingMessage, response);
+                context, conversionContext, message.Tenant, request, outgoingMessage, response);
 
-            var json = await this.Options.Serializer.FromServiceMessage(outgoingMessage);
+            var json = await this.Options.Serializer.FromServiceMessage(context, conversionContext, outgoingMessage);
             var jsonData = (JObject)(json["data"]);
 
 
-            changed |= await this.Options.DataConverter.ToResponse(jsonData, message, request, response);
+            changed |= await this.Options.DataConverter.ToResponse(context, conversionContext, jsonData, message, request, response);
 
-            var jsonString = await this.Options.Serializer.Serialize(json);
+            var jsonString = await this.Options.Serializer.Serialize(context, conversionContext, json);
 
             response.Content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 

@@ -14,6 +14,12 @@ namespace Jali.Serve.MessageConversion
         ///     Converts from an http request to a service message contract. This implementation performs no 
         ///     conversions.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="request">
         ///     The http request.
         /// </param>
@@ -23,7 +29,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     <see langword="null"/> so the message remains unmodified.
         /// </returns>
-        public Task<MessageConnection> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message)
+        public virtual Task<MessageConnection> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
         {
             return Task.FromResult<MessageConnection>(null);
         }
@@ -32,6 +38,12 @@ namespace Jali.Serve.MessageConversion
         ///     Uses a response service message connection to modify an http response. This implementation performs no 
         ///     conversions.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="connection">
         ///     The response service message connection.
         /// </param>
@@ -47,11 +59,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     A value indicating tha the http response was not modified.
         /// </returns>
-        public Task<bool> ToResponse(
-            MessageConnection connection,
-            HttpRequestMessage request,
-            IServiceMessage message,
-            HttpResponseMessage response)
+        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, MessageConnection connection, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
         {
             return Task.FromResult(false);
         }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Jali.Notification
+namespace Jali.Note
 {
     public interface INotificationMessage
     {

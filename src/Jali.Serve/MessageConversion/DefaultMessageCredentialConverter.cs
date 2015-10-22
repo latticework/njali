@@ -14,6 +14,12 @@ namespace Jali.Serve.MessageConversion
         ///     Converts from an http request to service message credentials. This implementation performs no 
         /// conversions.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="request">
         ///     The http request.
         /// </param>
@@ -24,7 +30,7 @@ namespace Jali.Serve.MessageConversion
         ///     The request service <see cref="MessageCredentials"/> or <see langword="null"/> if the message should 
         ///     remain unmodified.
         /// </returns>
-        public async Task<MessageCredentials> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message)
+        public virtual async Task<MessageCredentials> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
         {
             return await Task.FromResult<MessageCredentials>(null);
         }
@@ -33,6 +39,12 @@ namespace Jali.Serve.MessageConversion
         ///     Uses response service message credentials to modify an http response. This implementation performs no 
         ///     conversions.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="contract">
         ///     The response service message contract.
         /// </param>
@@ -48,11 +60,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     A value indicating whether the converter modified the http response.
         /// </returns>
-        public async Task<bool> ToResponse(
-            MessageCredentials contract,
-            HttpRequestMessage request,
-            IServiceMessage message,
-            HttpResponseMessage response)
+        public virtual async Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, MessageCredentials contract, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
         {
             return await Task.FromResult(false);
         }

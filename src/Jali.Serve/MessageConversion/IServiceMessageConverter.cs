@@ -13,17 +13,30 @@ namespace Jali.Serve.MessageConversion
         /// <summary>
         ///     Converts from a <see cref="HttpRequestMessage"/> to a <see cref="ServiceMessage{JObject}"/>.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="request">
         ///     The http request.
         /// </param>
         /// <returns>
         ///     The request service message.
         /// </returns>
-        Task<ServiceMessage<JObject>> FromRequest(HttpRequestMessage request);
+        Task<ServiceMessage<JObject>> FromRequest(
+            IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request);
 
         /// <summary>
         ///     Converts from an <see cref="IServiceMessage"/> to an <see cref="HttpResponseMessage"/>.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="message">
         ///     The response service message.
         /// </param>
@@ -33,6 +46,10 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     The http response.
         /// </returns>
-        Task<HttpResponseMessage> ToResponse(IServiceMessage message, HttpRequestMessage request);
+        Task<HttpResponseMessage> ToResponse(
+            IExecutionContext context, 
+            MessageConversionContext conversionContext, 
+            IServiceMessage message, 
+            HttpRequestMessage request);
     }
 }

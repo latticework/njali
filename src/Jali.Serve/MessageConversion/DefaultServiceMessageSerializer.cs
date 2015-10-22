@@ -35,13 +35,19 @@ namespace Jali.Serve.MessageConversion
         /// <summary>
         ///     Converts a JSON string to a <see cref="ServiceMessage{JObject}"/>.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="message">
         ///     The service message object.
         /// </param>
         /// <returns>
         ///     The new service message JSON string.
         /// </returns>
-        public async Task<JObject> FromServiceMessage(IServiceMessage message)
+        public virtual async Task<JObject> FromServiceMessage(IExecutionContext context, MessageConversionContext conversionContext, IServiceMessage message)
         {
             var json = JObject.FromObject(message);
 
@@ -51,6 +57,12 @@ namespace Jali.Serve.MessageConversion
         /// <summary>
         ///     Converts a <see cref="ServiceMessage{JObject}"/> to a JSON object.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="json">
         ///     The service message JSON object.
         /// </param>
@@ -60,7 +72,8 @@ namespace Jali.Serve.MessageConversion
         /// <remarks>
         ///     This implementation uses the default <see cref="ServiceMessage{TData}"/> serializer.
         /// </remarks>
-        public async Task<ServiceMessage<JObject>> ToServiceMessage(JObject json)
+        public virtual async Task<ServiceMessage<JObject>> ToServiceMessage(
+            IExecutionContext context, MessageConversionContext conversionContext, JObject json)
         {
             var message = this._serializer.Value.Deserialize<ServiceMessage<JObject>>(new JTokenReader(json));
 
@@ -70,13 +83,19 @@ namespace Jali.Serve.MessageConversion
         /// <summary>
         ///     Serializes the message JSON object to a JSON string.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="json">
         ///     The message JSON object.
         /// </param>
         /// <returns>
         ///     The new message JSON string.
         /// </returns>
-        public Task<string> Serialize(JObject json)
+        public virtual Task<string> Serialize(IExecutionContext context, MessageConversionContext conversionContext, JObject json)
         {
             var jsonString = json.ToString(this._serializer.Value.Formatting);
 

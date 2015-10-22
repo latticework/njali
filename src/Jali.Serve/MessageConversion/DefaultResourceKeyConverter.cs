@@ -25,7 +25,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     The new string representation.
         /// </returns>
-        public string FromResourceKey(JSchema keySchema, JObject key)
+        public virtual string FromResourceKey(JSchema keySchema, JObject key)
         {
             var properties = GetSchemaProperties(keySchema);
 
@@ -54,7 +54,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     The new JSON object representation.
         /// </returns>
-        public JObject ToResourceKey(JSchema keySchema, string keyString)
+        public virtual JObject ToResourceKey(JSchema keySchema, string keyString)
         {
             var properties = GetSchemaProperties(keySchema);
 

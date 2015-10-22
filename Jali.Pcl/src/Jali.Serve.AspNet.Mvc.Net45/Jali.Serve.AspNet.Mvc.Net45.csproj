@@ -116,6 +116,10 @@
       <Project>{53e9c750-56fd-481e-a4ca-f6fa687f4f79}</Project>
       <Name>Jali.Core.Pcl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Jali.Pcl\Jali.Pcl.csproj">
+      <Project>{8F365500-2EDB-486F-BE35-BF34D792874B}</Project>
+      <Name>Jali.Pcl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Jali.Serve.Pcl\Jali.Serve.Pcl.csproj">
       <Project>{a5a96225-6183-40e6-865c-4894f925f3c9}</Project>
       <Name>Jali.Serve.Pcl</Name>

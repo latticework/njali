@@ -24,5 +24,16 @@
         ///     Provides metrics tracking services.
         /// </summary>
         IMetricsContext Metrics { get; }
+
+        /// <summary>
+        ///     Creates an execution context from the current execution context.
+        /// </summary>
+        /// <param name="securityContext">
+        ///     The security context to replace
+        /// </param>
+        /// <returns>
+        ///     The new execution context.
+        /// </returns>
+        IExecutionContext MakeContext(ISecurityContext securityContext);
     }
 }

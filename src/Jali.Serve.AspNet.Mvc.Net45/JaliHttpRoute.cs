@@ -9,9 +9,9 @@ namespace Jali.Serve.AspNet.Mvc
 {
     public class JaliHttpRoute : IHttpRoute
     {
-        public JaliHttpRoute(IService service, JaliServerOptions options)
+        public JaliHttpRoute(IExecutionContext context, IService service, JaliServerOptions options)
         {
-            this.Handler = new JaliHttpMessageHandler(service, options);
+            this.Handler = new JaliHttpMessageHandler(context, service, options);
         }
 
         public IHttpRouteData GetRouteData(string virtualPathRoot, HttpRequestMessage request)

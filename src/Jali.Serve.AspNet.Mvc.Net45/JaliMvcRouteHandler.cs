@@ -7,18 +7,16 @@ namespace Jali.Serve.AspNet.Mvc
 {
     public class JaliMvcRouteHandler : IRouteHandler
     {
-        public JaliMvcRouteHandler(IService service, JaliServerOptions options)
+        public JaliMvcRouteHandler(IExecutionContext context, IService service, JaliServerOptions options)
         {
-            this.Service = service;
-            this.Options = options;
+            this.Handler = new JaliHttpMessageHandler(context, service, options);
         }
 
-        public JaliServerOptions Options { get; }
-        public IService Service { get; }
+        public JaliHttpMessageHandler Handler { get; }
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            return new HttpControllerHandler(new RouteData(), new JaliHttpMessageHandler(this.Service, this.Options));
+            return new HttpControllerHandler(new RouteData(), this.Handler);
         }
     }
 }

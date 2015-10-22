@@ -1,5 +1,12 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Security.Principal;
+using System.Threading;
+using System.Web.Http;
+using Jali;
+using Jali.Core;
+using Jali.Secure;
 using Jali.Serve.Samples.HelloServices;
+using Jali.Serve.Server;
 
 namespace HelloJali.Web
 {
@@ -13,7 +20,17 @@ namespace HelloJali.Web
 
             var helloService = new HelloService();
 
-            config.UseJaliService(helloService, null);
+            var claims = WindowsIdentity.GetCurrent()?.Claims.Select(c => new Jali.Secure.Claim(c.Type, c.Value));
+
+            if (claims == null)
+            {
+                throw new InternalErrorException("The AppPool identity is not assigned. Cannot create Jali Service");
+            }
+
+            var identity = new SecurityIdentity(claims);
+            var context = new DefaultExecutionContext(identity);
+
+            config.UseJaliService(context, helloService, null);
 
             config.MapHttpAttributeRoutes();
 

@@ -1,4 +1,4 @@
-﻿namespace Jali.Notification.Definition
+﻿namespace Jali.Note.Definition
 {
     public class ArgumentDefinition
     {

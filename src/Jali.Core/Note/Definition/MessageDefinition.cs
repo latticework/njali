@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Jali.Notification.Definition
+namespace Jali.Note.Definition
 {
     public class MessageDefinition
     {    

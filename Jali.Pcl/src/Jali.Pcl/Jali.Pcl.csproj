@@ -36,11 +36,8 @@
     <DocumentationFile>bin\Release\Jali.Pcl.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\src\Jali\ClaimExtensions.cs">
-      <Link>ClaimExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali\ExecutionContext.cs">
-      <Link>ExecutionContext.cs</Link>
+    <Compile Include="..\..\..\src\Jali\DefaultExecutionContext.cs">
+      <Link>DefaultExecutionContext.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali\IConfigurationContext.cs">
       <Link>IConfigurationContext.cs</Link>
@@ -54,20 +51,39 @@
     <Compile Include="..\..\..\src\Jali\IMetricsContext.cs">
       <Link>IMetricsContext.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali\ISecurityContext.cs">
+      <Link>ISecurityContext.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali\JaliMessages.cs">
       <Link>JaliMessages.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali\SecurityContextExtensions.cs">
-      <Link>SecurityContextExtensions.cs</Link>
+    <Compile Include="..\..\..\src\Jali\Secure\AuthorizationResult.cs">
+      <Link>Secure\AuthorizationResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali\Security\SecurityContext.cs">
-      <Link>Security\SecurityContext.cs</Link>
+    <Compile Include="..\..\..\src\Jali\Secure\Claim.cs">
+      <Link>Secure\Claim.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali\Security\SecurityContextOptions.cs">
-      <Link>Security\SecurityContextOptions.cs</Link>
+    <Compile Include="..\..\..\src\Jali\Secure\ClaimExtensions.cs">
+      <Link>Secure\ClaimExtensions.cs</Link>
     </Compile>
-    <Compile Include="Claim.cs" />
-    <Compile Include="ISecurityContext.cs" />
+    <Compile Include="..\..\..\src\Jali\Secure\IAuthorizer.cs">
+      <Link>Secure\IAuthorizer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\SecurityContext.cs">
+      <Link>Secure\SecurityContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\SecurityContextExtensions.cs">
+      <Link>Secure\SecurityContextExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\SecurityContextOptions.cs">
+      <Link>Secure\SecurityContextOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\SecurityIdentity.cs">
+      <Link>Secure\SecurityIdentity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\SecurityPrincipal.cs">
+      <Link>Secure\SecurityPrincipal.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

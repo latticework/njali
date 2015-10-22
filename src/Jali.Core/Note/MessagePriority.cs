@@ -1,4 +1,4 @@
-﻿namespace Jali.Notification
+﻿namespace Jali.Note
 {
     public enum MessagePriority
     {

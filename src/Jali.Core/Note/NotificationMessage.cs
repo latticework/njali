@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Jali.Notification
+namespace Jali.Note
 {
     using static MessageCode;
     public class NotificationMessage : INotificationMessage

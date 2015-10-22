@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Jali.Notification;
+using Jali.Note;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

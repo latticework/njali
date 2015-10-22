@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Jali.Notification.Definition
+namespace Jali.Note.Definition
 {
     public class MessageLibrary
     {

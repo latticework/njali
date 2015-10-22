@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Jali.Notification
+namespace Jali.Note
 {
     public class NotificationMessageCollection : Collection<NotificationMessage>
     {

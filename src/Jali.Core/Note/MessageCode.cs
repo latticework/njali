@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Jali.Notification
+namespace Jali.Note
 {
     //             1
     // 0123 4567 8901 2345

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Jali.Secure;
 
 namespace Jali
 {
@@ -9,18 +10,18 @@ namespace Jali
     public interface ISecurityContext
     {
         /// <summary>
-        ///     Claims of the end user.
+        ///     Represents the end user.
         /// </summary>
-        IEnumerable<Claim> UserClaims { get; }
+        SecurityPrincipal User { get; }
 
         /// <summary>
-        ///     Claims of any impersonator.
+        ///     Represents the impersonator or <see langword="null"/> if no impersonator exists.
         /// </summary>
-        IEnumerable<Claim> ImpersonatorClaims { get; }
+        SecurityPrincipal Impersonator { get; }
 
         /// <summary>
-        ///     Claims of any deputy or service account.
+        ///     Represents the deputy or service account or <see langword="null"/> if no deputy exists.
         /// </summary>
-        IEnumerable<Claim> DeputyClaims { get; }
+        SecurityPrincipal Deputy { get; }
     }
 }

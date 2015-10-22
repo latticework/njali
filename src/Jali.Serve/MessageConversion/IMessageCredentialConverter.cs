@@ -12,6 +12,12 @@ namespace Jali.Serve.MessageConversion
         /// <summary>
         ///     Converts from an http request to service message credentials.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="request">
         ///     The http request.
         /// </param>
@@ -22,11 +28,18 @@ namespace Jali.Serve.MessageConversion
         ///     The request service <see cref="MessageCredentials"/> or <see langword="null"/> if the message should 
         ///     remain unmodified.
         /// </returns>
-        Task<MessageCredentials> FromRequest(HttpRequestMessage request, ServiceMessage<JObject> message);
+        Task<MessageCredentials> FromRequest(
+            IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message);
 
         /// <summary>
         ///     Uses response service message credentials to modify an http response.
         /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="conversionContext">
+        ///     The message conversion context.
+        /// </param>
         /// <param name="contract">
         ///     The response service message contract.
         /// </param>
@@ -43,6 +56,8 @@ namespace Jali.Serve.MessageConversion
         ///     A value indicating whether the converter modified the http response.
         /// </returns>
         Task<bool> ToResponse(
+            IExecutionContext context, 
+            MessageConversionContext conversionContext,
             MessageCredentials contract,
             HttpRequestMessage request,
             IServiceMessage message,

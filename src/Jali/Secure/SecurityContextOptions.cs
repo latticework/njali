@@ -1,4 +1,4 @@
-namespace Jali.Security
+namespace Jali.Secure
 {
     public class SecurityContextOptions
     {
