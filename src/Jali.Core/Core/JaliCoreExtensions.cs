@@ -90,5 +90,15 @@ namespace Jali.Core
         {
             return reference.GetOrCreateValue(key, () => default(TValue));
         }
+
+        public static bool EqualsOrdinal(this string receiver, string other)
+        {
+            return string.Equals(receiver, other, StringComparison.Ordinal);
+        }
+
+        public static bool EqualsOrdinalIgnoreCase(this string receiver, string other)
+        {
+            return string.Equals(receiver, other, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

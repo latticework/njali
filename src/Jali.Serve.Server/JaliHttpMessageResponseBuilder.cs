@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using Jali.Core;
-using Jali.Notification;
+using Jali.Note;
 using Newtonsoft.Json;
 
 namespace Jali.Serve.Server

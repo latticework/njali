@@ -1,5 +1,6 @@
 ﻿{
   "name": "JaliCoreMessages",
+  "description":  "Notification messages defined by the Jali Core package.",
   "authority": "jali",
   "domain": "jali",
   "library": "core",
@@ -15,7 +16,7 @@
           "position": 0,
           "name": "message",
           "type": "string",
-          "description": "The description of the internal error",
+          "description": "The description of the internal error.",
           "identifying": false
         }
       ],

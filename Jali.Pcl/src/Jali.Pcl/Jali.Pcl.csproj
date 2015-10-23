@@ -36,8 +36,8 @@
     <DocumentationFile>bin\Release\Jali.Pcl.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\src\Jali\ExecutionContext.cs">
-      <Link>ExecutionContext.cs</Link>
+    <Compile Include="..\..\..\src\Jali\DefaultExecutionContext.cs">
+      <Link>DefaultExecutionContext.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali\IConfigurationContext.cs">
       <Link>IConfigurationContext.cs</Link>
@@ -51,7 +51,54 @@
     <Compile Include="..\..\..\src\Jali\IMetricsContext.cs">
       <Link>IMetricsContext.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali\ISecurityContext.cs">
+      <Link>ISecurityContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\JaliMessages.cs">
+      <Link>JaliMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\AuthorizationResult.cs">
+      <Link>Secure\AuthorizationResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\Claim.cs">
+      <Link>Secure\Claim.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\ClaimExtensions.cs">
+      <Link>Secure\ClaimExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\IAuthorizer.cs">
+      <Link>Secure\IAuthorizer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\SecurityContext.cs">
+      <Link>Secure\SecurityContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\SecurityContextExtensions.cs">
+      <Link>Secure\SecurityContextExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\SecurityContextOptions.cs">
+      <Link>Secure\SecurityContextOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\SecurityIdentity.cs">
+      <Link>Secure\SecurityIdentity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\SecurityPrincipal.cs">
+      <Link>Secure\SecurityPrincipal.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\WellKnownClaimTypes.cs">
+      <Link>Secure\WellKnownClaimTypes.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\Jali\jali-jali.jalinote.json">
+      <Link>jali-jali.jalinote.json</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jali.Core.Pcl\Jali.Core.Pcl.csproj">
+      <Project>{53E9C750-56FD-481E-A4CA-F6FA687F4F79}</Project>
+      <Name>Jali.Core.Pcl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using Jali.Serve.Definition;
+using Jali.Serve.Samples.HelloServices.GreetingData;
+using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Samples.HelloServices
 {
@@ -13,18 +15,21 @@ namespace Jali.Serve.Samples.HelloServices
 
         protected override async Task ExecuteProcedureCore(
             IExecutionContext context, 
-            RoutineProcedureContext<GetHelloRequest, GetHelloResponse> procedureContext)
+            RoutineProcedureContext<GetHelloRequest, GetHelloResponse, JObject> procedureContext)
         {
-            var name = procedureContext.Request.Data.Name;
+            var greetingData = GreetingDataResource.GetGreetingDataByLanguage(
+                procedureContext.Request.Data.Lang ?? "en");
 
-            var nameClause = string.IsNullOrEmpty(name) ? " World" : $", {name}";
+            var name = procedureContext.Request.Data?.Name;
+
+            var nameClause = string.IsNullOrEmpty(name) ? " World" : $"{greetingData.Separator} {name}";
 
             var data = new GetHelloResponse
             {
-                Message = $"Hello{nameClause}!",
+                Message = $"{greetingData.Greeting}{nameClause}!",
             };
 
-            procedureContext.Response = procedureContext.Request.CreateFromMessage(data, null);
+            procedureContext.Response = procedureContext.Request.CreateOutboundMessage(new MessageCredentials(), data, null);
 
             await Task.FromResult(true);
         }

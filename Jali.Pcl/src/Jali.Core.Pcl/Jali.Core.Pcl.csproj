@@ -57,44 +57,47 @@
     <Compile Include="..\..\..\src\Jali.Core\Core\TryGetResult.cs">
       <Link>Core\TryGetResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\Definition\ArgumentDefinition.cs">
-      <Link>Notification\Definition\ArgumentDefinition.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\ArgumentDefinition.cs">
+      <Link>Note\Definition\ArgumentDefinition.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\Definition\MessageAuthority.cs">
-      <Link>Notification\Definition\MessageAuthority.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageAuthority.cs">
+      <Link>Note\Definition\MessageAuthority.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\Definition\MessageDefinition.cs">
-      <Link>Notification\Definition\MessageDefinition.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDefinition.cs">
+      <Link>Note\Definition\MessageDefinition.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\Definition\MessageDefinitionFile.cs">
-      <Link>Notification\Definition\MessageDefinitionFile.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDefinitionFile.cs">
+      <Link>Note\Definition\MessageDefinitionFile.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\Definition\MessageDomain.cs">
-      <Link>Notification\Definition\MessageDomain.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDomain.cs">
+      <Link>Note\Definition\MessageDomain.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\Definition\MessageLibrary.cs">
-      <Link>Notification\Definition\MessageLibrary.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageLibrary.cs">
+      <Link>Note\Definition\MessageLibrary.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\Definition\MessageLibraryRegistry.cs">
-      <Link>Notification\Definition\MessageLibraryRegistry.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageLibraryRegistry.cs">
+      <Link>Note\Definition\MessageLibraryRegistry.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\INotificationMessage.cs">
-      <Link>Notification\INotificationMessage.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\INotificationMessage.cs">
+      <Link>Note\INotificationMessage.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\MessageCode.cs">
-      <Link>Notification\MessageCode.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\MessageCode.cs">
+      <Link>Note\MessageCode.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\MessagePriority.cs">
-      <Link>Notification\MessagePriority.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\MessagePriority.cs">
+      <Link>Note\MessagePriority.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\MessageSeverity.cs">
-      <Link>Notification\MessageSeverity.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\MessageSeverity.cs">
+      <Link>Note\MessageSeverity.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\NotificationMessage.cs">
-      <Link>Notification\NotificationMessage.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\NotificationMessage.cs">
+      <Link>Note\NotificationMessage.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Notification\NotificationMessageCollection.cs">
-      <Link>Notification\NotificationMessageCollection.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\NotificationMessageCollection.cs">
+      <Link>Note\NotificationMessageCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Note\NotificationMessageExtensions.cs">
+      <Link>Note\NotificationMessageExtensions.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

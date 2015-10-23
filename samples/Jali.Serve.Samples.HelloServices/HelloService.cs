@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Jali.Core;
 using Jali.Serve.Definition;
+using Jali.Serve.Samples.HelloServices.GreetingData;
 
 namespace Jali.Serve.Samples.HelloServices
 {
@@ -17,6 +18,7 @@ namespace Jali.Serve.Samples.HelloServices
         {
             var helloServiceUrl = new Uri("http://jali.io/serve/v0.0.1/samples/hello");
             var helloResource = HelloResource.GetDefinition(helloServiceUrl);
+            var greetingDataResource = GreetingDataResource.GetDefinition(helloServiceUrl);
 
             var helloService = new Service
             {
@@ -27,6 +29,7 @@ namespace Jali.Serve.Samples.HelloServices
                 Resources =
                 {
                     [helloResource.Name] = helloResource,
+                    [greetingDataResource.Name] = greetingDataResource,
                 }
             };
 
@@ -67,6 +70,7 @@ namespace Jali.Serve.Samples.HelloServices
             HelloService._resourceFactories = new Dictionary<string, Func<ServiceBase, Resource, ResourceBase>>
             {
                 [HelloResource.Name] = (s, r) => new HelloResource(s, r),
+                [GreetingDataResource.Name] = (s, r) => new GreetingDataResource(s, r),
             };
         }
 

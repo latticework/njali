@@ -43,23 +43,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\Error.cs">
-      <Link>Decompiled\Error.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\FormDataCollection.cs">
-      <Link>Decompiled\FormDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\FormDataCollectionExtensions.cs">
-      <Link>Decompiled\FormDataCollectionExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\FormUrlEncodedParser.cs">
-      <Link>Decompiled\FormUrlEncodedParser.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliHttpMessageResponseBuilder.cs">
       <Link>JaliHttpMessageResponseBuilder.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\JaliHttpRequestMessageExtensions.cs">
-      <Link>JaliHttpRequestMessageExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServer.cs">
       <Link>JaliServer.cs</Link>
@@ -103,9 +88,6 @@
     <Compile Include="..\..\..\src\Jali.Serve.Server\StageManager.cs">
       <Link>StageManager.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\UriQueryUtility.cs">
-      <Link>Decompiled\UriQueryUtility.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +125,9 @@
       <Project>{a5a96225-6183-40e6-865c-4894f925f3c9}</Project>
       <Name>Jali.Serve.Pcl</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Decompiled\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

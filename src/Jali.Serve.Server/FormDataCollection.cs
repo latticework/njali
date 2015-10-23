@@ -7,11 +7,10 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Formatting.Parsers;
 using System.Text;
-using Jali.Serve.Server;
-using JaliResources = Jali.Serve.Server.Resources;
+using Jali.Serve.Decompiled;
+using JaliResources = Jali.Serve.Decompiled.Resources;
 
 namespace System.Net.Http.Formatting
 {

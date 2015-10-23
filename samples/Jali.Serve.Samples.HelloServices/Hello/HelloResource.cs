@@ -18,7 +18,7 @@ namespace Jali.Serve.Samples.HelloServices
 
         public static Resource GetDefinition(Uri helloServiceUrl)
         {
-            var helloResourceUrl = new Uri(helloServiceUrl, "resources/hello/v0.0.1");
+            var helloResourceUrl = new Uri(helloServiceUrl, "resources/hello/v1.0.0");
 
             var resourceSchema = JSchema.Parse(@"{
   ""$schema"": ""http://json-schema.org/draft-04/schema#"",
@@ -34,6 +34,7 @@ namespace Jali.Serve.Samples.HelloServices
 
   ""type"": ""object"",
   ""properties"": {
+    ""lang"": {""type"": ""string"", ""description"": ""Language to say hello in.""},
     ""name"": {""type"": ""string"", ""description"": ""Name of requester to say hello to.""}
   }
 }");
@@ -57,7 +58,7 @@ namespace Jali.Serve.Samples.HelloServices
                             ["get-hello-request"] = new RoutineMessage
                             {
                                 Action = "get-hello-request",
-                                Direction = ActionDirection.To,
+                                Direction = MessageDirection.Inbound,
                                 Description = "Criteria for the get-hello routine",
                                 Schema = new SchemaReference
                                 {
@@ -68,7 +69,7 @@ namespace Jali.Serve.Samples.HelloServices
                             ["get-hello-result"] = new RoutineMessage
                             {
                                 Action = "get-hello-result",
-                                Direction = ActionDirection.From,
+                                Direction = MessageDirection.Outbound,
                                 Description = "The hello message.",
                                 Schema = new SchemaReference
                                 {

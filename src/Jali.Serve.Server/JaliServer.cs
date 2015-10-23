@@ -6,24 +6,81 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Jali.Core;
+using Jali.Secure;
+using Jali.Serve.Server.MessageConversion;
 using Jali.Serve.Server.ServiceDescription;
 using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server
 {
+    /// <summary>
+    ///     The Jali Service host.
+    /// </summary>
     public sealed class JaliServer
     {
-        public JaliServer(IService service)
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="JaliServer"/> class.
+        /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="service">
+        ///     The Jali service being hosted.
+        /// </param>
+        /// <param name="options">
+        ///     Initialization options.
+        /// </param>
+        public JaliServer(IExecutionContext context, IService service, JaliServerOptions options)
         {
+            // TODO: JaliServer.ctor: Verify that it's ok to set the server's execution context as a property even though it will cross threads.
+            this.ExecutionContext = context;
             this.Running = false;
             this.Service = service;
+
+            var overrideOptions = options ?? new JaliServerOptions();
+
+            this.Options = new JaliServerOptions
+            {
+                Authenticator = overrideOptions.Authenticator ?? new DefaultAuthenticator(),
+                Authorizer = overrideOptions.Authorizer ?? new DefaultAuthorizor(),
+                MessageConverter = overrideOptions.MessageConverter ?? new CompositeServiceMessageConverter(),
+                KeyConverter = overrideOptions.KeyConverter ?? new DefaultResourceKeyConverter(),
+            };
         }
 
+        /// <summary>
+        ///     The execution context of the Jali server.
+        /// </summary>
+        public IExecutionContext ExecutionContext { get; }
+
+        /// <summary>
+        ///     Initialization options.
+        /// </summary>
+        public JaliServerOptions Options { get; }
+
+        /// <summary>
+        ///     Gets a value indicating whether the server is running.
+        /// </summary>
         public bool Running { get; private set; }
 
+        /// <summary>
+        ///     The Jali service being hosted.
+        /// </summary>
         public IService Service { get; }
 
-        public async Task Run(CancellationToken ct)
+        /// <summary>
+        ///     Starts the host runtime.
+        /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="ct">
+        ///     A cancellation token.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="Task"/>.
+        /// </returns>
+        public async Task Run(IExecutionContext context, CancellationToken ct)
         {
             if (this.Running)
             {
@@ -31,12 +88,12 @@ namespace Jali.Serve.Server
             }
 
             var jaliService = new JaliService();
-            this._jaliServiceManager = new ServiceManager(jaliService);
+            this._jaliServiceManager = new ServiceManager(this, jaliService);
 
-            await this._jaliServiceManager.Run();
+            await this._jaliServiceManager.Run(context);
 
-            this._serviceManager = new ServiceManager(this.Service);
-            await this._serviceManager.Run();
+            this._serviceManager = new ServiceManager(this, this.Service);
+            await this._serviceManager.Run(context);
 
             this.Running = true;
 
@@ -45,6 +102,18 @@ namespace Jali.Serve.Server
 
         // TODO: JaliServer: This may come in handy: http://www.strathweb.com/2015/01/migrating-asp-net-web-api-mvc-6-exploring-web-api-compatibility-shim/
         // How to get HttpRequest/Response in a PCL package: http://blogs.msdn.com/b/bclteam/archive/2013/02/18/portable-httpclient-for-net-framework-and-windows-phone.aspx
+        /// <summary>
+        ///     Sends the specified Jali service message http request to the hosted service.
+        /// </summary>
+        /// <param name="request">
+        ///     An http request configured to send Jali service messages.
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     Permits cancellation of the request.
+        /// </param>
+        /// <returns>
+        ///     The http response from the hosted service.
+        /// </returns>
         public async Task<HttpResponseMessage> Send(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -60,6 +129,7 @@ namespace Jali.Serve.Server
                 var getServiceDescriptionRequest = new ServiceMessage<JObject>
                 {
                     Connection = new MessageConnection { },
+                    Credentials = new MessageCredentials { },
                     Data = JObject.FromObject(new GetServiceDescriptionRequest
                     {
                         Service = this.Service.Definition,
@@ -69,9 +139,12 @@ namespace Jali.Serve.Server
                     Tenant = new TenantIdentity { },
                 };
 
-
                 var result = await this._jaliServiceManager.SendMethod(
-                    ServiceDescriptionResource.Name, "GET", getServiceDescriptionRequest);
+                    this.ExecutionContext, 
+                    this.ExecutionContext.Security, 
+                    ServiceDescriptionResource.Name, 
+                    "GET", 
+                    getServiceDescriptionRequest);
 
                 var typedResult = (ServiceMessage<GetServiceDescriptionResponse>) result;
 
@@ -93,11 +166,27 @@ namespace Jali.Serve.Server
                 var resourceName = resourceMatch.Groups["resourceName"].Value;
                 var resourceKey = resourceMatch.Groups["resourceKey"].Value;
 
-                var requestMessage = await request.AsServiceMessage();
+                if (resourceKey == string.Empty)
+                {
+                    resourceKey = null;
+                }
 
-                var result = await this._serviceManager.SendMethod(resourceName, request.Method.Method, requestMessage);
+                var user = await this.Options.Authenticator.Authenticate(this.ExecutionContext, request);
+                //await this.Options.Authorizer.Authorize(securityContext);
 
-                return result.AsResponse(request);
+                var conversionContext = new MessageConversionContext(user);
+
+                var requestMessage = await this.Options.MessageConverter.FromRequest(
+                    this.ExecutionContext, conversionContext, request);
+
+                var result = await this._serviceManager.SendMethod(
+                    this.ExecutionContext, user, resourceName, request.Method.Method, requestMessage, resourceKey);
+
+                return await this.Options.MessageConverter.ToResponse(
+                    this.ExecutionContext, conversionContext, result, request);
+
+                // TODO: JaliServer.Send: Remove these types.
+                //return result.AsResponse(request);
             }
 
 
@@ -110,6 +199,7 @@ namespace Jali.Serve.Server
                 throw new NotImplementedException("Jali Server has not yet implemented direct route message support.");
             }
 
+            // TODO: JaliServer.Send: Review this error internal error message.
             var message = $"Jali Server cannot handle route HTTP {request.Method.Method} {request.RequestUri}. The request should not have been forwarded to it.";
             throw new InternalErrorException(message);
         }

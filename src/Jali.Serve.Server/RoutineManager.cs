@@ -30,12 +30,20 @@ namespace Jali.Serve.Server
         public ResourceManager ResourceManager { get; }
 
         public async Task<IServiceMessage> ExecuteProcedure(
-            string requestAction, string responseAction, ServiceMessage<JObject> request)
+            IExecutionContext context, 
+            ISecurityContext user,
+            string requestAction, 
+            string responseAction, 
+            ServiceMessage<JObject> request, 
+            JObject key = null)
         {
             // TODO: RoutineManager.ExecuteProcedure: Should Init be called by a Run method instead?
-            await this.Routine.Init(new ExecutionContext(), this.Context);
+            await this.Routine.Init(context, this.Context);
 
-            return await this.Routine.ExecuteProcedure(new ExecutionContext(), requestAction, responseAction, request);
+            var userContext = context.MakeContext(user);
+
+            return await this.Routine.ExecuteProcedure(
+                userContext, requestAction, responseAction, request, key);
         }
     }
 }

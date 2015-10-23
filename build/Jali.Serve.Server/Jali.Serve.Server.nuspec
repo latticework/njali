@@ -12,17 +12,30 @@
     <licenseUrl>https://raw.githubusercontent.com/latticework/njali/master/LICENSE</licenseUrl>
     <tags>microservice</tags>
     <dependencies>
-      <group>
+      <group targetFramework="net45">
         <dependency id="Jali.Serve" version="$version$" />
       </group>
-      <group targetFramework="net45" />
-      <group targetFramework="wp8" />
-      <group targetFramework="win8" />
-      <group targetFramework="wpa81" />
-      <group targetFramework="xamarin.ios" />
-      <group targetFramework="monotouch" />
-      <group targetFramework="monoandroid" />
-      <group targetFramework=".NETPlatform5.0" />
+      <group targetFramework="wp8">
+        <dependency id="Jali.Serve" version="$version$" />
+      </group>
+      <group targetFramework="win8">
+        <dependency id="Jali.Serve" version="$version$" />
+      </group>
+      <group targetFramework="wpa81">
+        <dependency id="Jali.Serve" version="$version$" />
+      </group>
+      <group targetFramework="xamarin.ios">
+        <dependency id="Jali.Serve" version="$version$" />
+      </group>
+      <group targetFramework="monotouch">
+        <dependency id="Jali.Serve" version="$version$" />
+      </group>
+      <group targetFramework="monoandroid">
+        <dependency id="Jali.Serve" version="$version$" />
+      </group>
+      <group targetFramework=".NETPlatform5.0">
+        <dependency id="Jali.Serve" version="$version$" />
+      </group>
     </dependencies>
   </metadata>
 </package>

@@ -34,7 +34,7 @@ namespace Jali.Serve.Server
 
         public IResource Resource { get; }
 
-        public async Task Run()
+        public async Task Run(IExecutionContext context)
         {
             if (this.Running)
             {
@@ -44,14 +44,19 @@ namespace Jali.Serve.Server
                 throw new InvalidOperationException(message);
             }
 
-            await this.Resource.Init(new ExecutionContext(), this.Context);
+            await this.Resource.Init(context, this.Context);
 
             this.Running = true;
         }
 
         public bool Running { get; set; }
 
-        public async Task<IServiceMessage> SendMethod(string method, ServiceMessage<JObject> request)
+        public async Task<IServiceMessage> SendMethod(
+            IExecutionContext context, 
+            ISecurityContext user, 
+            string method, 
+            ServiceMessage<JObject> request, 
+            string key = null)
         {
             if (method == null) throw new ArgumentNullException(nameof(method));
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -72,26 +77,33 @@ namespace Jali.Serve.Server
                 throw new InvalidOperationException(message);
             }
 
-            var routineManager = await this.GetRoutineManager(methodResult.Value.Routine);
+            var resourceKey = (key == null) 
+                ? null 
+                : this.ServiceManager.Server.Options.KeyConverter.ToResourceKey(
+                    this.Resource.Definition.KeySchema, key);
 
-            var requestAction = methodResult.Value.Request.Message.Action;
+            var routineManager = await this.GetRoutineManager(context, methodResult.Value.Routine);
+
+            var requestAction = (key == null)
+                ? methodResult.Value.Request.Message.Action
+                : methodResult.Value.KeyRequest.Message.Action;
+
             var responseAction = methodResult.Value.Response.Message.Action;
 
-            var result = await routineManager.ExecuteProcedure(requestAction, responseAction, request);
+            var result = await routineManager.ExecuteProcedure(
+                context, user, requestAction, responseAction, request, resourceKey);
 
             return result;
         }
 
         private readonly IDictionary<string, RoutineManager> _routineManagers;
 
-        private async Task<RoutineManager> GetRoutineManager(string routineName)
+        private async Task<RoutineManager> GetRoutineManager(IExecutionContext context, string routineName)
         {
             if (routineName == null) throw new ArgumentNullException(nameof(routineName));
 
             var result = await this._routineManagers.GetOrCreateValueAsync(routineName, async () =>
             {
-                var context = new ExecutionContext();
-
                 var routine = await this.Resource.GetRoutine(context, routineName);
 
                 var manager = new RoutineManager(this, routine);

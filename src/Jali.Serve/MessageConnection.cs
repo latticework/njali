@@ -5,7 +5,7 @@
         public EndpointPartition Sender { get; set; }
         public EndpointPartition Receiver { get; set; }
 
-        public MessageConnection CreateResponseConnection()
+        public MessageConnection CreateOutboundConnection()
         {
             return new MessageConnection
             {

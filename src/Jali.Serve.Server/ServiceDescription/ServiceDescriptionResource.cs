@@ -46,7 +46,7 @@ namespace Jali.Serve.Server.ServiceDescription
                             ["get-servicedescription-request"] = new RoutineMessage
                             {
                                 Action = "get-servicedescription-request",
-                                Direction = ActionDirection.To,
+                                Direction = MessageDirection.Inbound,
                                 Description = "The get-servicedescription request message",
                                 Schema = new SchemaReference
                                 {
@@ -63,7 +63,7 @@ namespace Jali.Serve.Server.ServiceDescription
                             ["get-servicedescription-response"] = new RoutineMessage
                             {
                                 Action = "get-servicedescription-request",
-                                Direction = ActionDirection.To,
+                                Direction = MessageDirection.Inbound,
                                 Description = "The get-servicedescription request message",
                                 Schema = new SchemaReference
                                 {

@@ -9,11 +9,8 @@ namespace Jali.Serve
         public string ConversationId { get; set; }
         public string MessageId { get; set; }
         public string MessageTransmissionId { get; set; }
-        public string UserId { get; set; }
-        public string ImpersonatorId { get; set; }
-        public string DeputyId { get; set; }
 
-        public MessageIdentity CreateResponseIdentity()
+        public MessageIdentity CreateOutboundIdentity()
         {
             return new MessageIdentity
             {
@@ -22,9 +19,6 @@ namespace Jali.Serve
                 ConversationId = this.ConversationId,
                 MessageId = Guid.NewGuid().ToString("D").ToUpperInvariant(),
                 MessageTransmissionId = Guid.NewGuid().ToString("D").ToUpperInvariant(),
-                UserId = this.UserId,
-                ImpersonatorId = this.ImpersonatorId,
-                DeputyId = this.DeputyId,
             };
         }
     }

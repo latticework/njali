@@ -3,14 +3,14 @@ properties {
   $zipFileName = "Jali00r1.zip"
   $majorVersion = "0.0"
   $majorWithReleaseVersion = "0.0.1"
-  $nugetPrelease = "prealpha2"
+  $nugetPrelease = "prealpha403"
   $version = GetVersion $majorWithReleaseVersion
   $signAssemblies = $false
 #  $signKeyPath = "C:\Development\Releases\newtonsoft.snk"
   $buildDocumentation = $false
   $buildNuGet = $true
   $treatWarningsAsErrors = $false
-  $workingName = if ($workingName) {$workingName} else {"working"}
+  $workingName = if ($workingName) {$workingName} else {"njali-working"}
 #  $dnvmVersion = "1.0.0-beta8-15618"
   $dnvmVersion = "1.0.0-beta7"
   
