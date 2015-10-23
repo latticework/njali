@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Jali.Note;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.MessageConversion
+namespace Jali.Serve.Server.MessageConversion
 {
     /// <summary>
     ///     A utility converts between an http request, http response, and an json object representing the service 
@@ -47,7 +47,8 @@ namespace Jali.Serve.MessageConversion
         ///     The message conversion context.
         /// </param>
         /// <param name="data">
-        ///     The response service message data.
+        ///     The response service message data. Either a <see cref="JObject"/> or an <see cref="JArray"/> of 
+        ///     objects.
         /// </param>
         /// <param name="message">
         ///     The response service message.
@@ -61,7 +62,7 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     A value indicating that the http response was not modified.
         /// </returns>
-        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, JObject data, IServiceMessage message, HttpRequestMessage request, HttpResponseMessage response)
+        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, JToken data, IServiceMessage message, HttpRequestMessage request, HttpResponseMessage response)
         {
             return Task.FromResult(false);
         }

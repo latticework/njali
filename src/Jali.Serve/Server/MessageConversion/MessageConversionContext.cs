@@ -1,4 +1,4 @@
-namespace Jali.Serve.MessageConversion
+namespace Jali.Serve.Server.MessageConversion
 {
     /// <summary>
     ///     The context under which message converson is executed.

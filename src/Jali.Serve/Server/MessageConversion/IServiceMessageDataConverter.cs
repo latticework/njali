@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.MessageConversion
+namespace Jali.Serve.Server.MessageConversion
 {
     /// <summary>
     ///     Represents a utility converts between an http request, http response, and an json object representing the 
@@ -59,7 +59,7 @@ namespace Jali.Serve.MessageConversion
         Task<bool> ToResponse(
             IExecutionContext context, 
             MessageConversionContext conversionContext,
-            JObject data,
+            JToken data,
             IServiceMessage message,
             HttpRequestMessage request,
             HttpResponseMessage response);

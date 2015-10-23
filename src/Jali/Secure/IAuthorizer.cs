@@ -14,7 +14,7 @@ namespace Jali.Secure
         ///     Provides the <see cref="ISecurityContext"/> to be authorized.
         /// </summary>
         /// <param name="context">
-        ///     The security context
+        ///     The security context.
         /// </param>
         /// <returns>
         ///     The result of the authorization operation.

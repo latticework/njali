@@ -1,8 +1,9 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Jali.Serve.Server.MessageConversion;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.MessageConversion
+namespace Jali.Serve.Server
 {
     /// <summary>
     ///     Represents a utility converts between <see cref="HttpRequestMessage"/>, <see cref="HttpResponseMessage"/>,

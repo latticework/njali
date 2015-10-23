@@ -1,4 +1,4 @@
-﻿namespace Jali.Serve.MessageConversion
+﻿namespace Jali.Serve.Server.MessageConversion
 {
     /// <summary>
     ///     Options used to initialize a <see cref="CompositeServiceMessageConverter"/>.

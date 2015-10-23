@@ -4,10 +4,11 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Jali.Core;
 using Jali.Note;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.MessageConversion
+namespace Jali.Serve.Server.MessageConversion
 {
     /// <summary>
     ///     Implementation of <see cref="IServiceMessageConverter"/> that delegates to converters for each
@@ -217,7 +218,18 @@ namespace Jali.Serve.MessageConversion
                 context, conversionContext, message.Tenant, request, outgoingMessage, response);
 
             var json = await this.Options.Serializer.FromServiceMessage(context, conversionContext, outgoingMessage);
-            var jsonData = (JObject)(json["data"]);
+
+            var jsonData = json["data"];
+
+            if (jsonData != null && !(jsonData is JObject || jsonData is JArray))
+            {
+                var errorMessage =
+                    $"The Jali service routine implementation that handled url '{request.RequestUri.ToString()}' " +
+                    $"returned an invalid data type. Value must convert either to a JavaScript object or an array " +
+                    $"of JavaScript objects.";
+
+                throw new InternalErrorException(errorMessage);
+            }
 
 
             changed |= await this.Options.DataConverter.ToResponse(context, conversionContext, jsonData, message, request, response);

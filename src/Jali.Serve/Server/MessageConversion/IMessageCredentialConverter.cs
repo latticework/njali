@@ -2,17 +2,15 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.MessageConversion
+namespace Jali.Serve.Server.MessageConversion
 {
     /// <summary>
-    ///     A utility that converts between an http request, http response, and a service message identity. This 
-    ///     implementation performs no conversions.
+    ///     Represents a utility that converts between an http request, http response, and service message credentials.
     /// </summary>
-    public class DefaultMessageIdentityConverter : IMessageIdentityConverter
+    public interface IMessageCredentialConverter
     {
         /// <summary>
-        ///     Converts from an http request to a service message contract. This implementation performs no 
-        ///     conversions.
+        ///     Converts from an http request to service message credentials.
         /// </summary>
         /// <param name="context">
         ///     The execution context.
@@ -27,16 +25,14 @@ namespace Jali.Serve.MessageConversion
         ///     The partially constructed request service message. The message should not be modified directly.
         /// </param>
         /// <returns>
-        ///     <see langword="null"/> so the message remains unmodified.
+        ///     The request service <see cref="MessageCredentials"/> or <see langword="null"/> if the message should 
+        ///     remain unmodified.
         /// </returns>
-        public virtual Task<MessageIdentity> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
-        {
-            return Task.FromResult<MessageIdentity>(null);
-        }
-
+        Task<MessageCredentials> FromRequest(
+            IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message);
 
         /// <summary>
-        ///     Uses a response service message contract to modify an http response.
+        ///     Uses response service message credentials to modify an http response.
         /// </summary>
         /// <param name="context">
         ///     The execution context.
@@ -44,8 +40,8 @@ namespace Jali.Serve.MessageConversion
         /// <param name="conversionContext">
         ///     The message conversion context.
         /// </param>
-        /// <param name="identity">
-        ///     The response service message identity.
+        /// <param name="contract">
+        ///     The response service message contract.
         /// </param>
         /// <param name="request">
         ///     The initial http request.
@@ -57,11 +53,14 @@ namespace Jali.Serve.MessageConversion
         ///     The partial constructed http response.
         /// </param>
         /// <returns>
-        ///     A value indicating that the http response was not modified.
+        ///     A value indicating whether the converter modified the http response.
         /// </returns>
-        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, MessageIdentity identity, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
-        {
-            return Task.FromResult(false);
-        }
+        Task<bool> ToResponse(
+            IExecutionContext context, 
+            MessageConversionContext conversionContext,
+            MessageCredentials contract,
+            HttpRequestMessage request,
+            IServiceMessage message,
+            HttpResponseMessage response);
     }
 }

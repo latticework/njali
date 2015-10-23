@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.MessageConversion
+namespace Jali.Serve.Server.MessageConversion
 {
     /// <summary>
-    ///     A utility that converts between an http request, http response, and a service message connection. This 
+    ///     A utility that converts between an http request, http response, and a service message contract. This 
     ///     implementation performs no conversions.
     /// </summary>
-    public class DefaultMessageConnectionConverter : IMessageConnectionConverter
+    public class DefaultMessageContractConverter : IMessageContractConverter
     {
         /// <summary>
         ///     Converts from an http request to a service message contract. This implementation performs no 
@@ -19,8 +19,7 @@ namespace Jali.Serve.MessageConversion
         /// </param>
         /// <param name="conversionContext">
         ///     The message conversion context.
-        /// </param>
-        /// <param name="request">
+        /// </param>        /// <param name="request">
         ///     The http request.
         /// </param>
         /// <param name="message">
@@ -29,23 +28,19 @@ namespace Jali.Serve.MessageConversion
         /// <returns>
         ///     <see langword="null"/> so the message remains unmodified.
         /// </returns>
-        public virtual Task<MessageConnection> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
+        public virtual Task<MessageContract> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
         {
-            return Task.FromResult<MessageConnection>(null);
+            return Task.FromResult<MessageContract>(null);
         }
 
         /// <summary>
-        ///     Uses a response service message connection to modify an http response. This implementation performs no 
+        ///     Uses a response service message contract to modify an http response. This implementation performs no 
         ///     conversions.
         /// </summary>
-        /// <param name="context">
-        ///     The execution context.
-        /// </param>
-        /// <param name="conversionContext">
-        ///     The message conversion context.
-        /// </param>
-        /// <param name="connection">
-        ///     The response service message connection.
+        /// <param name="context"></param>
+        /// <param name="conversionContext"></param>
+        /// <param name="contract">
+        ///     The response service message contract.
         /// </param>
         /// <param name="request">
         ///     The initial http request.
@@ -57,9 +52,9 @@ namespace Jali.Serve.MessageConversion
         ///     The partial constructed http response.
         /// </param>
         /// <returns>
-        ///     A value indicating tha the http response was not modified.
+        ///     A value indicating that the http response was not modified.
         /// </returns>
-        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, MessageConnection connection, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
+        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, MessageContract contract, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
         {
             return Task.FromResult(false);
         }

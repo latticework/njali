@@ -1,16 +1,19 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Jali.Note;
 using Newtonsoft.Json.Linq;
 
-namespace Jali.Serve.MessageConversion
+namespace Jali.Serve.Server.MessageConversion
 {
     /// <summary>
-    ///     Represents a utility that converts between an http request, http response, and a service message tenant.
+    ///     Represents a utility converts between an http request, an http response, and a sequence of Jali notification 
+    ///     messages.
     /// </summary>
-    public interface IServiceMessageTenantConverter
+    public interface INotificationMessageConverter
     {
         /// <summary>
-        ///     Converts from an http request to a service message tenant.
+        ///     Converts from an http request to a sequence of Jali notification messages.
         /// </summary>
         /// <param name="context">
         ///     The execution context.
@@ -25,14 +28,14 @@ namespace Jali.Serve.MessageConversion
         ///     The partially constructed request service message. The message should not be modified directly.
         /// </param>
         /// <returns>
-        ///     The request service message <see cref="TenantIdentity"/> or <see langword="null"/> if the message 
-        ///     should remain unmodified.
+        ///     The request service message <see cref="NotificationMessage"/> list or <see langword="null"/> if 
+        ///     the message should remain unmodified.
         /// </returns>
-        Task<TenantIdentity> FromRequest(
+        Task<IEnumerable<NotificationMessage>> FromRequest(
             IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message);
 
         /// <summary>
-        ///     Uses a response service message tenant to modify an http response.
+        ///     Uses a response service message notification message sequence to modify an http response.
         /// </summary>
         /// <param name="context">
         ///     The execution context.
@@ -40,8 +43,8 @@ namespace Jali.Serve.MessageConversion
         /// <param name="conversionContext">
         ///     The message conversion context.
         /// </param>
-        /// <param name="tenant">
-        ///     The response service message tenant.
+        /// <param name="messages">
+        ///     The response service message <see cref="NotificationMessage"/> sequence.
         /// </param>
         /// <param name="request">
         ///     The initial http request.
@@ -58,7 +61,7 @@ namespace Jali.Serve.MessageConversion
         Task<bool> ToResponse(
             IExecutionContext context, 
             MessageConversionContext conversionContext,
-            TenantIdentity tenant,
+            IEnumerable<NotificationMessage> messages,
             HttpRequestMessage request,
             IServiceMessage message,
             HttpResponseMessage response);

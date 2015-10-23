@@ -6,7 +6,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Jali.Core;
-using Jali.Serve.MessageConversion;
+using Jali.Secure;
+using Jali.Serve.Server.MessageConversion;
 using Jali.Serve.Server.ServiceDescription;
 using Newtonsoft.Json.Linq;
 
@@ -40,6 +41,8 @@ namespace Jali.Serve.Server
 
             this.Options = new JaliServerOptions
             {
+                Authenticator = overrideOptions.Authenticator ?? new DefaultAuthenticator(),
+                Authorizer = overrideOptions.Authorizer ?? new DefaultAuthorizor(),
                 MessageConverter = overrideOptions.MessageConverter ?? new CompositeServiceMessageConverter(),
                 KeyConverter = overrideOptions.KeyConverter ?? new DefaultResourceKeyConverter(),
             };

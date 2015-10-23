@@ -84,6 +84,9 @@
     <Compile Include="..\..\..\src\Jali\Secure\SecurityPrincipal.cs">
       <Link>Secure\SecurityPrincipal.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\WellKnownClaimTypes.cs">
+      <Link>Secure\WellKnownClaimTypes.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

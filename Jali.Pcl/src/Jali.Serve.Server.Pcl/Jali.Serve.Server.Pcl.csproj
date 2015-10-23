@@ -49,9 +49,6 @@
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServer.cs">
       <Link>JaliServer.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServerOptions.cs">
-      <Link>JaliServerOptions.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliServerServiceMessageExtensions.cs">
       <Link>JaliServerServiceMessageExtensions.cs</Link>
     </Compile>

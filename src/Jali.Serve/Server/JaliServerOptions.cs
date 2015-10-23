@@ -1,11 +1,11 @@
 using System.Net.Http;
 using Jali.Secure;
-using Jali.Serve.MessageConversion;
+using Jali.Serve.Server.MessageConversion;
 
 namespace Jali.Serve.Server
 {
     /// <summary>
-    ///     Provides initialization options for <see cref="JaliServer"/>.
+    ///     Provides initialization options for a Jali server.
     /// </summary>
     public class JaliServerOptions
     {

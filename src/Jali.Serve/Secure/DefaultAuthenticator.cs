@@ -4,16 +4,18 @@ using System.Threading.Tasks;
 namespace Jali.Secure
 {
     /// <summary>
-    ///     Represents a utility that provides a security context based on the current http request.
+    ///     A utility that provides a security context based on the current http request. This implementation supplies 
+    ///     an empty identity.
     /// </summary>
-    public interface IAuthenticator
+    public class DefaultAuthenticator : IAuthenticator
     {
         // TODO: IAuthenticator.Authenticate: Add serviceContext parameter.
         ///// <param name="serviceContext">
         /////     The Jali Service context.
         ///// </param>
         /// <summary>
-        ///     Provides a security context based on the current http request.
+        ///     Provides a security context based on the current http request. Ths implementation supplies an empty 
+        ///     identity.
         /// </summary>
         /// <param name="context">
         ///     The authenticator's execution context.
@@ -24,7 +26,10 @@ namespace Jali.Secure
         /// <returns>
         ///     The new security context.
         /// </returns>
-        Task<ISecurityContext> Authenticate(
-            IExecutionContext context, /*IServiceContext serviceContext,*/ HttpRequestMessage request);
+        public virtual async Task<ISecurityContext> Authenticate(IExecutionContext context, HttpRequestMessage request)
+        {
+            return await Task.FromResult(new SecurityContext(new SecurityIdentity()));
+        }
     }
+
 }

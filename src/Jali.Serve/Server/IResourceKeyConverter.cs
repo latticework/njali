@@ -1,7 +1,7 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-namespace Jali.Serve.MessageConversion
+namespace Jali.Serve.Server
 {
     /// <summary>
     ///     Represents a utility that converts between the string and JSON object representations of a Jali resource 
