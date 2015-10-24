@@ -26,11 +26,11 @@ NJali consists of multiple packages.
 
 | Package | Purpose | Build Status | NuGet |
 | :-- | :-- | :-- | :-- |
-| Jali.Core | Shared objects and utilities | [![Build status](https://ci.appveyor.com/api/projects/status/tee4xl00svt85g1x?svg=true)](https://ci.appveyor.com/project/kenbrubaker/njali)| |
-| Jali | Service method execution context interface | [![Build status](https://ci.appveyor.com/api/projects/status/tee4xl00svt85g1x?svg=true)](https://ci.appveyor.com/project/kenbrubaker/njali)| |
-| Jali.Serve | Service specification, definition, and protocol | [![Build status](https://ci.appveyor.com/api/projects/status/tee4xl00svt85g1x?svg=true)](https://ci.appveyor.com/project/kenbrubaker/njali)| |
-| Jali.Serve.Server | Service execution host library | [![Build status](https://ci.appveyor.com/api/projects/status/tee4xl00svt85g1x?svg=true)](https://ci.appveyor.com/project/kenbrubaker/njali)| |
-| Jali.Serve.AspNet.Mvc | ASP.NET MVC integration for Jali.Serve | [![Build status](https://ci.appveyor.com/api/projects/status/tee4xl00svt85g1x?svg=true)](https://ci.appveyor.com/project/kenbrubaker/njali)| |
+| Jali.Core | Shared objects and utilities | [![Build status](https://ci.appveyor.com/api/projects/status/tee4xl00svt85g1x?svg=true)](https://ci.appveyor.com/project/kenbrubaker/njali)| [![NuGet package](https://img.shields.io/nuget/v/Jali.Core.svg)](https://www.nuget.org/packages/Jali.Core) |
+| Jali | Service method execution context interface | [![Build status](https://ci.appveyor.com/api/projects/status/tee4xl00svt85g1x?svg=true)](https://ci.appveyor.com/project/kenbrubaker/njali)| [![NuGet package](https://img.shields.io/nuget/v/Jali.svg)](https://www.nuget.org/packages/Jali) |
+| Jali.Serve | Service specification, definition, and protocol | [![Build status](https://ci.appveyor.com/api/projects/status/tee4xl00svt85g1x?svg=true)](https://ci.appveyor.com/project/kenbrubaker/njali)| [![NuGet package](https://img.shields.io/nuget/v/Jali.Serve.svg)](https://www.nuget.org/packages/Jali.Serve) |
+| Jali.Serve.Server | Service execution host library | [![Build status](https://ci.appveyor.com/api/projects/status/tee4xl00svt85g1x?svg=true)](https://ci.appveyor.com/project/kenbrubaker/njali)| [![NuGet package](https://img.shields.io/nuget/v/Jali.Serve.Server.svg)](https://www.nuget.org/packages/Jali.Serve.Server) |
+| Jali.Serve.AspNet.Mvc | ASP.NET MVC integration for Jali.Serve | [![Build status](https://ci.appveyor.com/api/projects/status/tee4xl00svt85g1x?svg=true)](https://ci.appveyor.com/project/kenbrubaker/njali)| [![NuGet package](https://img.shields.io/nuget/v/Jali.Serve.AspNet.Mvc.svg)](https://www.nuget.org/packages/Jali.Serve.AspNet.Mvc) |
 
 ## Questions, bug reports or feature requests?
 Do you have feature requests, questions or would you like to report a bug? Please post them on the [issue list](https://github.com/Latticework/njali/issues) and follow [these guidelines](CONTRIBUTING.md).
