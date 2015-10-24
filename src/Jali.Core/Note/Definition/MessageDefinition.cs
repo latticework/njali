@@ -6,7 +6,7 @@ namespace Jali.Note.Definition
     {    
         public MessageDefinition()
         {
-            this.Arguments = new List<ArgumentDefinition>();
+            this.IdentifyingArgs = new List<string>();
         }
 
         public string BaseCode { get; set; }
@@ -16,7 +16,7 @@ namespace Jali.Note.Definition
         public string Severity { get; set; }
         public string Message { get; set; }
         public string Template { get; set; }
-        public IList<ArgumentDefinition> Arguments { get; }
-        public bool Identifying { get; set; }
+        public string Arguments { get; set; }
+        public IList<string> IdentifyingArgs { get; }
     }
 }

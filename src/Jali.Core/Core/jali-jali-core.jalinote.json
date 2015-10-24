@@ -10,17 +10,18 @@
       "name": "InternalError",
       "description": "Communicates that a critical internal application error has occurred and application should terminate.",
       "severity": "critical",
-      "template": "Internal error: ${args[0]}",
-      "args": [
-        {
-          "position": 0,
-          "name": "message",
-          "type": "string",
-          "description": "The description of the internal error.",
-          "identifying": false
+      "template": "Internal error: ${args.message}",
+      "args": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "object",
+            "description":  "The description of the internal error."
+          }
         }
-      ],
-      "identifying": false
+      },
+      "identifyingArgs": [ ]
     }
   ]
 }

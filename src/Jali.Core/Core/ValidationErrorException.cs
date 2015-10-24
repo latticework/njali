@@ -1,17 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Jali.Note;
-
-#if !DNX && !PCL
-using System.Runtime.Serialization;
-#endif
 
 namespace Jali.Core
 {
 #if !DNX && !PCL
     [Serializable]
 #endif
-    public class DomainErrorException : NotificationMessageException
+    public class ValidationErrorException : DomainErrorException
     {
         //
         // For guidelines regarding the creation of new exception types, see
@@ -20,32 +16,33 @@ namespace Jali.Core
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
 
-        public DomainErrorException()
+        public ValidationErrorException()
             : this(null, null)
         {
         }
 
-        public DomainErrorException(Exception innerException)
+        public ValidationErrorException(Exception innerException)
             : this(null, innerException)
         {
         }
 
-        public DomainErrorException(IEnumerable<NotificationMessage> messages)
+        public ValidationErrorException(IEnumerable<NotificationMessage> messages)
             : this(messages, null)
         {
         }
 
-        public DomainErrorException(IEnumerable<NotificationMessage> messages, Exception innerException)
+        public ValidationErrorException(IEnumerable<NotificationMessage> messages, Exception innerException)
             : base(messages, innerException)
         {
         }
 
 #if !DNX && !PCL
-        protected DomainErrorException(
+        protected InternalErrorException(
             SerializationInfo info,
             StreamingContext context) : base(info, context)
         {
         }
 #endif
     }
+
 }

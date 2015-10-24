@@ -36,9 +36,6 @@
     <DocumentationFile>bin\Release\Jali.Core.Pcl.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\..\..\src\Jali.Core\Core\DomainErrorException.cs">
       <Link>Core\DomainErrorException.cs</Link>
     </Compile>
@@ -57,8 +54,8 @@
     <Compile Include="..\..\..\src\Jali.Core\Core\TryGetResult.cs">
       <Link>Core\TryGetResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\ArgumentDefinition.cs">
-      <Link>Note\Definition\ArgumentDefinition.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Core\ValidationErrorException.cs">
+      <Link>Core\ValidationErrorException.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageAuthority.cs">
       <Link>Note\Definition\MessageAuthority.cs</Link>
@@ -105,6 +102,16 @@
     <None Include="..\..\..\src\Jali.Core\Core\jali-jali-core.jalinote.json">
       <Link>Core\jali-jali-core.jalinote.json</Link>
     </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Note\Valid\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
