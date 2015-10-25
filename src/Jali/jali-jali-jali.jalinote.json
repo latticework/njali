@@ -1,0 +1,54 @@
+{
+  "name": "JaliMessages",
+  "description": "Notification messages defined by the Jali package.",
+  "authority": "jali",
+  "domain": "jali",
+  "library": "jali",
+  "messages": [
+    {
+      "severity": "error",
+      "baseCode": "0001",
+      "name": "AuthenticationError",
+      "description": "Informs that the requester is not an authenticated user.",
+      "template": "Access to requested resource${args.resourceName != null ? \" '${args.resourceName}'\" : \"\"} requires an authenticated user.",
+      "args": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "resourceName": {
+            "type": "string",
+            "description": "The name of the resource being accessed."
+          }
+        }
+      },
+      "identifyingArgs": [ ]
+    },
+    {
+      "severity": "error",
+      "baseCode": "0002",
+      "name": "AuthorizationError",
+      "description": "Informs that the authenticated user is not authorized for the requested resource access.",
+      "template": "User '${args.userId}'is not authorized to access resource '${args.claimValue}' of type '${args.claimType}'.",
+      "args": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "The Jali UserId of the authenticated user."
+          },
+          "claimType": {
+            "type": "string",
+            "description": "The type of the required claim."
+          },
+          "claimValue": {
+            "type": "string",
+            "description": "The required claim value."
+          }
+        },
+        "required": [ "userId", "claimType", "claimValue" ]
+      },
+      "identifyingArgs": [ ]
+    }
+  ]
+}
