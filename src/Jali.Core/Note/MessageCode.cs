@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Jali.Note.Definition;
 
 namespace Jali.Note
 {
@@ -89,8 +90,9 @@ namespace Jali.Note
         public static int GetBaseCode(string messageCode) =>
             MessageCode.ParseCodePart(messageCode, CodePartData<int>.BaseCodeData);
 
-        public static void Validate(string messageCode)
+        public static void Validate(MessageDefinition definition, string messageCode)
         {
+            // TODO: MessagCode.Validate: Move to MessageDefinition and validate entire message against the definition.
             if (messageCode == null) { throw new ArgumentNullException(nameof(messageCode)); }
 
             if (messageCode.Length != MessageCode.Length)

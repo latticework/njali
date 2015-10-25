@@ -80,7 +80,7 @@ namespace Jali.Serve
                 }
             }
 
-            messages = messages ?? Enumerable.Empty<NotificationMessage>();
+            messages = messages ?? Enumerable.Empty<INotificationMessage>();
 
             var messageArray =
                 new JArray(messages.Select(nm => JObject.FromObject(nm, serializer)).Cast<object>().ToArray());
@@ -198,7 +198,7 @@ namespace Jali.Serve
                     ++index;
                     VerifyElementType($"message[{index}]", JTokenType.Object, notification.Type);
 
-                    messageCollection.Add(serializer.Deserialize<NotificationMessage>(new JTokenReader(notification)));
+                    messageCollection.Add(serializer.Deserialize<INotificationMessage>(new JTokenReader(notification)));
                 }
 
                 message.Messages = messageCollection;

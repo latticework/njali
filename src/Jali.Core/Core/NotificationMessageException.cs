@@ -24,12 +24,12 @@ namespace Jali.Core
         {
         }
 
-        public NotificationMessageException(IEnumerable<NotificationMessage> messages)
+        public NotificationMessageException(IEnumerable<INotificationMessage> messages)
             :this(messages, null)
         {
         }
 
-        public NotificationMessageException(IEnumerable<NotificationMessage> messages, Exception innerException)
+        public NotificationMessageException(IEnumerable<INotificationMessage> messages, Exception innerException)
             : base(null, innerException)
         {
             this.Messages = new NotificationMessageCollection(messages);
@@ -43,10 +43,10 @@ namespace Jali.Core
 
         public override string Message => this.Error.Message;
 
-        public IEnumerable<NotificationMessage> Errors => this.Messages
+        public IEnumerable<INotificationMessage> Errors => this.Messages
             .Where(m => m.Severity <= MessageSeverity.Error).OrderByDescending(m => m.Severity);
 
-        public NotificationMessage Error => this.Errors.First();
+        public INotificationMessage Error => this.Errors.First();
 
         public MessageSeverity Severity => this.Error.Severity;
 

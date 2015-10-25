@@ -12,22 +12,46 @@ namespace Jali.Secure
     public static class ClaimExtensions
     {
         /// <summary>
-        ///     Raises an authorization error
+        ///     Raises an authorization error if the specified claim is not found in the sequence of claims.
         /// </summary>
-        /// <param name="claims"></param>
-        /// <param name="userId"></param>
-        /// <param name="type"></param>
-        /// <param name="value"></param>
-        /// <param name="objectKey"></param>
-        /// <param name="propertyNames"></param>
+        /// <param name="claims">
+        ///     The claims to be reviewed.
+        /// </param>
+        /// <param name="userId">
+        ///     The Jali UserID of the authorized user.
+        /// </param>
+        /// <param name="type">
+        ///     The type of the required claim.
+        /// </param>
+        /// <param name="value">
+        ///     The required claim's value.
+        /// </param>
+        /// <param name="objectKey">
+        ///     The JSON representation of the key to the resource or root object to which this message 
+        ///     refers or <see langword="null"/> if no resource is referenced.
+        /// </param>
+        /// <param name="objectPointer">
+        ///     The JSON pointer reference to the object within the resource or root to which this message refers 
+        ///     or <see langword="null"/> if no object is referenced.
+        /// </param>
+        /// <param name="propertyNames">
+        ///     The names of the object properties to which this message refers or <see langword="null"/> if no 
+        ///     object properties are referenced.
+        /// </param>
         public static void DemandClaim(this IEnumerable<Claim> claims, 
-            string userId, string type, string value, string objectKey = null, params string[] propertyNames)
+            string userId, 
+            string type, 
+            string value, 
+            string objectKey = null,
+            string objectPointer = null,
+            params string[] propertyNames)
         {
             if (!claims.HasClaim(type, value))
             {
                 throw new DomainErrorException(new[]
                 {
-                    JaliMessages.CreateAuthorizationError(userId, type, value, objectKey, propertyNames)
+                    JaliJaliMessages.Errors.AuthorizationError.Create(
+                        userId, type, value, objectKey, objectPointer, propertyNames)
                 });
             }
 

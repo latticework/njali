@@ -54,7 +54,7 @@ namespace Jali.Serve
         /// </summary>
         public TenantIdentity Tenant { get; set; }
 
-        IEnumerable<NotificationMessage> IServiceMessage.Messages
+        IEnumerable<INotificationMessage> IServiceMessage.Messages
         {
             get { return this.Messages; }
             set
@@ -115,7 +115,7 @@ namespace Jali.Serve
         }
 
         public ServiceMessage<TResponseData> CreateOutboundMessage<TResponseData>(
-            MessageCredentials credentials, TResponseData data, IEnumerable<NotificationMessage> messages)
+            MessageCredentials credentials, TResponseData data, IEnumerable<INotificationMessage> messages)
         {
             if (credentials == null) throw new ArgumentNullException(nameof(credentials));
             if (data == null) throw new ArgumentNullException(nameof(data));

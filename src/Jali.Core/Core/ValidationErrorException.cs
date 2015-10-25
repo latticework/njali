@@ -26,12 +26,12 @@ namespace Jali.Core
         {
         }
 
-        public ValidationErrorException(IEnumerable<NotificationMessage> messages)
+        public ValidationErrorException(IEnumerable<INotificationMessage> messages)
             : this(messages, null)
         {
         }
 
-        public ValidationErrorException(IEnumerable<NotificationMessage> messages, Exception innerException)
+        public ValidationErrorException(IEnumerable<INotificationMessage> messages, Exception innerException)
             : base(messages, innerException)
         {
         }

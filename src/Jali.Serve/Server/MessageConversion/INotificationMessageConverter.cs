@@ -31,7 +31,7 @@ namespace Jali.Serve.Server.MessageConversion
         ///     The request service message <see cref="NotificationMessage"/> list or <see langword="null"/> if 
         ///     the message should remain unmodified.
         /// </returns>
-        Task<IEnumerable<NotificationMessage>> FromRequest(
+        Task<IEnumerable<INotificationMessage>> FromRequest(
             IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message);
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Jali.Serve.Server.MessageConversion
         Task<bool> ToResponse(
             IExecutionContext context, 
             MessageConversionContext conversionContext,
-            IEnumerable<NotificationMessage> messages,
+            IEnumerable<INotificationMessage> messages,
             HttpRequestMessage request,
             IServiceMessage message,
             HttpResponseMessage response);

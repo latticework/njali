@@ -45,6 +45,9 @@
     <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreExtensions.cs">
       <Link>Core\JaliCoreExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreMessageLibrary.cs">
+      <Link>Core\JaliCoreMessageLibrary.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreMessages.cs">
       <Link>Core\JaliCoreMessages.cs</Link>
     </Compile>
@@ -54,17 +57,14 @@
     <Compile Include="..\..\..\src\Jali.Core\Core\TryGetResult.cs">
       <Link>Core\TryGetResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Core\ValidationErrorException.cs">
-      <Link>Core\ValidationErrorException.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageAuthority.cs">
       <Link>Note\Definition\MessageAuthority.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDefinition.cs">
       <Link>Note\Definition\MessageDefinition.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDefinitionFile.cs">
-      <Link>Note\Definition\MessageDefinitionFile.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDefinitionDocument.cs">
+      <Link>Note\Definition\MessageDefinitionDocument.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDomain.cs">
       <Link>Note\Definition\MessageDomain.cs</Link>
@@ -74,6 +74,12 @@
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageLibraryRegistry.cs">
       <Link>Note\Definition\MessageLibraryRegistry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageRegistrationReference.cs">
+      <Link>Note\Definition\MessageRegistrationReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageRegistryType.cs">
+      <Link>Note\Definition\MessageRegistryType.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\INotificationMessage.cs">
       <Link>Note\INotificationMessage.cs</Link>
@@ -102,6 +108,9 @@
     <None Include="..\..\..\src\Jali.Core\Core\jali-jali-core.jalinote.json">
       <Link>Core\jali-jali-core.jalinote.json</Link>
     </None>
+    <None Include="..\..\..\src\Jali.Core\Note\jali.note.schema.json">
+      <Link>Note\Definition\jali.note.schema.json</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +123,11 @@
     <Folder Include="Note\Valid\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties __JSONSchema="http://json-schema.org/draft-04/schema" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

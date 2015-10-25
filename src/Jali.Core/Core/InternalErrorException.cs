@@ -35,7 +35,7 @@ namespace Jali.Core
 
         public InternalErrorException(string message, Exception innerException) : base(innerException)
         {
-            this.Messages.Add(JaliCoreMessages.CreateInternalError(message));
+            this.Messages.Add(JaliCoreMessages.Errors.InternalError.Create(message));
         }
 
 #if !DNX && !PCL

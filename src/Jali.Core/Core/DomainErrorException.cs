@@ -30,12 +30,12 @@ namespace Jali.Core
         {
         }
 
-        public DomainErrorException(IEnumerable<NotificationMessage> messages)
+        public DomainErrorException(IEnumerable<INotificationMessage> messages)
             : this(messages, null)
         {
         }
 
-        public DomainErrorException(IEnumerable<NotificationMessage> messages, Exception innerException)
+        public DomainErrorException(IEnumerable<INotificationMessage> messages, Exception innerException)
             : base(messages, innerException)
         {
         }
