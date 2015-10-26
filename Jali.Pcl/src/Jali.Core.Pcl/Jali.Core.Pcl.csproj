@@ -102,6 +102,9 @@
     <Compile Include="..\..\..\src\Jali.Core\Note\NotificationMessageExtensions.cs">
       <Link>Note\NotificationMessageExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Rule\JaleCoreRuleMessages.cs">
+      <Link>Rule\JaleCoreRuleMessages.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +113,9 @@
     </None>
     <None Include="..\..\..\src\Jali.Core\Note\jali.note.schema.json">
       <Link>Note\Definition\jali.note.schema.json</Link>
+    </None>
+    <None Include="..\..\..\src\Jali.Core\Rule\jali-jali-core-rules.jalinote.json">
+      <Link>Rule\jali-jali-core-rules.jalinote.json</Link>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

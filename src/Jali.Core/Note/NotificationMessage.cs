@@ -77,12 +77,18 @@ namespace Jali.Note
         ///     arguments.
         /// </summary>
         JObject INotificationMessage.Args => JObject.FromObject(this.Args);
+
+        internal NotificationMessage()
+        {
+            
+        } 
     }
 
     /// <summary>
-    ///     Creates instances of the <see cref="NotificationMessage{TArgs}"/> class.
+    ///     Creates instances of the <see cref="NotificationMessage{TArgs}"/> class or the 
+    ///     <see cref="NotificationMessage"/> class if the message has no arguments.
     /// </summary>
-    public class NotificationMessage
+    public class NotificationMessage : NotificationMessage<JObject>
     {
         /// <summary>
         ///     Creates an instance of the <see cref="NotificationMessage{TArgs}"/> class.
@@ -188,7 +194,7 @@ namespace Jali.Note
         }
 
         /// <summary>
-        ///     Creates an instance of the <see cref="NotificationMessage{TArgs}"/> class.
+        ///     Creates an instance of the <see cref="NotificationMessage"/> class.
         /// </summary>
         /// <param name="definition">
         ///     The <see cref="MessageDefinition"/> of the message being created.
@@ -209,9 +215,9 @@ namespace Jali.Note
         /// </param>
         /// <param name="propertyNames"></param>
         /// <returns>
-        ///     A new <see cref="NotificationMessage{TArgs}"/>
+        ///     A new <see cref="NotificationMessage"/>
         /// </returns>
-        public static NotificationMessage<JObject> CreateMessage(
+        public static NotificationMessage CreateMessage(
             MessageDefinition definition,
             string messageCode,
             string message,
@@ -219,8 +225,24 @@ namespace Jali.Note
             string objectPointer = null,
             IEnumerable<string> propertyNames = null)
         {
-            return CreateMessage(
-                definition, messageCode, message, (JObject)null, objectKey, objectPointer, propertyNames);
+            Validate(definition, messageCode);
+
+            return new NotificationMessage
+            {
+                MessageCode = messageCode,
+                Message = message,
+                Args = null,
+                IdentifyingArgs = definition.IdentifyingArgs,
+                ObjectKey = objectKey,
+                // TODO: NotificationMessage.CreateMessage: May want to validate the object pointer.
+                ObjectPointer = objectPointer,
+                PropertyNames = propertyNames,
+            };
+        }
+
+        private NotificationMessage()
+        {
+
         }
     }
 }

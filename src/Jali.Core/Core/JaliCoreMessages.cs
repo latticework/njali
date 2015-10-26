@@ -10,18 +10,23 @@ namespace Jali.Core
     /// </summary>
     public static class JaliCoreMessages
     {
+        /// <summary>
+        ///     Represents a message definition document.
+        /// </summary>
+        public static MessageDefinitionDocument Document { get; }
+
         //private const string _authorityCode = "0000";
         //private const string _domainCode = "00";
         //private const string _libraryCode = "00";
         //private const string _messagePrefix = "1000000000";
 
         /// <summary>
-        ///     Error messages.
+        ///     Critical error messages.
         /// </summary>
-        public static class Errors
+        public static class Criticals
         {
             /// <summary>
-            ///     Communicates that a critical internal application error has occurred and application should 
+            ///     A critical internal application error has occurred and application should 
             ///     terminate.
             /// </summary>
             public static class InternalError
@@ -40,7 +45,7 @@ namespace Jali.Core
                 }
 
                 /// <summary>
-                ///     Communicates that a critical internal application error has occurred and application should 
+                ///     A critical internal application error has occurred and application should 
                 ///     terminate. Authority jali, Domain jali, Library core, Priority Madatory, Severity Critical, 
                 ///     BaseCode 0001
                 /// </summary>
@@ -124,7 +129,7 @@ namespace Jali.Core
                         BaseCode = "0001",
                         Name = "InternalError",
                         Description =
-                            "Communicates that a critical internal application error has occurred and application should terminate.",
+                            "A critical internal application error has occurred and application should terminate.",
                         Priority = MessagePriority.Mandatory,
                         Severity = MessageSeverity.Critical,
                         Message = null,
@@ -170,14 +175,9 @@ namespace Jali.Core
                 },
                 Messages =
                 {
-                    [Errors.InternalError.Definition.Name] = Errors.InternalError.Definition
+                    [Criticals.InternalError.Definition.Name] = Criticals.InternalError.Definition
                 }
             };
         }
-
-        /// <summary>
-        ///     Represents a message definition document.
-        /// </summary>
-        public static MessageDefinitionDocument Document { get; }
     }
 }

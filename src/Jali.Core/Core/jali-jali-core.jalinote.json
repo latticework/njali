@@ -6,10 +6,10 @@
   "library": "core",
   "messages": [
     {
+      "name": "InternalError",
       "severity": "critical",
       "baseCode": "0001",
-      "name": "InternalError",
-      "description": "Communicates that a critical internal application error has occurred and application should terminate.",
+      "description": "A critical internal application error has occurred and application should terminate.",
       "template": "Internal error: ${args.message}",
       "args": {
         "$schema": "http://json-schema.org/draft-04/schema#",
@@ -17,7 +17,7 @@
         "properties": {
           "message": {
             "type": "object",
-            "description":  "The description of the internal error."
+            "description": "The description of the internal error."
           }
         }
       },

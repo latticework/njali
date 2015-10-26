@@ -17,6 +17,7 @@ namespace Jali
             Library = new MessageLibrary
             {
                 Name = "jali",
+                Code = "00",
                 Version = null,
                 Url = null,
                 Authority = new MessageRegistrationReference

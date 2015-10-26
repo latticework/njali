@@ -29,9 +29,14 @@ namespace Jali.Note.Definition
         public MessageRegistrationReference Domain { get; set; }
 
         /// <summary>
-        ///     Gets or sets the name of the message library unique within it's domain.
+        ///     Gets or sets the name of the message library unique within its domain.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        ///     Gets or sets unique registration code within its domain.
+        /// </summary>
+        public string Code { get; set; }
 
         /// <summary>
         ///     Gets or sets the location of the message library.

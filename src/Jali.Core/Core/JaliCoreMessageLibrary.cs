@@ -1,4 +1,5 @@
 using Jali.Note.Definition;
+using Jali.Rule;
 
 namespace Jali.Core
 {
@@ -17,6 +18,7 @@ namespace Jali.Core
             Library = new MessageLibrary
             {
                 Name = "core",
+                Code = "00",
                 Version = null,
                 Url = null,
                 Authority = new MessageRegistrationReference
@@ -34,6 +36,7 @@ namespace Jali.Core
                 Documents =
                 {
                     [JaliCoreMessages.Document.Name] = JaliCoreMessages.Document,
+                    [JaliCoreRuleMessages.Document.Name] = JaliCoreMessages.Document,
                 },
             };
         }
