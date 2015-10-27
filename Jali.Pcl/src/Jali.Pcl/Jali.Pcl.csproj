@@ -54,8 +54,11 @@
     <Compile Include="..\..\..\src\Jali\ISecurityContext.cs">
       <Link>ISecurityContext.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali\JaliMessages.cs">
-      <Link>JaliMessages.cs</Link>
+    <Compile Include="..\..\..\src\Jali\JaliJaliMessageLibrary.cs">
+      <Link>JaliJaliMessageLibrary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali\JaliJaliMessages.cs">
+      <Link>JaliJaliMessages.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali\Secure\AuthorizationResult.cs">
       <Link>Secure\AuthorizationResult.cs</Link>
@@ -90,15 +93,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\src\Jali\jali-jali.jalinote.json">
-      <Link>jali-jali.jalinote.json</Link>
+    <None Include="..\..\..\src\Jali\jali-jali-jali.jalinote.json">
+      <Link>jali-jali-jali.jalinote.json</Link>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Jali.Core.Pcl\Jali.Core.Pcl.csproj">
       <Project>{53E9C750-56FD-481E-A4CA-F6FA687F4F79}</Project>
       <Name>Jali.Core.Pcl</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

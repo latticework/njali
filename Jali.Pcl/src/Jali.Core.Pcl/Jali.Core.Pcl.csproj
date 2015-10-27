@@ -36,9 +36,6 @@
     <DocumentationFile>bin\Release\Jali.Core.Pcl.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\..\..\src\Jali.Core\Core\DomainErrorException.cs">
       <Link>Core\DomainErrorException.cs</Link>
     </Compile>
@@ -47,6 +44,9 @@
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreExtensions.cs">
       <Link>Core\JaliCoreExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreMessageLibrary.cs">
+      <Link>Core\JaliCoreMessageLibrary.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreMessages.cs">
       <Link>Core\JaliCoreMessages.cs</Link>
@@ -57,17 +57,14 @@
     <Compile Include="..\..\..\src\Jali.Core\Core\TryGetResult.cs">
       <Link>Core\TryGetResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\ArgumentDefinition.cs">
-      <Link>Note\Definition\ArgumentDefinition.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageAuthority.cs">
       <Link>Note\Definition\MessageAuthority.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDefinition.cs">
       <Link>Note\Definition\MessageDefinition.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDefinitionFile.cs">
-      <Link>Note\Definition\MessageDefinitionFile.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDefinitionDocument.cs">
+      <Link>Note\Definition\MessageDefinitionDocument.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageDomain.cs">
       <Link>Note\Definition\MessageDomain.cs</Link>
@@ -77,6 +74,12 @@
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageLibraryRegistry.cs">
       <Link>Note\Definition\MessageLibraryRegistry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageRegistrationReference.cs">
+      <Link>Note\Definition\MessageRegistrationReference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageRegistryType.cs">
+      <Link>Note\Definition\MessageRegistryType.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\INotificationMessage.cs">
       <Link>Note\INotificationMessage.cs</Link>
@@ -99,14 +102,38 @@
     <Compile Include="..\..\..\src\Jali.Core\Note\NotificationMessageExtensions.cs">
       <Link>Note\NotificationMessageExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Rule\JaleCoreRuleMessages.cs">
+      <Link>Rule\JaleCoreRuleMessages.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\src\Jali.Core\Core\jali-jali-core.jalinote.json">
       <Link>Core\jali-jali-core.jalinote.json</Link>
     </None>
+    <None Include="..\..\..\src\Jali.Core\Note\jali.note.schema.json">
+      <Link>Note\Definition\jali.note.schema.json</Link>
+    </None>
+    <None Include="..\..\..\src\Jali.Core\Rule\jali-jali-core-rules.jalinote.json">
+      <Link>Rule\jali-jali-core-rules.jalinote.json</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Note\Valid\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties __JSONSchema="http://json-schema.org/draft-04/schema" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

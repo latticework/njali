@@ -1,0 +1,16 @@
+{
+  "name": "JaliCoreRuleMessages",
+  "description":  "Notification messages defined by the Jali Core package for standard validation rules.",
+  "authority": "jali",
+  "domain": "jali",
+  "library": "core",
+  "messages": [
+    {
+      "name":  "RequiredValue",
+      "severity": "error",
+      "baseCode": "0100",
+      "description": "A required value is missing.",
+      "template": "${propertyNames === null ? \"A value is required.\" : \"The value${propertyNames.length > 1 ? \"s\" : \"\"} '${propertyNames.join()}'\" ${propertyNames.length > 1 ? \"are\" : \"is\"} required ${objectPointer !== null ? \"for object at '${objectPointer}'\" : \"\"}${objectKey !== null ? \" of '${objectKey}'\" : \"\"}.}"
+    }
+  ]
+}

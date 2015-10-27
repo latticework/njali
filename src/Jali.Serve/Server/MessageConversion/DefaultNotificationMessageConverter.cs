@@ -31,9 +31,9 @@ namespace Jali.Serve.Server.MessageConversion
         /// <returns>
         ///     <see langword="null"/> so the message remains unmodified.
         /// </returns>
-        public virtual Task<IEnumerable<NotificationMessage>> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
+        public virtual Task<IEnumerable<INotificationMessage>> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
         {
-            return Task.FromResult<IEnumerable<NotificationMessage>>(null);
+            return Task.FromResult<IEnumerable<INotificationMessage>>(null);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Jali.Serve.Server.MessageConversion
         /// <returns>
         ///     A value indicating that the http response was not modified.
         /// </returns>
-        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, IEnumerable<NotificationMessage> messages, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
+        public virtual Task<bool> ToResponse(IExecutionContext context, MessageConversionContext conversionContext, IEnumerable<INotificationMessage> messages, HttpRequestMessage request, IServiceMessage message, HttpResponseMessage response)
         {
             return Task.FromResult(false);
         }

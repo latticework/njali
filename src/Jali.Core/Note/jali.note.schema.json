@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "jali.note message definition document.",
+  "allOf": [
+    { "$ref":  "#/definitions/messageDocumentType"}
+  ],
+  "definitions": {
+    "baseCodeType": {
+      "type": "string",
+      "pattern": "^[0-9A-F]{4}$"
+    },
+    "priorityType": {
+      "type": "string",
+      "enum": [ "mandatory", "high", "normal", "low", "veryLow" ]
+    },
+    "severityType": {
+      "type": "string",
+      "enum": [ "critical", "error", "warning", "information", "verbose" ]
+    },
+    "messageArgsType": { "$ref": "http://json-schema.org/draft-04/schema" },
+    "identifyingArgType": {
+      "type": "string",
+      "description": "JSON pointer reference to an arg property." 
+    },
+    "messageType": {
+      "type": "object",
+      "description": "Jali Notification Message format.",
+      "properties": {
+        "baseCode": { "$ref": "#/definitions/baseCodeType" },
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Za-z]*$"
+        },
+        "description": { "type": "string" },
+        "priority": { "$ref": "#/definitions/priorityType" },
+        "severity": { "$ref": "#/definitions/severityType" },
+        "args": { "$ref": "#/definitions/messageArgsType" },
+        "identifyingArgs": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/identifyingArgType" }
+        }
+      },
+      "required": [ "baseCode", "name", "description", "severity", "args" ],
+      "oneOf": [
+        {
+          "properties": { "message": { "type": "string" } },
+          "required": [ "message" ]
+        },
+        {
+          "properties": { "template": { "type": "string" } },
+          "required": [ "template" ]
+        }
+      ]
+    },
+    "messageDocumentType": {
+      "title": "Jali.Note message library schema",
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "authority": {
+          "type": "string",
+          "pattern": "^[_A-Za-z]*$"
+        },
+        "domain": {
+          "type": "string",
+          "pattern": "^[_A-Za-z]*$"
+        },
+        "library": {
+          "type": "string",
+          "pattern": "^[_A-Za-z]*$"
+        },
+        "messages": {
+          "type": "array",
+          "items": { "$ref":  "#/definitions/messageType" }
+        }
+      },
+      "required": [ "url", "version", "authority", "domain", "library" ]
+    }
+  }
+}

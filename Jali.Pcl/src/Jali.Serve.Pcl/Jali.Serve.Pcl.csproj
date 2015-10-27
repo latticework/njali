@@ -47,23 +47,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\Error.cs">
-      <Link>Decompled\Error.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\FormDataCollection.cs">
-      <Link>Decompled\FormDataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\FormDataCollectionExtensions.cs">
-      <Link>Decompled\FormDataCollectionExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\FormUrlEncodedParser.cs">
-      <Link>Decompled\FormUrlEncodedParser.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliHttpRequestMessageExtensions.cs">
       <Link>JaliHttpRequestMessageExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Serve.Server\UriQueryUtility.cs">
-      <Link>Decompled\UriQueryUtility.cs</Link>
+    <Compile Include="..\..\..\src\Jali.Serve\Decompiled\Error.cs">
+      <Link>Decompiled\Error.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Decompiled\FormDataCollection.cs">
+      <Link>Decompiled\FormDataCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Decompiled\FormDataCollectionExtensions.cs">
+      <Link>Decompiled\FormDataCollectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Decompiled\FormUrlEncodedParser.cs">
+      <Link>Decompiled\FormUrlEncodedParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Decompiled\UriQueryUtility.cs">
+      <Link>Decompiled\UriQueryUtility.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\Definition\ActionDirection.cs">
       <Link>Definition\ActionDirection.cs</Link>

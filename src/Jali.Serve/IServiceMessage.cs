@@ -26,7 +26,7 @@ namespace Jali.Serve
         /// <summary>
         ///     A list of <see cref="NotificationMessage"/> objects accompanying the service message.
         /// </summary>
-        IEnumerable<NotificationMessage> Messages { get; set; }
+        IEnumerable<INotificationMessage> Messages { get; set; }
 
         /// <summary>
         ///     A collenction of unique identifiers representing this message.
