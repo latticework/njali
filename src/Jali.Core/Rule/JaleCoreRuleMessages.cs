@@ -1,8 +1,5 @@
-using Jali.Core;
 using Jali.Note;
 using Jali.Note.Definition;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Jali.Rule
 {
