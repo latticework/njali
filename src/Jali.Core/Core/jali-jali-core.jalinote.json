@@ -16,7 +16,7 @@
         "type": "object",
         "properties": {
           "message": {
-            "type": "object",
+            "type": "string",
             "description": "The description of the internal error."
           }
         }

@@ -38,7 +38,7 @@ namespace Jali.Core
                 public class Args
                 {
                     /// <summary>
-                    ///     Gets the description of the internal error.
+                    ///     Gets or sets the description of the internal error.
                     /// </summary>
                     [JsonProperty("message")]
                     public string Message { get; set; }
