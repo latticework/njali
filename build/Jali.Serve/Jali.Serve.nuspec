@@ -14,27 +14,35 @@
     <dependencies>
       <group targetFramework="net45">
         <dependency id="Jali" version="$version$" />
+        <dependency id="jose-jwt" version="1.9.0" />
       </group>
       <group targetFramework="wp8">
         <dependency id="Jali" version="$version$" />
+        <dependency id="jose-jwt" version="1.9.0" />
       </group>
       <group targetFramework="win8">
         <dependency id="Jali" version="$version$" />
+        <dependency id="jose-jwt" version="1.9.0" />
       </group>
       <group targetFramework="wpa81">
         <dependency id="Jali" version="$version$" />
+        <dependency id="jose-jwt" version="1.9.0" />
       </group>
       <group targetFramework="xamarin.ios">
         <dependency id="Jali" version="$version$" />
+        <dependency id="jose-jwt" version="1.9.0" />
       </group>
       <group targetFramework="monotouch">
         <dependency id="Jali" version="$version$" />
+        <dependency id="jose-jwt" version="1.9.0" />
       </group>
       <group targetFramework="monoandroid">
         <dependency id="Jali" version="$version$" />
+        <dependency id="jose-jwt" version="1.9.0" />
       </group>
       <group targetFramework=".NETPlatform5.0">
         <dependency id="Jali" version="$version$" />
+        <dependency id="jose-jwt" version="1.9.0" />
       </group>
     </dependencies>
   </metadata>

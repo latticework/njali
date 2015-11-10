@@ -100,5 +100,11 @@ namespace Jali.Core
         {
             return string.Equals(receiver, other, StringComparison.OrdinalIgnoreCase);
         }
+
+        public static string GetBaseUrl(this Uri receiver)
+        {
+            // TODO: JaliCoreExtensions.GetBaseUrl: Use GetLeftPart(UriPartial.Authority) when available.
+            return receiver.Scheme + "://" + receiver.Authority;
+        }
     }
 }

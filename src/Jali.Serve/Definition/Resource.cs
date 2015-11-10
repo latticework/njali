@@ -18,6 +18,7 @@ namespace Jali.Serve.Definition
         public string Name { get; set; }
         public string Version { get; set; }
         public string Description { get; set; }
+        public AuthenticationRequirement DefaultAuthentication { get; set; }
         public JSchema Schema { get; set; }
         public JSchema KeySchema { get; set; }
         public IDictionary<string, Routine> Routines { get; }

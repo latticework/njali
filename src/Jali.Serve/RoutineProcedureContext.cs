@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Jali.Serve.Definition;
 
 namespace Jali.Serve
@@ -26,6 +27,13 @@ namespace Jali.Serve
         /// </summary>
         public RoutineMessage ResponseMessageDefinition { get; internal set; }
 
+        // TODO: RoutineProcedureContext: Determine method to convert to/from HTTP Request/Response generically.
+
+        /// <summary>
+        ///     The inbound http request to process.
+        /// </summary>
+        public HttpRequestMessage HttpRequest { get; set; }
+
         /// <summary>
         ///     The inbound message to process.
         /// </summary>
@@ -35,6 +43,11 @@ namespace Jali.Serve
         ///     The outbound message to send.
         /// </summary>
         public ServiceMessage<TResponseData> Response { get; set; }
+
+        /// <summary>
+        ///     The outbound http response to send.
+        /// </summary>
+        public HttpResponseMessage HttpResponse { get; set; }
 
         /// <summary>
         ///     The resource key that this method applies to.

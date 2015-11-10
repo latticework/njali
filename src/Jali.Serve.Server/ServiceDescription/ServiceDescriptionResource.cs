@@ -4,28 +4,29 @@ using System.Threading.Tasks;
 using Jali.Core;
 using Jali.Serve.Definition;
 using Newtonsoft.Json.Schema;
-using SchemaReference = Jali.Serve.Definition.SchemaReference;
 
 namespace Jali.Serve.Server.ServiceDescription
 {
-    public class ServiceDescriptionResource : ResourceBase
+    public class ServiceDescriptionResource : ServerResourceBase
     {
         public const string Name = "servicedescription";
 
-        public ServiceDescriptionResource(ServiceBase service, Resource resource) : base(service, resource)
+        public ServiceDescriptionResource(ServiceBase service, JaliServerOptions serverOptions) 
+            : base(service, GetDefinition(service.Definition.Url), serverOptions)
         {
         }
 
-        public static Resource GetDefinition(Uri jaliserveUrl)
+        public static Resource GetDefinition(Uri serviceUrl)
         {
-            var serviceDescriptionUrl = new Uri(jaliserveUrl, $"resources/servicedescription/v0.0.1");
+            var url = new Uri(serviceUrl, $"resources/{Name}");
 
-            var serviceDescriptionResource = new Resource
+            return new Resource
             {
                 Name = Name,
-                Url = serviceDescriptionUrl,
+                Url = url,
                 Version = "0.0.1",
                 Description = "Povides documentation about a Jali service.",
+                DefaultAuthentication = AuthenticationRequirement.Ignored,
                 Schema = JSchema.Parse(@"{
   ""$schema"": ""http://json-schema.org/draft-04/schema#"",
 
@@ -36,42 +37,8 @@ namespace Jali.Serve.Server.ServiceDescription
 }"),
                 Routines =
                 {
-                    ["get-servicedescription"] = new Routine
-                    {
-                        Name = "get-servicedescription",
-                        Url = new Uri(serviceDescriptionUrl, "routines/get-servicedescription"),
-                        Description = "Get an html representation of the Jali service.",
-                        Messages =
-                        {
-                            ["get-servicedescription-request"] = new RoutineMessage
-                            {
-                                Action = "get-servicedescription-request",
-                                Direction = MessageDirection.Inbound,
-                                Description = "The get-servicedescription request message",
-                                Schema = new SchemaReference
-                                {
-                                    SchemaType = SchemaType.Direct,
-                                    Schema = JSchema.Parse(@"{
-  ""$schema"": ""http://json-schema.org/draft-04/schema#"",
+                    [GetServiceDescriptionRoutine.Name] =  GetServiceDescriptionRoutine.GetDescription(url),
 
-  ""type"": ""object"",
-  ""properties"": {
-  }
-}"),
-                                },
-                            },
-                            ["get-servicedescription-response"] = new RoutineMessage
-                            {
-                                Action = "get-servicedescription-request",
-                                Direction = MessageDirection.Inbound,
-                                Description = "The get-servicedescription request message",
-                                Schema = new SchemaReference
-                                {
-                                    SchemaType = SchemaType.Resource,
-                                },
-                            },
-                        },
-                    }
                 },
                 Methods =
                         {
@@ -84,8 +51,8 @@ namespace Jali.Serve.Server.ServiceDescription
                                 {
                                     Message = new RoutineMessageReference
                                     {
-                                        Routine = "get-servicedescription",
-                                        Action = "get-servicedescription-request"
+                                        Routine = GetServiceDescriptionRoutine.Name,
+                                        Action = "get-servicedescription-request",
                                     },
                                     Mode = DataTransmissionModes.Full,
                                 },
@@ -101,8 +68,6 @@ namespace Jali.Serve.Server.ServiceDescription
                             },
                         },
             };
-
-            return serviceDescriptionResource;
         }
 
         protected override async Task<RoutineBase> CreateRoutine(string name)
@@ -131,19 +96,19 @@ namespace Jali.Serve.Server.ServiceDescription
                     $"Jail server internal resource '{nameof(ServiceDescriptionResource)}' has not implemented correctly specified requested routine '{name}'.");
             }
 
-            return await Task.FromResult(routineFactory(this, routine));
+            return await Task.FromResult(routineFactory(this, this.ServerOptions));
         }
 
         static ServiceDescriptionResource()
         {
             ServiceDescriptionResource._routineFactories = 
-                new Dictionary<string, Func<ResourceBase, Routine, RoutineBase>>
+                new Dictionary<string, Func<ResourceBase, JaliServerOptions, RoutineBase>>
             {
                 [GetServiceDescriptionRoutine.Name] = 
-                    (resource, routine) => new GetServiceDescriptionRoutine(resource, routine),
+                    (resource, serverOptions) => new GetServiceDescriptionRoutine(resource, serverOptions),
             };
         }
 
-        private static IDictionary<string, Func<ResourceBase, Routine, RoutineBase>> _routineFactories;
+        private static IDictionary<string, Func<ResourceBase, JaliServerOptions, RoutineBase>> _routineFactories;
     }
 }

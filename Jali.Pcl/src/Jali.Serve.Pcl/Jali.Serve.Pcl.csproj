@@ -68,6 +68,9 @@
     <Compile Include="..\..\..\src\Jali.Serve\Definition\ActionDirection.cs">
       <Link>Definition\ActionDirection.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\AuthenticationRequirement.cs">
+      <Link>Definition\AuthenticationRequirement.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\Definition\DataTransmissionModes.cs">
       <Link>Definition\DataTransmissionModes.cs</Link>
     </Compile>
@@ -110,6 +113,9 @@
     <Compile Include="..\..\..\src\Jali.Serve\Definition\SchemaReference.cs">
       <Link>Definition\SchemaReference.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Definition\SchemaReferenceOptions.cs">
+      <Link>Definition\SchemaReferenceOptions.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\Definition\SchemaType.cs">
       <Link>Definition\SchemaType.cs</Link>
     </Compile>
@@ -127,6 +133,12 @@
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\EndpointPartition.cs">
       <Link>EndpointPartition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\ExecuteProcedureResult.cs">
+      <Link>ExecuteProcedureResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\HttpRequestParseResult.cs">
+      <Link>HttpRequestParseResult.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\IResource.cs">
       <Link>IResource.cs</Link>
@@ -172,6 +184,12 @@
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\RoutineProcedureContext.cs">
       <Link>RoutineProcedureContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Secure\AuthenticationOperations.cs">
+      <Link>Secure\AuthenticationOperations.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve\Secure\AuthenticationResult.cs">
+      <Link>Secure\AuthenticationResult.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve\Secure\DefaultAuthenticator.cs">
       <Link>Secure\DefaultAuthenticator.cs</Link>
@@ -280,9 +298,13 @@
       <Link>Definition\jaliservice.schema.json</Link>
     </None>
     <None Include="app.config" />
+    <None Include="LICENSE" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="jose-jwt">
+      <HintPath>..\..\packages\jose-jwt.1.9.0\lib\4.0\jose-jwt.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>

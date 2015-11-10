@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Jali.Note;
 
 #if !DNX && !PCL
 using System.Runtime.Serialization;
@@ -65,6 +67,22 @@ namespace Jali.Core
             this.Messages.Add(JaliCoreMessages.Criticals.InternalError.Create(message));
         }
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="InternalErrorException"/> class.
+        /// </summary>
+        /// <param name="messages">
+        ///     A description of the internal error.
+        /// </param>
+        public InternalErrorException(IEnumerable<INotificationMessage> messages) : 
+            base(VerifyCriticalErrors(messages))
+        {
+            if (this.Messages.GetSeverity() != MessageSeverity.Critical)
+            {
+                var message = $"'{nameof(messages)}' argument must contain critical errors.";
+                throw new ArgumentException(message, nameof(messages));
+            }
+        }
+
 #if !DNX && !PCL
         protected InternalErrorException(
             SerializationInfo info,
@@ -74,5 +92,13 @@ namespace Jali.Core
 #endif
 
         private const string _defaultMessage = "The application encountered an internal error.";
+
+        private static NotificationMessageCollection VerifyCriticalErrors(IEnumerable<INotificationMessage> messages)
+        {
+            var collection = NotificationMessageCollection.FromEnumerable(messages);
+
+            return collection;
+        }
+
     }
 }

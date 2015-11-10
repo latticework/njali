@@ -17,6 +17,17 @@ namespace Jali.Note
             
         }
 
+        public static NotificationMessageCollection FromEnumerable(IEnumerable<INotificationMessage> messages)
+        {
+            var collection = (messages ?? new NotificationMessageCollection()) as NotificationMessageCollection;
+            if (collection != null)
+            {
+                return collection;
+            }
+
+            return new NotificationMessageCollection(messages);
+        }
+
         public NotificationMessageCollection Prepend(IEnumerable<INotificationMessage> messages)
         {
             var messageArray = messages as INotificationMessage[] ?? messages.ToArray();

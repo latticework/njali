@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Jali.Core;
-using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server
 {
@@ -51,47 +51,52 @@ namespace Jali.Serve.Server
 
         public bool Running { get; set; }
 
-        public async Task<IServiceMessage> SendMethod(
-            IExecutionContext context, 
-            ISecurityContext user, 
-            string method, 
-            ServiceMessage<JObject> request, 
-            string key = null)
+        public async Task<HttpResponseMessage> Send(
+            IExecutionContext context, HttpRequestParseResult parseResult, HttpRequestMessage request)
         {
-            if (method == null) throw new ArgumentNullException(nameof(method));
+            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (parseResult == null) throw new ArgumentNullException(nameof(parseResult));
             if (request == null) throw new ArgumentNullException(nameof(request));
 
-            var methodResult = this.Resource.Definition.Methods.GetValueOrDefault(method);
+            var methodResult = this.Resource.Definition.Methods.GetValueOrDefault(parseResult.Method);
 
             if (!methodResult.Found)
             {
-                var message = $"Method '{method}' for Resource '{this.Resource.Definition.Name}' of Service '{this.ServiceManager.Service.Definition.Name}' was not found.";
-                throw new ArgumentException(message, nameof(method));
+                var message = 
+                    $"Method '{parseResult.Method}' for Resource '{this.Resource.Definition.Name}' of Service '{this.ServiceManager.Service.Definition.Name}' was not found.";
+
+                throw new ArgumentException(message, nameof(parseResult));
             }
 
             if (!this.Running)
             {
                 var message =
-                    $"Can only call '{nameof(SendMethod)}' when '{nameof(ResourceManager)}' is '{nameof(Running)}'.";
+                    $"Can only call '{nameof(Send)}' when '{nameof(ResourceManager)}' is '{nameof(Running)}'.";
 
                 throw new InvalidOperationException(message);
             }
 
-            var resourceKey = (key == null) 
-                ? null 
+            var resourceKey = (parseResult.ResourceKey == null)
+                ? null
                 : this.ServiceManager.Server.Options.KeyConverter.ToResourceKey(
-                    this.Resource.Definition.KeySchema, key);
+                    this.Resource.Definition.KeySchema, parseResult.ResourceKey);
+
+            // TODO: ResourceManager.Send: Implement direct routine invocation.
+            if (parseResult.RoutineName != null)
+            {
+                throw new NotImplementedException("Jali Server has not yet implemented direct route message support.");
+            }
 
             var routineManager = await this.GetRoutineManager(context, methodResult.Value.Routine);
 
-            var requestAction = (key == null)
+            var requestAction = (parseResult.ResourceKey == null)
                 ? methodResult.Value.Request.Message.Action
                 : methodResult.Value.KeyRequest.Message.Action;
 
             var responseAction = methodResult.Value.Response.Message.Action;
 
             var result = await routineManager.ExecuteProcedure(
-                context, user, requestAction, responseAction, request, resourceKey);
+                context, request, requestAction, responseAction, resourceKey);
 
             return result;
         }

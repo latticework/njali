@@ -19,25 +19,36 @@ namespace Jali.Core
         // and
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
-
-        public DomainErrorException()
-            : this(null, null)
-        {
-        }
-
-        public DomainErrorException(Exception innerException)
-            : this(null, innerException)
-        {
-        }
-
         public DomainErrorException(IEnumerable<INotificationMessage> messages)
-            : this(messages, null)
+            : base(messages)
         {
+            if (this.Messages == null) throw new ArgumentNullException(nameof(messages));
+
+            if (this.Messages.GetSeverity() != MessageSeverity.Error)
+            {
+                var message = $"'{nameof(messages)}' argument must contain errors that are only non-critical.";
+
+                throw new ArgumentException(message, nameof(messages));
+            }
         }
 
-        public DomainErrorException(IEnumerable<INotificationMessage> messages, Exception innerException)
-            : base(messages, innerException)
+        public static NotificationMessageException CreateException(IEnumerable<INotificationMessage> messages)
         {
+
+            var collection = NotificationMessageCollection.FromEnumerable(messages);
+
+            switch (collection.GetSeverity())
+            {
+                case MessageSeverity.Critical:
+                    return new InternalErrorException(collection);
+
+                case MessageSeverity.Error:
+                    return new DomainErrorException(collection);
+
+                default:
+                    var message = $"'{nameof(messages)}' argument must contain errors.";
+                    throw new ArgumentException(message, nameof(messages));
+            }
         }
 
 #if !DNX && !PCL

@@ -9,9 +9,14 @@ namespace Jali.Serve.Server
 {
     internal class JaliService : ServiceBase
     {
-        public JaliService() : base(JaliService.GetDefinition())
+        public JaliService(JaliServerOptions serverOptions) : base(JaliService.GetDefinition())
         {
+            if (serverOptions == null) throw new ArgumentNullException(nameof(serverOptions));
+
+            this.ServerOptions = serverOptions;
         }
+
+        public JaliServerOptions ServerOptions { get; }
 
         public static Service GetDefinition()
         {
@@ -58,17 +63,17 @@ namespace Jali.Serve.Server
                     $"Jali server has not implemented correctly specified requested internal resource '{name}'.");
             }
 
-            return await Task.FromResult(resourceFactory(this, resource));
+            return await Task.FromResult(resourceFactory(this, this.ServerOptions));
         }
 
         static JaliService()
         {
-            JaliService._resourceFactories = new Dictionary<string, Func<ServiceBase, Resource, ResourceBase>>
+            JaliService._resourceFactories = new Dictionary<string, Func<ServiceBase, JaliServerOptions, ResourceBase>>
             {
                 [ServiceDescriptionResource.Name] = (s, r) => new ServiceDescriptionResource(s, r),
             };
         }
 
-        private static IDictionary<string, Func<ServiceBase, Resource, ResourceBase>> _resourceFactories;
+        private static IDictionary<string, Func<ServiceBase, JaliServerOptions, ResourceBase>> _resourceFactories;
     }
 }

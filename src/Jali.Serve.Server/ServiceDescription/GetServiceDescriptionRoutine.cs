@@ -1,18 +1,65 @@
+using System;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Jali.Serve.Definition;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
+using SchemaReference = Jali.Serve.Definition.SchemaReference;
 
 namespace Jali.Serve.Server.ServiceDescription
 {
-    public class GetServiceDescriptionRoutine : RoutineBase<GetServiceDescriptionRequest, GetServiceDescriptionResponse>
+    public class GetServiceDescriptionRoutine 
+        : ServerRoutineBase<GetServiceDescriptionRequest, GetServiceDescriptionResponse>
     {
         public const string Name = "get-servicedescription";
 
-        public GetServiceDescriptionRoutine(ResourceBase resource, Routine routine) : base(resource, routine)
+        public GetServiceDescriptionRoutine(ResourceBase resource, JaliServerOptions options)
+            : base(resource, GetDescription(resource.Definition.Url), options)
         {
             
+        }
+
+        public static Routine GetDescription(Uri resourceUrl)
+        {
+            return new Routine
+            {
+                Name = Name,
+                Url = new Uri(resourceUrl, $"routines/{Name}"),
+                Description = "Get an html representation of the Jali service.",
+                DefaultAuthentication = AuthenticationRequirement.Ignored,
+                Messages =
+                {
+                    ["get-servicedescription-request"] = new RoutineMessage
+                    {
+                        Action = "get-servicedescription-request",
+                        Direction = MessageDirection.Inbound,
+                        Description = "The get-servicedescription request message",
+                        Schema = new SchemaReference
+                        {
+                            SchemaType = SchemaType.Direct,
+                            Schema = JSchema.Parse(@"{
+  ""$schema"": ""http://json-schema.org/draft-04/schema#"",
+
+  ""type"": ""object"",
+  ""properties"": {
+  }
+}"),
+                        },
+                    },
+                    ["get-servicedescription-response"] = new RoutineMessage
+                    {
+                        Action = "get-servicedescription-request",
+                        Direction = MessageDirection.Inbound,
+                        Description = "The get-servicedescription request message",
+                        Schema = new SchemaReference
+                        {
+                            SchemaType = SchemaType.Resource,
+                        },
+                    },
+                },
+            };
         }
 
         protected override async Task ExecuteProcedureCore(

@@ -43,6 +43,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\Common\ServerResourceBase.cs">
+      <Link>Common\ServerResourceBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\Common\ServerRoutineBase.cs">
+      <Link>Common\ServerRoutineBase.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\JaliHttpMessageResponseBuilder.cs">
       <Link>JaliHttpMessageResponseBuilder.cs</Link>
     </Compile>
@@ -87,6 +93,15 @@
     </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\StageManager.cs">
       <Link>StageManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\User\GetUserRoutine.cs">
+      <Link>User\GetUserRoutine.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\User\User.cs">
+      <Link>User\User.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\User\UserResource.cs">
+      <Link>User\UserResource.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

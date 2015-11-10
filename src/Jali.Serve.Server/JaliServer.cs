@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Jali.Core;
 using Jali.Secure;
 using Jali.Serve.Server.MessageConversion;
 using Jali.Serve.Server.ServiceDescription;
-using Newtonsoft.Json.Linq;
+using Jali.Serve.Server.User;
 
 namespace Jali.Serve.Server
 {
@@ -41,7 +39,7 @@ namespace Jali.Serve.Server
 
             this.Options = new JaliServerOptions
             {
-                Authenticator = overrideOptions.Authenticator ?? new DefaultAuthenticator(),
+                Authenticator = overrideOptions.Authenticator ?? new DefaultAuthenticator(GenerateRandom(256)),
                 Authorizer = overrideOptions.Authorizer ?? new DefaultAuthorizor(),
                 MessageConverter = overrideOptions.MessageConverter ?? new CompositeServiceMessageConverter(),
                 KeyConverter = overrideOptions.KeyConverter ?? new DefaultResourceKeyConverter(),
@@ -87,7 +85,7 @@ namespace Jali.Serve.Server
                 throw  new InvalidOperationException("The Jali Server is already running.");
             }
 
-            var jaliService = new JaliService();
+            var jaliService = new JaliService(this.Options);
             this._jaliServiceManager = new ServiceManager(this, jaliService);
 
             await this._jaliServiceManager.Run(context);
@@ -118,94 +116,71 @@ namespace Jali.Serve.Server
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
-            var uri = request.RequestUri;
+            var parseResult = await request.JaliParse();
 
-            var components = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
-
-            if (components == string.Empty)
+            if (!parseResult.Succeeded)
             {
-                // TODO: JaliServer.Send: Determine correct default request service message content.
-                // TODO: JaliServer.Send: Determine better way to pass typed ServiceMessages.
-                var getServiceDescriptionRequest = new ServiceMessage<JObject>
-                {
-                    Connection = new MessageConnection { },
-                    Credentials = new MessageCredentials { },
-                    Data = JObject.FromObject(new GetServiceDescriptionRequest
-                    {
-                        Service = this.Service.Definition,
-                    }),
-                    Contract = new MessageContract { },
-                    Identity = new MessageIdentity { },
-                    Tenant = new TenantIdentity { },
-                };
+                throw DomainErrorException.CreateException(parseResult.Messages);
+            }
 
-                var result = await this._jaliServiceManager.SendMethod(
-                    this.ExecutionContext, 
-                    this.ExecutionContext.Security, 
-                    ServiceDescriptionResource.Name, 
-                    "GET", 
-                    getServiceDescriptionRequest);
-
-                var typedResult = (ServiceMessage<GetServiceDescriptionResponse>) result;
-
-                return new HttpResponseMessage
+            // Redirect to ServiceSecription resource.
+            if (parseResult.ResourceName == string.Empty)
+            {
+                var redirectResponse = new HttpResponseMessage
                 {
                     RequestMessage = request,
-                    StatusCode = HttpStatusCode.OK,
-                    ReasonPhrase = "OK",
-                    Content = new StringContent(typedResult.Data.Html, Encoding.UTF8, "text/html"),
+                    StatusCode = HttpStatusCode.Moved,
+                    ReasonPhrase = $"{nameof(HttpStatusCode.Moved)}",
                 };
+
+                // TODO: JaliServer.Send: Handle servicedescription url better.
+                redirectResponse.Headers.Location = new Uri(
+                    request.RequestUri, $"resources/{ServiceDescriptionResource.Name}");
+
+                return redirectResponse;
             }
 
-            var resourceMatch = Regex.Match(
-                components,
-                @"^resources/(?<resourceName>[_a-zA-Z][_a-zA-Z0-9]*)(/(?<resourceKey>[_a-zA-Z0-9]+))?$");
-
-            if (resourceMatch.Success)
+            // TODO: JaliServer.Send: Make list of Jali Service resources.
+            if (parseResult.ResourceName == ServiceDescriptionResource.Name ||
+                parseResult.ResourceName == UserResource.Name)
             {
-                var resourceName = resourceMatch.Groups["resourceName"].Value;
-                var resourceKey = resourceMatch.Groups["resourceKey"].Value;
 
-                if (resourceKey == string.Empty)
-                {
-                    resourceKey = null;
-                }
+                var jaliResponse = await this._jaliServiceManager.SendMethod(
+                    this.ExecutionContext, parseResult, request);
 
-                var user = await this.Options.Authenticator.Authenticate(this.ExecutionContext, request);
-                //await this.Options.Authorizer.Authorize(securityContext);
+                return jaliResponse;
 
-                var conversionContext = new MessageConversionContext(user);
+                // TODO: JaliServer.Send: Handle ServiceDescription HTML result.
+                // TODO: JaliServer.Send: Determine correct default request service message content.
+                // TODO: JaliServer.Send: Determine better way to pass typed ServiceMessages.
+                //var typedResult = (ServiceMessage<GetServiceDescriptionResponse>)result;
+                //return new HttpResponseMessage
+                //{
+                //    RequestMessage = request,
+                //    StatusCode = HttpStatusCode.OK,
+                //    ReasonPhrase = "OK",
+                //    Content = new StringContent(typedResult.Data.Html, Encoding.UTF8, "text/html"),
+                //};
 
-                var requestMessage = await this.Options.MessageConverter.FromRequest(
-                    this.ExecutionContext, conversionContext, request);
-
-                var result = await this._serviceManager.SendMethod(
-                    this.ExecutionContext, user, resourceName, request.Method.Method, requestMessage, resourceKey);
-
-                return await this.Options.MessageConverter.ToResponse(
-                    this.ExecutionContext, conversionContext, result, request);
-
-                // TODO: JaliServer.Send: Remove these types.
-                //return result.AsResponse(request);
             }
+            var response = await this._serviceManager.SendMethod(this.ExecutionContext, parseResult, request);
 
-
-            var routeMatch = Regex.Match(
-                components,
-                @"^resources/(?<resourceName>[_a-zA-Z][_a-zA-Z0-9]*)(/(?<resourceKey>[_a-zA-Z0-9]+))?/routines/(?<routineName>[_a-zA-Z][_a-zA-Z0-9]*)$");
-
-            if (routeMatch.Success)
-            {
-                throw new NotImplementedException("Jali Server has not yet implemented direct route message support.");
-            }
-
-            // TODO: JaliServer.Send: Review this error internal error message.
-            var message = $"Jali Server cannot handle route HTTP {request.Method.Method} {request.RequestUri}. The request should not have been forwarded to it.";
-            throw new InternalErrorException(message);
+            return response;
         }
 
 
         private ServiceManager _jaliServiceManager;
         private ServiceManager _serviceManager;
+
+        // From https://github.com/dotnet/corefx/blob/master/src/System.Security.Cryptography.Algorithms/src/Internal/Cryptography/Helpers.cs
+        private static byte[] GenerateRandom(int count)
+        {
+            // Use this for non portable implementations:
+            // https://github.com/dotnet/corefx/blob/c02d33b18398199f6acc17d375dab154e9a1df66/src/System.Security.Cryptography.Algorithms/src/System/Security/Cryptography/RandomNumberGenerator.cs
+            var bytes = new byte[count];
+            new Random().NextBytes(bytes);
+
+            return bytes;
+        }
     }
 }

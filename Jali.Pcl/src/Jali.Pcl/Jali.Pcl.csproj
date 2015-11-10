@@ -72,6 +72,9 @@
     <Compile Include="..\..\..\src\Jali\Secure\IAuthorizer.cs">
       <Link>Secure\IAuthorizer.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali\Secure\JaliClaimTypes.cs">
+      <Link>Secure\JaliClaimTypes.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali\Secure\SecurityContext.cs">
       <Link>Secure\SecurityContext.cs</Link>
     </Compile>
