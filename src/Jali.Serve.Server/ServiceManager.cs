@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Jali.Core;
-using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server
 {
@@ -46,16 +46,11 @@ namespace Jali.Serve.Server
             this.Running = true;
         }
 
-        public async Task<IServiceMessage> SendMethod(
-            IExecutionContext context, 
-            ISecurityContext user,
-            string resourceName, 
-            string method, 
-            ServiceMessage<JObject> request, 
-            string key = null)
+        public async Task<HttpResponseMessage> SendMethod(
+            IExecutionContext context, HttpRequestParseResult parseResult, HttpRequestMessage request)
         {
-            if (resourceName == null) throw new ArgumentNullException(nameof(resourceName));
-            if (method == null) throw new ArgumentNullException(nameof(method));
+            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (parseResult == null) throw new ArgumentNullException(nameof(parseResult));
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             if (!this.Running)
@@ -64,9 +59,9 @@ namespace Jali.Serve.Server
                 throw new InvalidOperationException(message);
             }
 
-            var resourceManager = await this.GetResourceManager(context, resourceName);
+            var resourceManager = await this.GetResourceManager(context, parseResult.ResourceName);
 
-            return await resourceManager.SendMethod(context, user, method, request, key);
+            return await resourceManager.Send(context, parseResult, request);
         }
 
         private async Task<ResourceManager> GetResourceManager(IExecutionContext context, string resourceName)

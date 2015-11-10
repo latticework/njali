@@ -10,7 +10,31 @@
       "severity": "error",
       "baseCode": "0100",
       "description": "A required value is missing.",
-      "template": "${propertyNames === null ? \"A value is required.\" : \"The value${propertyNames.length > 1 ? \"s\" : \"\"} '${propertyNames.join()}'\" ${propertyNames.length > 1 ? \"are\" : \"is\"} required ${objectPointer !== null ? \"for object at '${objectPointer}'\" : \"\"}${objectKey !== null ? \" of '${objectKey}'\" : \"\"}.}"
+      "template": "${propertyNames === null ? \"A value is required.\" : \"The value${propertyNames.length > 1 ? \"s\" : \"\"} '${propertyNames.join()}'\" ${propertyNames.length > 1 ? \"are\" : \"is\"} required ${objectPointer !== null ? \"for object at '${objectPointer}'\" : \"\"}${objectKey !== null ? \" of '${objectKey}'\" : \"\"}.}",
+      "identifyingArgs": [ ]
+    },
+    {
+      "name":  "MaxLength",
+      "severity": "error",
+      "baseCode": "0102",
+      "description": "A value is too long.",
+      "template": "${propertyNames === null ? \"A value\" : \"The value${propertyNames.length > 1 ? \"s\" : \"\"} '${propertyNames.join()}'\" ${propertyNames.length > 1 ? \"are\" : \"is\"} too long ${objectPointer !== null ? \"for object at '${objectPointer}'\" : \"\"}${objectKey !== null ? \" of '${objectKey}'\" : \"\"}. Max length is '${args.maxLength}'. Yours is '${args.actualLength}'}",
+      "args": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {
+          "maxLength": {
+            "type": "integer",
+            "description": "The inclusive upper bound value length."
+          },
+          "actualLength": {
+            "type": "integer",
+            "description": "The actual value length."
+          }
+        },
+        "required": [ "maxLength", "actualLength" ],
+        "identifyingArgs": [ ]
+      }
     }
   ]
 }

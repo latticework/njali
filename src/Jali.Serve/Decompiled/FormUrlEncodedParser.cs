@@ -1,4 +1,5 @@
 // ReSharper disable All
+#pragma warning disable 0469
 // Decompiled with JetBrains decompiler
 // Type: System.Net.Http.Formatting.Parsers.FormUrlEncodedParser
 // Assembly: System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35

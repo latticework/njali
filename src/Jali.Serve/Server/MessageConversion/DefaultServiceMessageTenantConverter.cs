@@ -1,5 +1,7 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Jali.Secure;
 using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server.MessageConversion
@@ -24,9 +26,20 @@ namespace Jali.Serve.Server.MessageConversion
         /// <returns>
         ///     <see langword="null"/> so the message remains unmodified.
         /// </returns>
-        public virtual Task<TenantIdentity> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
+        public virtual async Task<TenantIdentity> FromRequest(IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request, ServiceMessage<JObject> message)
         {
-            return Task.FromResult<TenantIdentity>(null);
+            await Task.FromResult(true);
+            var user = conversionContext.UserContext.User;
+
+            if (!user.Authenticated) { return await Task.FromResult<TenantIdentity>(null); }
+
+
+            var tid = user.Claims.FirstOrDefault(c => c.Type == JaliClaimTypes.TenantId)?.Value;
+            var toid = user.Claims.FirstOrDefault(c => c.Type == JaliClaimTypes.TenantOrgId)?.Value;
+
+            var identity = new TenantIdentity { TenantId = tid, TenantOrgId = toid, };
+
+            return identity;
         }
 
         /// <summary>

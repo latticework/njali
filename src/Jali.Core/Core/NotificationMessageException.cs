@@ -32,7 +32,7 @@ namespace Jali.Core
         public NotificationMessageException(IEnumerable<INotificationMessage> messages, Exception innerException)
             : base(null, innerException)
         {
-            this.Messages = new NotificationMessageCollection(messages);
+            this.Messages = NotificationMessageCollection.FromEnumerable(messages);
         }
 
 #if !DNX && !PCL

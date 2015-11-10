@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Jali.Core;
 
 namespace Jali.Secure
 {
@@ -46,6 +47,87 @@ namespace Jali.Secure
         public IEnumerable<Claim> Claims { get; }
 
         /// <summary>
+        ///     Gets the unique identifier for a deputy (i.e. service) account or <c>null</c> if no impersonator is 
+        ///     present.
+        /// </summary>
+        public string DeputyId => this.GetFirstClaimValue(JaliClaimTypes.DeputySid);
+
+        /// <summary>
+        ///     Gets the login name for a deputy (i.e. service) account or <c>null</c> if no impersonator is present.
+        /// </summary>
+        public string DeputyUserName => this.GetFirstClaimValue(JaliClaimTypes.DeputyNameIdentifier);
+
+        /// <summary>
+        ///     Gets the given name for a deputy (i.e. service) account or <c>null</c> if no impersonator is present.
+        /// </summary>
+        public string DeputyGivenName => this.GetFirstClaimValue(JaliClaimTypes.DeputyGivenName);
+
+        /// <summary>
+        ///     Gets the surname for a deputy (i.e. service) account or <c>null</c> if no impersonator is present.
+        /// </summary>
+        public string DeputySurname => this.GetFirstClaimValue(JaliClaimTypes.DeputySurname);
+
+        /// <summary>
+        ///     Gets the unique identifier for an impersonating user or <c>null</c> if no impersonator is present.
+        /// </summary>
+        public string ImpersonatorId => this.GetFirstClaimValue(JaliClaimTypes.ImpersonatorSid);
+
+        /// <summary>
+        ///     Gets the login name for an impersonating user or <c>null</c> if no impersonator is present.
+        /// </summary>
+        public string ImpersonatorName => this.GetFirstClaimValue(JaliClaimTypes.ImpersonatorNameIdentifier);
+
+        /// <summary>
+        ///     Gets the given name for an impersonating user or <c>null</c> if no impersonator is present.
+        /// </summary>
+        public string ImpersonatorGivenName => this.GetFirstClaimValue(JaliClaimTypes.ImpersonatorGivenName);
+
+        /// <summary>
+        ///     Gets the surname for an impersonating user or <c>null</c> if no impersonator is present.
+        /// </summary>
+        public string ImpersonatorSurname => this.GetFirstClaimValue(JaliClaimTypes.ImpersonatorSurname);
+
+        /// <summary>
+        ///     Gets the unique identifier for the Jali Service tenant with which the user is associated.
+        /// </summary>
+        public string TenantId => this.GetFirstClaimValue(JaliClaimTypes.TenantId);
+
+        /// <summary>
+        ///     Gets the friendly name of the Jali Service tenant with which the user is associated.
+        /// </summary>
+        public string TenantName => this.GetFirstClaimValue(JaliClaimTypes.TenantName);
+
+        /// <summary>
+        ///     Gets the unique identifier for the Jali Service tenant for which the user is authorized.
+        /// </summary>
+        public string TenantOrgId => this.GetFirstClaimValue(JaliClaimTypes.TenantOrgId);
+
+        /// <summary>
+        ///     Gets the friendly name of the Jali Service tenant for which the user is authorized.
+        /// </summary>
+        public string TenantOrgName => this.GetFirstClaimValue(JaliClaimTypes.TenantOrgName);
+
+        /// <summary>
+        ///     Gets the unique identifier for the user represented by this <see cref="SecurityIdentity"/>.
+        /// </summary>
+        public string UserId => this.GetFirstClaimValue(WellKnownClaimTypes.Sid);
+
+        /// <summary>
+        ///     Gets the login name for the user represented by this <see cref="SecurityIdentity"/>.
+        /// </summary>
+        public string UserName => this.GetFirstClaimValue(WellKnownClaimTypes.NameIdentifier);
+
+        /// <summary>
+        ///     Gets the given name for the user represented by this <see cref="SecurityIdentity"/>.
+        /// </summary>
+        public string UserGivenName => this.GetFirstClaimValue(WellKnownClaimTypes.GivenName);
+
+        /// <summary>
+        ///     Gets the surname for the user represented by this <see cref="SecurityIdentity"/>.
+        /// </summary>
+        public string UserSurname => this.GetFirstClaimValue(WellKnownClaimTypes.Surname);
+
+        /// <summary>
         ///     Returns a value indicating whether whether the specified claim is held by the identity.
         /// </summary>
         /// <param name="type">
@@ -60,6 +142,11 @@ namespace Jali.Secure
         public bool HasClaim(string type, string value)
         {
             return this.Claims.HasClaim(type, value);
+        }
+
+        private string GetFirstClaimValue(string type)
+        {
+            return this.Claims.FirstOrDefault(c => c.Type.EqualsOrdinalIgnoreCase(type))?.Value;
         }
     }
 

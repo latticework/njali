@@ -16,10 +16,13 @@ namespace Jali.Secure
         /// <param name="context">
         ///     The security context.
         /// </param>
+        /// <param name="securityContext">
+        ///     The security context.
+        /// </param>
         /// <returns>
         ///     The result of the authorization operation.
         /// </returns>
-        Task<AuthorizationResult> Authorize(ISecurityContext context);
+        Task<AuthorizationResult> Authorize(IExecutionContext context, ISecurityContext securityContext);
     }
 
 }

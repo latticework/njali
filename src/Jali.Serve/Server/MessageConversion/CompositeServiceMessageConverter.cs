@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Jali.Core;
 using Jali.Note;
+using Jali.Serve.Definition;
 using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server.MessageConversion
@@ -69,7 +70,7 @@ namespace Jali.Serve.Server.MessageConversion
 
             string jsonString;
 
-            if (method == "GET" || method == "DELETE")
+            if (method == RestMethodVerbs.Get || method == RestMethodVerbs.Delete)
             {
                 var query = request.GetQueryStrings();
 
@@ -78,7 +79,7 @@ namespace Jali.Serve.Server.MessageConversion
                     var errorMessage =
                         $"Jali Server requires that all '{method}' methods have a single query parameter named 'json'";
 
-                    // TODO: JaliHttpRequestMessageExtensions.AsServiceMessage: Replace with BusinessDomainException.
+                    // TODO: CompositeServiceMessageConverter.FromRequest: Replace with DomainException.
                     throw new Exception(errorMessage);
                 }
 

@@ -16,17 +16,20 @@ namespace Jali.Secure
         /// <param name="context">
         ///     The security context.
         /// </param>
+        /// <param name="securityContext">
+        ///     The security context.
+        /// </param>
         /// <returns>
         ///     The result of the authorization operation.
         /// </returns>
-        public virtual async Task<AuthorizationResult> Authorize(ISecurityContext context)
+        public virtual async Task<AuthorizationResult> Authorize(IExecutionContext context, ISecurityContext securityContext)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
 
             var result = new AuthorizationResult(
                 new SecurityIdentity(),
-                context.Impersonator != null ? new SecurityIdentity() : null,
-                context.Deputy != null ? new SecurityIdentity() : null);
+                securityContext.Impersonator != null ? new SecurityIdentity() : null,
+                securityContext.Deputy != null ? new SecurityIdentity() : null);
 
             return await Task.FromResult(result);
         }

@@ -11,7 +11,7 @@ namespace Jali.Serve.Server.MessageConversion
         /// <param name="userContext">
         ///     The user's security context.
         /// </param>
-        public MessageConversionContext(ISecurityContext userContext)
+        public MessageConversionContext(ISecurityContext userContext = null)
         {
             this.UserContext = userContext;
         }

@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System.Threading.Tasks;
 using Jali.Serve.Definition;
 using Newtonsoft.Json.Linq;
@@ -18,6 +19,32 @@ namespace Jali.Serve
         ///     The routine definition.
         /// </summary>
         public Routine Definition { get; }
+
+        /// <summary>
+        ///     Gets the routine's authentication requirement.
+        /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="requestAction">
+        ///     The name of the routine inbound message to process.
+        /// </param>
+        /// <param name="key">
+        ///     The optional resource key to operate on.
+        /// </param>
+        /// <returns>
+        ///     The authentication requirement.
+        /// </returns>
+        public virtual AuthenticationRequirement GetAuthenticationRequirement(
+            IExecutionContext context, string requestAction, JObject key = null)
+        {
+            var message = this.Definition.Messages[requestAction];
+            return (message.Authentication != AuthenticationRequirement.Inherited)
+                ? message.Authentication
+                : (this.Definition.DefaultAuthentication != AuthenticationRequirement.Inherited)
+                    ? this.Definition.DefaultAuthentication
+                    : this.Resource.Definition.DefaultAuthentication;
+        }
 
         /// <summary>
         ///     The parent Jali resource implementation.
@@ -49,6 +76,9 @@ namespace Jali.Serve
         /// <param name="context">
         ///     The execution context.
         /// </param>
+        /// <param name="httpRequest">
+        ///     The http request of the request routine message.
+        /// </param>
         /// <param name="requestAction">
         ///     The name of the routine inbound message to process.
         /// </param>
@@ -62,10 +92,11 @@ namespace Jali.Serve
         ///     The optional resource key to operate on.
         /// </param>
         /// <returns>
-        ///     The routine outbound message content to return.
+        ///     The routine outbound message content to return or an http response to send.
         /// </returns>
-        public abstract Task<IServiceMessage> ExecuteProcedure(
-            IExecutionContext context, 
+        public abstract Task<ExecuteProcedureResult> ExecuteProcedure(
+            IExecutionContext context,
+            HttpRequestMessage httpRequest,
             string requestAction, 
             string responseAction, 
             ServiceMessage<JObject> request,
@@ -118,8 +149,9 @@ namespace Jali.Serve
         where TResponseData : class
         where TResourceKey : class
     {
-        public override async Task<IServiceMessage> ExecuteProcedure(
-            IExecutionContext context, 
+        public override async Task<ExecuteProcedureResult> ExecuteProcedure(
+            IExecutionContext context,
+            HttpRequestMessage httpRequest,
             string requestAction, 
             string responseAction, 
             ServiceMessage<JObject> request,
@@ -128,7 +160,8 @@ namespace Jali.Serve
             var typedRequest = request.ToTypedMessages<TRequestData>();
             var typedKey = (key == null) ? null : ToTypedKey(key);
 
-            return await this.ExecuteProcedure(context, requestAction, responseAction, typedRequest, typedKey);
+            return await this.ExecuteProcedure(
+                context, httpRequest, requestAction, responseAction, typedRequest, typedKey);
         }
 
         private TResourceKey ToTypedKey(JObject key)
@@ -142,10 +175,35 @@ namespace Jali.Serve
         private RoutineProcedureContext<TRequestData, TResponseData, TResourceKey> CreateProcedureContext()
         {
             return new RoutineProcedureContext<TRequestData, TResponseData, TResourceKey>();
-        }  
+        }
 
-        private async Task<ServiceMessage<TResponseData>> ExecuteProcedure(
+        /// <summary>
+        ///     Implementation for a procedure. This implementation calls <see cref="ExecuteProcedureCore"/>.
+        /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <param name="httpRequest">
+        ///     The http request of the request routine message.
+        /// </param>
+        /// <param name="requestAction">
+        ///     The action name of the request routine message.
+        /// </param>
+        /// <param name="responseAction">
+        ///     The action name of the response routine message.
+        /// </param>
+        /// <param name="request">
+        ///     The service request message of the request routine message.
+        /// </param>
+        /// <param name="key">
+        ///     The optional resource key.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="Task"/> that will result in a <see cref="ExecuteProcedureResult"/>.
+        /// </returns>
+        private async Task<ExecuteProcedureResult> ExecuteProcedure(
             IExecutionContext context, 
+            HttpRequestMessage httpRequest,
             string requestAction, 
             string responseAction, 
             ServiceMessage<TRequestData> request,
@@ -157,10 +215,18 @@ namespace Jali.Serve
             procedureContext.ResponseMessageDefinition = this.Definition.Messages[responseAction];
             procedureContext.Key = key;
             procedureContext.Request = request;
+            procedureContext.HttpRequest = httpRequest;
 
             await this.ExecuteProcedureCore(context, procedureContext);
 
-            return procedureContext.Response;
+            // TODO: RoutineBase.ExecuteProcedure: Throw Domain Error if not Response set xor HttpResponse set.
+
+            if (procedureContext.Response != null)
+            {
+                return new ExecuteProcedureResult(procedureContext.Response);
+            }
+
+            return new ExecuteProcedureResult(procedureContext.HttpResponse);
         }
 
         /// <summary>

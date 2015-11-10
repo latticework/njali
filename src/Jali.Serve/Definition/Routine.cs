@@ -13,6 +13,7 @@ namespace Jali.Serve.Definition
         public Uri Url { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public AuthenticationRequirement DefaultAuthentication { get; set; }
         public Uri EntryPoint { get; set; }
         public IDictionary<string, RoutineMessage> Messages { get; }
     }

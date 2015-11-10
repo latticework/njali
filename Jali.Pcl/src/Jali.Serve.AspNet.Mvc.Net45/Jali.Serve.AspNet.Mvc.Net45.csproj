@@ -94,6 +94,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\AspNetExecutionContext.cs">
+      <Link>AspNetExecutionContext.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.AspNet.Mvc.Net45\JaliHttpConfigurationExtensions.cs">
       <Link>JaliHttpConfigurationExtensions.cs</Link>
     </Compile>
