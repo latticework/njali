@@ -20,6 +20,9 @@ namespace Jali.Serve.Server
         /// <param name="conversionContext">
         ///     The message conversion context.
         /// </param>
+        /// <param name="parseResult">
+        ///     Represents the result of a <see cref="JaliHttpRequestMessageExtensions.JaliParse"/> on the request.
+        /// </param>
         /// <param name="request">
         ///     The http request.
         /// </param>
@@ -27,7 +30,10 @@ namespace Jali.Serve.Server
         ///     The request service message.
         /// </returns>
         Task<ServiceMessage<JObject>> FromRequest(
-            IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request);
+            IExecutionContext context,
+            MessageConversionContext conversionContext,
+            HttpRequestParseResult parseResult,
+            HttpRequestMessage request);
 
         /// <summary>
         ///     Converts from an <see cref="IServiceMessage"/> to an <see cref="HttpResponseMessage"/>.

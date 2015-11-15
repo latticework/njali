@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Jali.Core;
 using Jali.Note;
-using Jali.Serve.Definition;
 using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server.MessageConversion
@@ -55,6 +54,9 @@ namespace Jali.Serve.Server.MessageConversion
         /// <param name="conversionContext">
         ///     The message conversion context.
         /// </param>
+        /// <param name="parseResult">
+        ///     Represents the result of a <see cref="JaliHttpRequestMessageExtensions.JaliParse"/> on the request.
+        /// </param>
         /// <param name="request">
         ///     The http request.
         /// </param>
@@ -62,35 +64,17 @@ namespace Jali.Serve.Server.MessageConversion
         ///     The request service message.
         /// </returns>
         public async Task<ServiceMessage<JObject>> FromRequest(
-            IExecutionContext context, MessageConversionContext conversionContext, HttpRequestMessage request)
+            IExecutionContext context, 
+            MessageConversionContext conversionContext,
+            HttpRequestParseResult parseResult,
+            HttpRequestMessage request)
         {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (conversionContext == null) throw new ArgumentNullException(nameof(conversionContext));
+            if (parseResult == null) throw new ArgumentNullException(nameof(parseResult));
             if (request == null) throw new ArgumentNullException(nameof(request));
 
-            var method = request.Method.Method;
-
-            string jsonString;
-
-            if (method == RestMethodVerbs.Get || method == RestMethodVerbs.Delete)
-            {
-                var query = request.GetQueryStrings();
-
-                if (query.Keys.Count != 1 || !query.Keys.Contains("json"))
-                {
-                    var errorMessage =
-                        $"Jali Server requires that all '{method}' methods have a single query parameter named 'json'";
-
-                    // TODO: CompositeServiceMessageConverter.FromRequest: Replace with DomainException.
-                    throw new Exception(errorMessage);
-                }
-
-                jsonString = query["json"];
-            }
-            else
-            {
-                jsonString = await request.Content.ReadAsStringAsync();
-            }
-
-            var json = JObject.Parse(jsonString);
+            var json = (parseResult.JsonPayload == null) ? new JObject() : JObject.Parse(parseResult.JsonPayload);
 
             var message = await this.Options.Serializer.ToServiceMessage(context, conversionContext, json);
 

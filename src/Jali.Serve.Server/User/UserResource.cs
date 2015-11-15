@@ -9,8 +9,8 @@ namespace Jali.Serve.Server.User
     {
         public const string Name = "user";
 
-        public UserResource(ServiceBase service, Resource resource, JaliServerOptions serverOptions) 
-            : base(service, resource, serverOptions)
+        public UserResource(ServiceBase service, JaliServerOptions serverOptions) 
+            : base(service, GetDefinition(service.Definition.Url), serverOptions)
         {
         }
 
@@ -40,6 +40,37 @@ namespace Jali.Serve.Server.User
                 Description = "Gets Jali User data relavant for this service",
                 DefaultAuthentication = AuthenticationRequirement.Ignored,
                 Schema = GetSchema(),
+                Routines =
+                {
+                    [GetUserRoutine.Name] = GetUserRoutine.GetDefinition(url),
+                },
+                Methods =
+                {
+                    [RestMethodVerbs.Get] = new RestMethod
+                    {
+                        Method = RestMethodVerbs.Get,
+                        Description = "Gets the user after the authenticator provides the security context.",
+                        Routine = GetUserRoutine.Name,
+                        Request = new RestMethodRequest
+                        {
+                            Message = new RoutineMessageReference
+                            {
+                                Routine = GetUserRoutine.Name,
+                                Action = GetUserRequest.Action,
+                            },
+                            Mode = DataTransmissionModes.Full,
+                        },
+                        Response = new RestMethodResponse
+                        {
+                            Message = new RoutineMessageReference
+                            {
+                                Routine = GetUserRoutine.Name,
+                                Action = GetUserRequest.Action,
+                            },
+                            Mode = DataTransmissionModes.Full,
+                        },
+                    }
+                }
             };
         }
 

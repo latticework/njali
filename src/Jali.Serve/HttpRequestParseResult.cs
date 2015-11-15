@@ -112,7 +112,7 @@ namespace Jali.Serve
         /// <summary>
         ///     Returns whether the parse operation succeeded.
         /// </summary>
-        public bool Succeeded => this.ResourceName == null;
+        public bool Succeeded => this.ResourceName != null;
     }
 
 }

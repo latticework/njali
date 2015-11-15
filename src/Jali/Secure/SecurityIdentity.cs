@@ -1,8 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Jali.Core;
 
 namespace Jali.Secure
 {
@@ -29,10 +28,6 @@ namespace Jali.Secure
         /// </param>
         public SecurityIdentity(IEnumerable<Claim> claims)
         {
-            var list = (claims == null)
-                ? (IEnumerable<Claim>)new Claim[] { }
-                : (IEnumerable<Claim>)new List<Claim>(claims);
-
             this.Claims = new ReadOnlyCollection<Claim>(claims?.ToList() ?? new List<Claim>());
         }
 

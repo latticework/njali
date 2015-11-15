@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Jali.Core;
 using Jali.Serve.Definition;
 using Jali.Serve.Server.ServiceDescription;
+using Jali.Serve.Server.User;
 
 namespace Jali.Serve.Server
 {
@@ -21,7 +22,6 @@ namespace Jali.Serve.Server
         public static Service GetDefinition()
         {
             var jaliserveUrl = new Uri("http://jali.io/serve/v0.0.1/service");
-            var serviceDescriptionResource = ServiceDescriptionResource.GetDefinition(jaliserveUrl);
 
             var jaliService = new Service
             {
@@ -31,7 +31,8 @@ namespace Jali.Serve.Server
                 Description = "Internal Jali services.",
                 Resources =
                 {
-                    [serviceDescriptionResource.Name] = serviceDescriptionResource,
+                    [ServiceDescriptionResource.Name] = ServiceDescriptionResource.GetDefinition(jaliserveUrl),
+                    [UserResource.Name] = UserResource.GetDefinition(jaliserveUrl),
                 },
             };
             return jaliService;
@@ -70,7 +71,8 @@ namespace Jali.Serve.Server
         {
             JaliService._resourceFactories = new Dictionary<string, Func<ServiceBase, JaliServerOptions, ResourceBase>>
             {
-                [ServiceDescriptionResource.Name] = (s, r) => new ServiceDescriptionResource(s, r),
+                [ServiceDescriptionResource.Name] = (s, opt) => new ServiceDescriptionResource(s, opt),
+                [UserResource.Name] = (s, opt) => new UserResource(s, opt),
             };
         }
 

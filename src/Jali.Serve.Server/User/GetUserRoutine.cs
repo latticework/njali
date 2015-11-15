@@ -60,28 +60,7 @@ namespace Jali.Serve.Server.User
                 DefaultAuthentication = AuthenticationRequirement.Ignored,
                 Messages =
                 {
-                    ["get-user-request"] = new RoutineMessage
-                    {
-                        Action = "get-user-request",
-                        Description = "Contains the redirect url",
-                        Direction = MessageDirection.Inbound,
-                        Schema = new SchemaReference
-                        {
-                            SchemaType = SchemaType.Direct,
-                            Schema = JSchema.Parse(@"{
-  ""$schema"": ""http://json-schema.org/draft-04/schema#"",
-
-  ""type"": ""object"",
-  ""properties"": {
-    ""redirectUrl"": {""type"": ""string""}
-  }
-}"),
-                            Options = new SchemaReferenceOptions
-                            {
-                                Typed = false
-                            }
-                        },
-                    },
+                    [GetUserRequest.Action] = GetUserRequest.GetDefinition(),
 
                     // TODO: GetUserRoutine: Support 'get-user-bykey'.
 

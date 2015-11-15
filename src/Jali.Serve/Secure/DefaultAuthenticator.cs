@@ -1,9 +1,11 @@
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Jali.Core;
 using Jali.Serve;
+using Jali.Serve.Definition;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -53,16 +55,28 @@ namespace Jali.Secure
                 var response = new HttpResponseMessage()
                 {
                     RequestMessage = httpRequest,
-                    StatusCode = HttpStatusCode.Moved,
-                    ReasonPhrase = nameof(HttpStatusCode.Moved)
+                    StatusCode = HttpStatusCode.RedirectMethod, // 303
+                    ReasonPhrase = "See Other",
                 };
 
-                // TODO: DefaultAuthenticator.Authenticate: Does the redirect only work for GET/DELETE HTTP methods?
-                var json = new JObject(new JProperty("redirectUrl", httpRequest.RequestUri));
-                var jsonString = json.ToString(Formatting.None);
+                var url = new Uri(new Uri(httpRequest.RequestUri.GetBaseUrl()), "resources/user");
 
-                var baseUrl = new Uri(httpRequest.RequestUri.GetBaseUrl());
-                response.Headers.Location = new Uri(baseUrl, $"resources/User?json={jsonString}");
+                if (httpRequest.Method.Method.EqualsOrdinalIgnoreCase(RestMethodVerbs.Get))
+                {
+                    // TODO: DefaultAuthenticator.Authenticate: Does the redirect only work for GET HTTP methods?
+                    var json = new JObject(
+                        new JProperty("data", new JObject(
+                            new JProperty("redirectUrl", httpRequest.RequestUri))));
+
+                    var jsonString = json.ToString(Formatting.None);
+
+                    response.Headers.Location = new Uri(url, $"?json={jsonString}");
+                }
+                else
+                {
+                    response.Headers.Location = url;
+                }
+
 
                 return new AuthenticationResult(response);
             }
@@ -107,7 +121,13 @@ namespace Jali.Secure
         {
             await Task.FromResult(true);
 
-            return AuthenticationOperations.Encode(user, this._key);
+            var token = AuthenticationOperations.Encode(user, this._key);
+
+            Debug.WriteLine(token);
+
+            var user2 = AuthenticationOperations.Decode(token, this._key);
+
+            return token;
         }
 
         /// <summary>
