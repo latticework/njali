@@ -94,6 +94,12 @@
     <Compile Include="..\..\..\src\Jali.Serve.Server\StageManager.cs">
       <Link>StageManager.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\User\GetUserRequest.cs">
+      <Link>User\GetUserRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Serve.Server\User\GetUserResponse.cs">
+      <Link>User\GetUserResponse.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Serve.Server\User\GetUserRoutine.cs">
       <Link>User\GetUserRoutine.cs</Link>
     </Compile>

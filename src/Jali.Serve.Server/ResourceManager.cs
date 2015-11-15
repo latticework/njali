@@ -96,7 +96,7 @@ namespace Jali.Serve.Server
             var responseAction = methodResult.Value.Response.Message.Action;
 
             var result = await routineManager.ExecuteProcedure(
-                context, request, requestAction, responseAction, resourceKey);
+                context, parseResult, request, requestAction, responseAction, resourceKey);
 
             return result;
         }

@@ -35,7 +35,8 @@ namespace Jali.Serve.Server
         public ResourceManager ResourceManager { get; }
 
         public async Task<HttpResponseMessage> ExecuteProcedure(
-            IExecutionContext context, 
+            IExecutionContext context,
+            HttpRequestParseResult parseResult,
             HttpRequestMessage request,
             string requestAction,
             string responseAction,
@@ -60,7 +61,7 @@ namespace Jali.Serve.Server
                 if (authenticationResult.Response != null)
                 {
                     // TODO: RoutineManager.ExecuteProcedure: Implement handling authentication request failure.
-                    if (authenticationRequirement != AuthenticationRequirement.Requested)
+                    if (authenticationRequirement == AuthenticationRequirement.Requested)
                     {
                         var message =
                             $"Support for '{nameof(AuthenticationRequirement.Requested)}' authentication requirement not implemented yet";
@@ -68,13 +69,18 @@ namespace Jali.Serve.Server
                         throw new InternalErrorException(message);
                     }
 
-                    if (authenticationRequirement != AuthenticationRequirement.Permitted)
+                    if (authenticationRequirement == AuthenticationRequirement.Required)
                     {
                         return authenticationResult.Response;
                     }
-                    else
+                    else if (authenticationRequirement == AuthenticationRequirement.Permitted)
                     {
                         user = new SecurityContext();
+                    }
+                    else
+                    {
+                        var message = $"Invalid AuthenticationRequirement '{authenticationRequirement}'";
+                        throw new InternalErrorException(message);
                     }
                 }
                 else
@@ -89,7 +95,8 @@ namespace Jali.Serve.Server
 
             var conversionContext = new MessageConversionContext(user);
 
-            var requestMessage = await serverOptions.MessageConverter.FromRequest(context, conversionContext, request);
+            var requestMessage = await serverOptions.MessageConverter.FromRequest(
+                context, conversionContext, parseResult, request);
             var userContext = context.MakeContext(user);
 
             var executeResult = await this.Routine.ExecuteProcedure(

@@ -42,20 +42,32 @@
     <Compile Include="..\..\..\src\Jali.Core\Core\InternalErrorException.cs">
       <Link>Core\InternalErrorException.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreExtensions.cs">
-      <Link>Core\JaliCoreExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreMessageLibrary.cs">
       <Link>Core\JaliCoreMessageLibrary.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreMessages.cs">
       <Link>Core\JaliCoreMessages.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreSystemCollectionsGenericExtensions.cs">
+      <Link>Core\JaliCoreSystemCollectionsGenericExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Core\JaliCoreSystemExtensions.cs">
+      <Link>Core\JaliCoreSystemExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Core\NotificationMessageException.cs">
       <Link>Core\NotificationMessageException.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Core\TryGetResult.cs">
       <Link>Core\TryGetResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Decompiled\UrlPath.cs">
+      <Link>Decompiled\UrlPath.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Decompiled\VirtualPath.cs">
+      <Link>Decompiled\VirtualPath.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\Jali.Core\Decompiled\VirtualPathUtility.cs">
+      <Link>Decompiled\VirtualPathUtility.cs</Link>
     </Compile>
     <Compile Include="..\..\..\src\Jali.Core\Note\Definition\MessageAuthority.cs">
       <Link>Note\Definition\MessageAuthority.cs</Link>

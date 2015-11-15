@@ -142,6 +142,7 @@ namespace Jali.Core
     ""type"": ""object"",
     ""description"":  ""The description of the internal error.""
     }
+  }
 }"),
                     };
                 }

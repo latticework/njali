@@ -2,16 +2,13 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Jali.Serve;
-using Newtonsoft.Json.Linq;
 using System.Net.Http.Formatting;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http.ModelBinding;
 using Jali.Core;
 using Jali.Note;
-using Jali.Secure;
 using Jali.Serve.Definition;
-using Jose;
 
 namespace System.Net.Http
 {
@@ -83,7 +80,7 @@ namespace System.Net.Http
             // TODO: JaliHttpRequestMessageExtensions.GetSecurityToken: Move implementation.
             var authorization = request.Headers.Authorization;
 
-            if (authorization == null || authorization.Scheme.EqualsOrdinalIgnoreCase("Bearer"))
+            if (authorization == null || !authorization.Scheme.EqualsOrdinalIgnoreCase("Bearer"))
             {
                 return null;
             }
@@ -156,7 +153,11 @@ namespace System.Net.Http
             {
                 var query = request.GetQueryStrings();
 
-                if (query.Keys.Count >= 1 || !query.Keys.Contains("json"))
+                if (query.Keys.Count == 0)
+                {
+                    payload = null;
+                }
+                else if (query.Keys.Count > 1 || !query.Keys.Contains("json"))
                 {
                     // TODO: JaliHttpRequestMessageExtensions.JaliParse: Replace with DomainException.
                     var message =
@@ -165,8 +166,10 @@ namespace System.Net.Http
                     messages.Append(new InternalErrorException(message).Messages);
                     return new HttpRequestParseResult(messages);
                 }
-
-                payload = query["json"];
+                else
+                {
+                    payload = query["json"];
+                }
             }
             else
             {

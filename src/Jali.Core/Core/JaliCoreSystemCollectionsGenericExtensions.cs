@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Jali.Core;
 
-namespace Jali.Core
+namespace System.Collections.Generic
 {
-    public static class JaliCoreExtensions
+    public static class JaliCoreSystemCollectionsGenericExtensions
     {
         public static void AddRange<T>(this ICollection<T> sequence, IEnumerable<T> range)
         {
@@ -90,21 +89,6 @@ namespace Jali.Core
         {
             return reference.GetOrCreateValue(key, () => default(TValue));
         }
-
-        public static bool EqualsOrdinal(this string receiver, string other)
-        {
-            return string.Equals(receiver, other, StringComparison.Ordinal);
-        }
-
-        public static bool EqualsOrdinalIgnoreCase(this string receiver, string other)
-        {
-            return string.Equals(receiver, other, StringComparison.OrdinalIgnoreCase);
-        }
-
-        public static string GetBaseUrl(this Uri receiver)
-        {
-            // TODO: JaliCoreExtensions.GetBaseUrl: Use GetLeftPart(UriPartial.Authority) when available.
-            return receiver.Scheme + "://" + receiver.Authority;
-        }
     }
+
 }
