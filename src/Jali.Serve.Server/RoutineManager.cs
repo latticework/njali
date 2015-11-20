@@ -9,26 +9,25 @@ using Newtonsoft.Json.Linq;
 
 namespace Jali.Serve.Server
 {
-    internal sealed class RoutineManager
+    internal sealed class RoutineManager : AsyncInitializedBase
     {
-        public RoutineManager(ResourceManager resourceManager, IRoutine routine)
+        public RoutineManager(ResourceManager resourceManager, Func<IRoutineContext, Task<IRoutine>> assignNewRoutine)
         {
             if (resourceManager == null) throw new ArgumentNullException(nameof(resourceManager));
-            if (routine == null) throw new ArgumentNullException(nameof(routine));
+            if (assignNewRoutine == null) throw new ArgumentNullException(nameof(assignNewRoutine));
 
 
             this.ResourceManager = resourceManager;
-            this.Routine = routine;
+            this._assignNewRoutine = assignNewRoutine;
 
             this.Context = new RoutineContext
             {
                 ResourceContext = resourceManager.Context,
                 Manager = this,
-                Definition = routine.Definition,
             };
         }
 
-        public IRoutine Routine { get; }
+        public IRoutine Routine { get; private set; }
 
         public RoutineContext Context { get; }
 
@@ -42,8 +41,10 @@ namespace Jali.Serve.Server
             string responseAction,
             JObject key)
         {
-            // TODO: RoutineManager.ExecuteProcedure: Should Init be called by a Run method instead?
-            await this.Routine.Init(context, this.Context);
+            await EnsureInitialized();
+
+            // TODO: RoutineManager.ExecuteProcedure: Initialize should be called by a Run method instead.
+            await this.Routine.Initialize(context);
 
             var serverOptions = this.ResourceManager.ServiceManager.Server.Options;
 
@@ -113,5 +114,12 @@ namespace Jali.Serve.Server
             // TODO: JaliServer.Send: Remove these class files for 'AsResponse'.
             //return result.AsResponse(request);
         }
+
+        protected override async Task InitializeCore(IExecutionContext context)
+        {
+            this.Routine = await this._assignNewRoutine(this.Context);
+        }
+
+        private readonly Func<IRoutineContext, Task<IRoutine>> _assignNewRoutine;
     }
 }

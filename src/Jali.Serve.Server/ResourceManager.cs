@@ -6,25 +6,23 @@ using Jali.Core;
 
 namespace Jali.Serve.Server
 {
-    internal sealed class ResourceManager
+    internal sealed class ResourceManager : AsyncInitializedBase
     {
-        public ResourceManager(ServiceManager serviceManager, IResource resource)
+        public ResourceManager(ServiceManager serviceManager, Func<IResourceContext, Task<IResource>> assignNewResource)
         {
             if (serviceManager == null) throw new ArgumentNullException(nameof(serviceManager));
-            if (resource == null) throw new ArgumentNullException(nameof(resource));
-
+            if (assignNewResource == null) throw new ArgumentNullException(nameof(assignNewResource));
 
             this._routineManagers = new Dictionary<string, RoutineManager>();
 
 
             this.ServiceManager = serviceManager;
-            this.Resource = resource;
+            this._assignNewResource = assignNewResource;
 
             this.Context = new ResourceContext
             {
                 ServiceContext = this.ServiceManager.Context,
                 Manager = this,
-                Definition = resource.Definition,
             };
         }
 
@@ -32,10 +30,14 @@ namespace Jali.Serve.Server
 
         public ServiceManager ServiceManager { get; }
 
-        public IResource Resource { get; }
+        public IResource Resource { get; private set; }
 
         public async Task Run(IExecutionContext context)
         {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+
+            await EnsureInitialized();
+
             if (this.Running)
             {
                 var message =
@@ -44,7 +46,7 @@ namespace Jali.Serve.Server
                 throw new InvalidOperationException(message);
             }
 
-            await this.Resource.Init(context, this.Context);
+            await this.Resource.Initialize(context);
 
             this.Running = true;
         }
@@ -109,14 +111,14 @@ namespace Jali.Serve.Server
 
             var result = await this._routineManagers.GetOrCreateValueAsync(routineName, async () =>
             {
-                var routine = await this.Resource.GetRoutine(context, routineName);
+                var manager = new RoutineManager(this, async ctx =>
+                    await this.Resource.GetRoutine(context, routineName, ctx));
 
-                var manager = new RoutineManager(this, routine);
-
+                await manager.Initialize(context);
                 // TODO: ResourceManager.GetRoutineManager: Should RoutineManager define Run()?
                 // await manager.Run();
 
-                return await Task.FromResult(manager);
+                return manager;
             });
 
             if (!result.Found && result.Value == null)
@@ -127,5 +129,12 @@ namespace Jali.Serve.Server
 
             return result.Value;
         }
+
+        protected override async Task InitializeCore(IExecutionContext context)
+        {
+            this.Resource = await _assignNewResource(this.Context);
+        }
+
+        private readonly Func<IResourceContext, Task<IResource>> _assignNewResource;
     }
 }

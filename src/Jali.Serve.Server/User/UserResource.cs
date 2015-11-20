@@ -9,19 +9,19 @@ namespace Jali.Serve.Server.User
     {
         public const string Name = "user";
 
-        public UserResource(ServiceBase service, JaliServerOptions serverOptions) 
-            : base(service, GetDefinition(service.Definition.Url), serverOptions)
+        public UserResource(ServiceBase service, IResourceContext resourceContext, JaliServerOptions serverOptions) 
+            : base(service, GetDefinition(service.Definition.Url), resourceContext, serverOptions)
         {
         }
 
-        protected override async Task<RoutineBase> CreateRoutine(string name)
+        protected override async Task<RoutineBase> CreateRoutine(string name, IRoutineContext routineContext)
         {
             await Task.FromResult(true);
 
             switch (name)
             {
                 case GetUserRoutine.Name:
-                    return new GetUserRoutine(this, this.ServerOptions);
+                    return new GetUserRoutine(this, routineContext, this.ServerOptions);
             }
 
             // TODO: UserResource.CreateRoutine: Replace with Domain Error Exception.

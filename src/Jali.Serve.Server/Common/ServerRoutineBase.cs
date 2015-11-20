@@ -20,14 +20,18 @@ namespace Jali.Serve
         /// <param name="resource">
         ///     The parent Jali resource implementation.
         /// </param>
-        /// <param name="routine">
+        /// <param name="definition">
         ///     The Jali routine definition.
+        /// </param>
+        /// <param name="routineContext">
+        ///     The routine context.
         /// </param>
         /// <param name="serverOptions">
         ///     The initialization options of the Jali Server.
         /// </param>
-        protected ServerRoutineBase(ResourceBase resource, Routine routine, JaliServerOptions serverOptions) 
-            : base(resource, routine)
+        protected ServerRoutineBase(
+            ResourceBase resource, Routine definition, IRoutineContext routineContext, JaliServerOptions serverOptions) 
+            : base(resource, definition, routineContext)
         {
             if (serverOptions == null) throw new ArgumentNullException(nameof(serverOptions));
 
@@ -65,14 +69,18 @@ namespace Jali.Serve
         /// <param name="resource">
         ///     The parent Jali resource implementation.
         /// </param>
-        /// <param name="routine">
+        /// <param name="definition">
         ///     The Jali routine definition.
+        /// </param>
+        /// <param name="routineContext">
+        ///     The routine context.
         /// </param>
         /// <param name="serverOptions">
         ///     The initialization options of the Jali Server.
         /// </param>
-        protected ServerRoutineBase(ResourceBase resource, Routine routine, JaliServerOptions serverOptions)
-            : base(resource, routine)
+        protected ServerRoutineBase(
+            ResourceBase resource, Routine definition, IRoutineContext routineContext, JaliServerOptions serverOptions)
+            : base(resource, definition, routineContext)
         {
             if (serverOptions == null) throw new ArgumentNullException(nameof(serverOptions));
 
@@ -107,14 +115,21 @@ namespace Jali.Serve
         /// <param name="resource">
         ///     The parent Jali resource implementation.
         /// </param>
-        /// <param name="routine">
+        /// <param name="definition">
         ///     The Jali routine definition.
+        /// </param>
+        /// <param name="routineContext">
+        ///     The routine context.
         /// </param>
         /// <param name="serverOptions">
         ///     The initialization options of the Jali Server.
         /// </param>
-        protected ServerRoutineBase(ResourceBase resource, Routine routine, JaliServerOptions serverOptions)
-            : base(resource, routine)
+        protected ServerRoutineBase(
+            ResourceBase resource, 
+            Routine definition, 
+            IRoutineContext routineContext, 
+            JaliServerOptions serverOptions)
+            : base(resource, definition, routineContext)
         {
             if (serverOptions == null) throw new ArgumentNullException(nameof(serverOptions));
 

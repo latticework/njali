@@ -13,7 +13,8 @@ namespace Jali.Serve.Samples.HelloServices.GreetingData
         public const string Name = "remove-greetingdata";
 
 
-        public RemoveGreetingDataRoutine(ResourceBase resource) : base(resource, GetDefinition(resource.Definition.Url))
+        public RemoveGreetingDataRoutine(ResourceBase resource, IRoutineContext routineContext)
+            : base(resource, GetDefinition(resource.Definition.Url), routineContext)
         {
         }
 

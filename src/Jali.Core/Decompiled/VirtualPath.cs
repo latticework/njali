@@ -1,4 +1,5 @@
 // ReSharper disable All
+#pragma warning disable 0649
 using System;
 using System.Collections;
 using System.Diagnostics;

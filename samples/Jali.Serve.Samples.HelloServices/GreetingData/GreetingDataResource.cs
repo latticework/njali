@@ -12,7 +12,8 @@ namespace Jali.Serve.Samples.HelloServices.GreetingData
     {
         public const string Name = "greetingdata";
 
-        public GreetingDataResource(ServiceBase service, Resource resource) : base(service, resource)
+        public GreetingDataResource(ServiceBase service, Resource definition, IResourceContext resourceContext) 
+            : base(service, definition, resourceContext)
         {
         }
 
@@ -237,22 +238,22 @@ namespace Jali.Serve.Samples.HelloServices.GreetingData
             }
         }
 
-        protected override async Task<RoutineBase> CreateRoutine(string name)
+        protected override async Task<RoutineBase> CreateRoutine(string name, IRoutineContext routineContext)
         {
             RoutineBase routine;
             switch (name)
             {
                 case NewGreetingDataRoutine.Name:
-                    routine = new NewGreetingDataRoutine(this);
+                    routine = new NewGreetingDataRoutine(this, routineContext);
                     break;
                 case GetGreetingDataRoutine.Name:
-                    routine = new GetGreetingDataRoutine(this);
+                    routine = new GetGreetingDataRoutine(this, routineContext);
                     break;
                 case SetGreetingDataRoutine.Name:
-                    routine = new SetGreetingDataRoutine(this);
+                    routine = new SetGreetingDataRoutine(this, routineContext);
                     break;
                 case RemoveGreetingDataRoutine.Name:
-                    routine = new RemoveGreetingDataRoutine(this);
+                    routine = new RemoveGreetingDataRoutine(this, routineContext);
                     break;
                 default:
                     // TODO: GreetingDataResource.CreateRoutine: Replace with DomainErrorException.

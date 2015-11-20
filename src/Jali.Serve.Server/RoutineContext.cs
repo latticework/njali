@@ -6,6 +6,5 @@ namespace Jali.Serve.Server
     {
         public IResourceContext ResourceContext { get; set; }
         public RoutineManager Manager { get; set; }
-        public Routine Definition { get; set; }
     }
 }

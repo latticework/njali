@@ -10,7 +10,7 @@ namespace Jali.Serve.Samples.HelloServices
 
     public class HelloService : ServiceBase
     {
-        public HelloService() : base(HelloService.GetDefinition())
+        public HelloService(IServiceContext serviceContext) : base(HelloService.GetDefinition(), serviceContext)
         {
         }
 
@@ -36,7 +36,7 @@ namespace Jali.Serve.Samples.HelloServices
             return helloService;
         }
 
-        protected override async Task<ResourceBase> CreateResource(string name)
+        protected override async Task<ResourceBase> CreateResource(string name, IResourceContext resourceContext)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
 
@@ -62,18 +62,19 @@ namespace Jali.Serve.Samples.HelloServices
                     $"Hello service has not implemented correctly specified requested resource '{name}'.");
             }
 
-            return await Task.FromResult(resourceFactory(this, resource));
+            return await Task.FromResult(resourceFactory(this, resource, resourceContext));
         }
 
         static HelloService()
         {
-            HelloService._resourceFactories = new Dictionary<string, Func<ServiceBase, Resource, ResourceBase>>
+            HelloService._resourceFactories = new Dictionary<string, Func<ServiceBase, Resource, IResourceContext, ResourceBase>>
             {
-                [HelloResource.Name] = (s, r) => new HelloResource(s, r),
-                [GreetingDataResource.Name] = (s, r) => new GreetingDataResource(s, r),
+                [HelloResource.Name] = (s, c, r) => new HelloResource(s, c, r),
+                [GreetingDataResource.Name] = (s, c, r) => new GreetingDataResource(s, c, r),
             };
         }
 
-        private static IDictionary<string, Func<ServiceBase, Resource, ResourceBase>> _resourceFactories;
+        private static IDictionary<string, Func<ServiceBase, Resource, IResourceContext, ResourceBase>>
+            _resourceFactories;
     }
 }

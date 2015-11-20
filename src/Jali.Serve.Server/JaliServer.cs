@@ -14,26 +14,24 @@ namespace Jali.Serve.Server
     /// <summary>
     ///     The Jali Service host.
     /// </summary>
-    public sealed class JaliServer
+    public sealed class JaliServer : AsyncInitializedBase
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="JaliServer"/> class.
         /// </summary>
-        /// <param name="context">
-        ///     The execution context.
-        /// </param>
-        /// <param name="service">
-        ///     The Jali service being hosted.
+        /// <param name="assignNewService">
+        ///     Assignes a new instance of a service to the server during <see cref="AsyncInitializedBase.Initialize"/>.
         /// </param>
         /// <param name="options">
         ///     Initialization options.
         /// </param>
-        public JaliServer(IExecutionContext context, IService service, JaliServerOptions options)
+        public JaliServer(
+            Func<IServiceContext, Task<IService>> assignNewService,  JaliServerOptions options = null)
         {
-            // TODO: JaliServer.ctor: Verify that it's ok to set the server's execution context as a property even though it will cross threads.
-            this.ExecutionContext = context;
+            if (assignNewService == null) throw new ArgumentNullException(nameof(assignNewService));
+
+
             this.Running = false;
-            this.Service = service;
 
             var overrideOptions = options ?? new JaliServerOptions();
 
@@ -44,12 +42,20 @@ namespace Jali.Serve.Server
                 MessageConverter = overrideOptions.MessageConverter ?? new CompositeServiceMessageConverter(),
                 KeyConverter = overrideOptions.KeyConverter ?? new DefaultResourceKeyConverter(),
             };
+
+            this._jaliServiceManager = new ServiceManager(this, async ctx =>
+            {
+                await Task.FromResult(true);
+                return new JaliService(this.Options, ctx);
+            });
+
+            this._serviceManager = new ServiceManager(this, assignNewService);
         }
 
         /// <summary>
         ///     The execution context of the Jali server.
         /// </summary>
-        public IExecutionContext ExecutionContext { get; }
+        public IExecutionContext ExecutionContext { get; private set; }
 
         /// <summary>
         ///     Initialization options.
@@ -64,7 +70,7 @@ namespace Jali.Serve.Server
         /// <summary>
         ///     The Jali service being hosted.
         /// </summary>
-        public IService Service { get; }
+        public IService Service { get; private set; }
 
         /// <summary>
         ///     Starts the host runtime.
@@ -80,17 +86,15 @@ namespace Jali.Serve.Server
         /// </returns>
         public async Task Run(IExecutionContext context, CancellationToken ct)
         {
+            await EnsureInitialized();
+
             if (this.Running)
             {
                 throw  new InvalidOperationException("The Jali Server is already running.");
             }
 
-            var jaliService = new JaliService(this.Options);
-            this._jaliServiceManager = new ServiceManager(this, jaliService);
-
             await this._jaliServiceManager.Run(context);
 
-            this._serviceManager = new ServiceManager(this, this.Service);
             await this._serviceManager.Run(context);
 
             this.Running = true;
@@ -169,8 +173,8 @@ namespace Jali.Serve.Server
         }
 
 
-        private ServiceManager _jaliServiceManager;
-        private ServiceManager _serviceManager;
+        private readonly ServiceManager _jaliServiceManager;
+        private readonly ServiceManager _serviceManager;
 
         // From https://github.com/dotnet/corefx/blob/master/src/System.Security.Cryptography.Algorithms/src/Internal/Cryptography/Helpers.cs
         private static byte[] GenerateRandom(int count)
@@ -181,6 +185,25 @@ namespace Jali.Serve.Server
             new Random().NextBytes(bytes);
 
             return bytes;
+        }
+
+        /// <summary>
+        ///     Provides the initialization process of the instance.
+        /// </summary>
+        /// <param name="context">
+        ///     The execution context.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="Task"/> representing the instance initialization process.
+        /// </returns>
+        protected override async Task InitializeCore(IExecutionContext context)
+        {
+            // TODO: JaliServer.ctor: Verify that it's ok to set the server's execution context as a property even though it will cross threads.
+            this.ExecutionContext = context;
+
+            await this._jaliServiceManager.Initialize(context);
+            await this._serviceManager.Initialize(context);
+            this.Service = this._serviceManager.Service;
         }
     }
 }

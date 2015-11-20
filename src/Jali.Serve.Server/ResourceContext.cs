@@ -6,6 +6,5 @@ namespace Jali.Serve.Server
     {
         public IServiceContext ServiceContext { get; set; }
         public ResourceManager Manager { get; set; }
-        public Resource Definition { get; set; }
     }
 }

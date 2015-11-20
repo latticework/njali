@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web.Http.Routing;
 using Jali.Serve.Server;
 
@@ -9,9 +10,10 @@ namespace Jali.Serve.AspNet.Mvc
 {
     public class JaliHttpRoute : IHttpRoute
     {
-        public JaliHttpRoute(IExecutionContext context, IService service, JaliServerOptions options)
+        public JaliHttpRoute(
+            IExecutionContext context, Func<IServiceContext, Task<IService>> assignNewService, JaliServerOptions options)
         {
-            this.Handler = new JaliHttpMessageHandler(context, service, options);
+            this.Handler = new JaliHttpMessageHandler(context, assignNewService, options);
         }
 
         public IHttpRouteData GetRouteData(string virtualPathRoot, HttpRequestMessage request)
