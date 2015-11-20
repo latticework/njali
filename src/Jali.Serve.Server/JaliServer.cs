@@ -37,7 +37,7 @@ namespace Jali.Serve.Server
 
             this.Options = new JaliServerOptions
             {
-                Authenticator = overrideOptions.Authenticator ?? new DefaultAuthenticator(GenerateRandom(256)),
+                Authenticator = overrideOptions.Authenticator ?? new DefaultAuthenticator(GenerateRandom(32)),
                 Authorizer = overrideOptions.Authorizer ?? new DefaultAuthorizor(),
                 MessageConverter = overrideOptions.MessageConverter ?? new CompositeServiceMessageConverter(),
                 KeyConverter = overrideOptions.KeyConverter ?? new DefaultResourceKeyConverter(),
@@ -120,7 +120,9 @@ namespace Jali.Serve.Server
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
-            var parseResult = await request.JaliParse();
+            var baseUrl = this.Service.Definition.Url.ToString();
+
+            var parseResult = await request.JaliParse(baseUrl);
 
             if (!parseResult.Succeeded)
             {

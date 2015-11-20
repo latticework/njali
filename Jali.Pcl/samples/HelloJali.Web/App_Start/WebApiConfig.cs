@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Security.Policy;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using Jali;
 using Jali.Core;
@@ -18,18 +22,12 @@ namespace HelloJali.Web
             // Web API configuration and services
 
             // Web API routes
+            var context = new AspNetExecutionContext();
 
-            var claims = WindowsIdentity.GetCurrent()?.Claims.Select(c => new Jali.Secure.Claim(c.Type, c.Value));
+            var absolutePath = VirtualPathUtility.ToAbsolute("~");
+            var baseUri = new Uri(absolutePath, UriKind.Relative);
 
-            if (claims == null)
-            {
-                throw new InternalErrorException("The AppPool identity is not assigned. Cannot create Jali Service");
-            }
-
-            var identity = new SecurityIdentity(claims);
-            var context = new DefaultExecutionContext(identity);
-
-            config.UseJaliService(context, async ctx => await Task.FromResult(new HelloService(ctx)),  null);
+            config.UseJaliService(context, async ctx => await Task.FromResult(new HelloService(ctx, baseUri)),  null);
 
             config.MapHttpAttributeRoutes();
 

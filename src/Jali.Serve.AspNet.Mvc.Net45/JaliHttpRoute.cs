@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http.Routing;
+using Jali.Core;
+using Jali.Note;
 using Jali.Serve.Server;
 
 namespace Jali.Serve.AspNet.Mvc
@@ -18,36 +20,36 @@ namespace Jali.Serve.AspNet.Mvc
 
         public IHttpRouteData GetRouteData(string virtualPathRoot, HttpRequestMessage request)
         {
+            var baseUrl = ((JaliHttpMessageHandler) this.Handler).Service.Definition.Url;
+
+            var rootUrl = (baseUrl.IsAbsoluteUri)
+                ? baseUrl.GetComponents(UriComponents.Path, UriFormat.Unescaped)
+                : baseUrl.ToString();
+
             var uri = request.RequestUri;
 
+            // TODO: JaliHttpRoute.GetRoutData: Consider scheme check in JaliParse, itself.
             if (!(uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps))
             {
                 return null;
             }
 
-            var components = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
+            var result = uri.JaliParse(rootUrl);
 
-            var routeData = new HttpRouteData(this);
+            // TODO: JaliHttpRoute.GetRoutData: Improve error handling.
+            //if (result.Messages.GetSeverity() == MessageSeverity.Critical)
+            //{
+            //    throw new NotificationMessageException(result.Messages);
+            //}
 
-
-            if (string.Equals(components, "/", StringComparison.OrdinalIgnoreCase) && request.Method.Method == "GET")
+            //if (result.Messages.GetSeverity() == MessageSeverity.Error)
+            if (result.Messages.HasErrors())
             {
-                return routeData;
+                // TODO: JaliHttpRoute.GetRoutData: Debug log errors.
+                return null;
             }
 
-            if (Regex.IsMatch(components, 
-@"^resources/(?<resourceName>[_a-zA-Z][_a-zA-Z0-9]*)(/(?<resourceKey>[_a-zA-Z0-9]+))?$"))
-            {
-                return routeData;
-            }
-
-            if (Regex.IsMatch(components,
-@"^resources/(?<resourceName>[_a-zA-Z][_a-zA-Z0-9]*)(/(?<resourceKey>[_a-zA-Z0-9]+))?/routines/(?<routineName>[_a-zA-Z][_a-zA-Z0-9]*)$"))
-            {
-                return routeData;
-            }
-
-            return null;
+            return new HttpRouteData(this);
         }
 
         public IHttpVirtualPathData GetVirtualPath(HttpRequestMessage request, IDictionary<string, object> values)
