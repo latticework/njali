@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Jali.Serve.Definition;
@@ -8,7 +9,7 @@ namespace Jali.Serve
     /// <summary>
     ///     A Jali resource routine implementation.
     /// </summary>
-    public abstract class RoutineBase : IRoutine
+    public abstract class RoutineBase : AsyncInitializedBase, IRoutine
     {
         /// <summary>
         ///     The routine context.
@@ -52,25 +53,6 @@ namespace Jali.Serve
         public ResourceBase Resource { get; }
 
         /// <summary>
-        ///     Initializes the routine.
-        /// </summary>
-        /// <param name="context">
-        ///     The execution context.
-        /// </param>
-        /// <param name="routineContext">
-        ///     The routine context.
-        /// </param>
-        /// <returns>
-        ///     A <see cref="Task"/>.
-        /// </returns>
-        public async Task Init(IExecutionContext context, IRoutineContext routineContext)
-        {
-            this.Context = routineContext;
-
-            await InitCore(context);
-        }
-
-        /// <summary>
         ///     Executes a Jali REST method.
         /// </summary>
         /// <param name="context">
@@ -108,13 +90,30 @@ namespace Jali.Serve
         /// <param name="resource">
         ///     The parent Jali resource implementation.
         /// </param>
-        /// <param name="routine">
+        /// <param name="definition">
         ///     The Jali routine definition.
         /// </param>
-        protected RoutineBase(ResourceBase resource, Routine routine)
+        /// <param name="routineContext">
+        ///     The routine context.
+        /// </param>
+        protected RoutineBase(ResourceBase resource, Routine definition, IRoutineContext routineContext)
         {
-            this.Definition = routine;
+            this.Definition = definition;
             this.Resource = resource;
+            this.Context = routineContext;
+        }
+
+        /// <summary>
+        ///     When raising the <see cref="InvalidOperationException"/>, 
+        ///     <see cref="AsyncInitializedBase.EnsureInitialized"/> uses this value to communicate what instance was 
+        ///     not initialized.
+        /// </summary>
+        /// <returns>
+        ///     A <see cref="string"/> representing the instance that was not initialized.
+        /// </returns>
+        protected override string GetAsyncInitializedInstanceName()
+        {
+            return $"Jali Resource '{this.Definition.Name}'";
         }
 
         /// <summary>
@@ -126,7 +125,7 @@ namespace Jali.Serve
         /// <returns>
         ///     A <see cref="Task"/>.
         /// </returns>
-        protected virtual async Task InitCore(IExecutionContext context)
+        protected override async Task InitializeCore(IExecutionContext context)
         {
             await Task.FromResult(true);
         }
@@ -157,6 +156,8 @@ namespace Jali.Serve
             ServiceMessage<JObject> request,
             JObject key = null)
         {
+            await this.EnsureInitialized();
+
             var typedRequest = request.ToTypedMessages<TRequestData>();
             var typedKey = (key == null) ? null : ToTypedKey(key);
 
@@ -236,10 +237,14 @@ namespace Jali.Serve
         /// <param name="resource">
         ///     The parent Jali resource implementation.
         /// </param>
-        /// <param name="routine">
+        /// <param name="definition">
         ///     The Jali routine definition.
         /// </param>
-        protected RoutineBase(ResourceBase resource, Routine routine) : base(resource, routine)
+        /// <param name="routineContext">
+        ///     The routine context.
+        /// </param>
+        protected RoutineBase(ResourceBase resource, Routine definition, IRoutineContext routineContext) 
+            : base(resource, definition, routineContext)
         {
             
         }
@@ -281,10 +286,14 @@ namespace Jali.Serve
         /// <param name="resource">
         ///     The parent Jali resource implementation.
         /// </param>
-        /// <param name="routine">
+        /// <param name="routineContext">
+        ///     The routine context.
+        /// </param>
+        /// <param name="definition">
         ///     The Jali routine definition.
         /// </param>
-        protected RoutineBase(ResourceBase resource, Routine routine) : base(resource, routine)
+        protected RoutineBase(ResourceBase resource, Routine definition, IRoutineContext routineContext) 
+            : base(resource, definition, routineContext)
         {
         }
     }

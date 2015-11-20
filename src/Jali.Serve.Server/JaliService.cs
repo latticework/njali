@@ -10,7 +10,8 @@ namespace Jali.Serve.Server
 {
     internal class JaliService : ServiceBase
     {
-        public JaliService(JaliServerOptions serverOptions) : base(JaliService.GetDefinition())
+        public JaliService(JaliServerOptions serverOptions, IServiceContext serviceContext) 
+            : base(JaliService.GetDefinition(), serviceContext)
         {
             if (serverOptions == null) throw new ArgumentNullException(nameof(serverOptions));
 
@@ -38,7 +39,7 @@ namespace Jali.Serve.Server
             return jaliService;
         }
 
-        protected override async Task<ResourceBase> CreateResource(string name)
+        protected override async Task<ResourceBase> CreateResource(string name, IResourceContext resourceContext)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
 
@@ -64,18 +65,18 @@ namespace Jali.Serve.Server
                     $"Jali server has not implemented correctly specified requested internal resource '{name}'.");
             }
 
-            return await Task.FromResult(resourceFactory(this, this.ServerOptions));
+            return await Task.FromResult(resourceFactory(this, resourceContext, this.ServerOptions));
         }
 
         static JaliService()
         {
-            JaliService._resourceFactories = new Dictionary<string, Func<ServiceBase, JaliServerOptions, ResourceBase>>
+            JaliService._resourceFactories = new Dictionary<string, Func<ServiceBase, IResourceContext, JaliServerOptions, ResourceBase>>
             {
-                [ServiceDescriptionResource.Name] = (s, opt) => new ServiceDescriptionResource(s, opt),
-                [UserResource.Name] = (s, opt) => new UserResource(s, opt),
+                [ServiceDescriptionResource.Name] = (s, c, opt) => new ServiceDescriptionResource(s, c, opt),
+                [UserResource.Name] = (s, c, opt) => new UserResource(s, c, opt),
             };
         }
 
-        private static IDictionary<string, Func<ServiceBase, JaliServerOptions, ResourceBase>> _resourceFactories;
+        private static IDictionary<string, Func<ServiceBase, IResourceContext, JaliServerOptions, ResourceBase>> _resourceFactories;
     }
 }

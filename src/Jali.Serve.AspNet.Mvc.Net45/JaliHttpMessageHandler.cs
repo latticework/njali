@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Jali.Serve.Server;
@@ -7,12 +8,15 @@ namespace Jali.Serve.AspNet.Mvc
 {
     public class JaliHttpMessageHandler : HttpMessageHandler
     {
-        public JaliHttpMessageHandler(IExecutionContext context, IService service, JaliServerOptions options)
+        public JaliHttpMessageHandler(
+            IExecutionContext context, 
+            Func<IServiceContext, Task<IService>> assignNewService, 
+            JaliServerOptions options)
         {
-            this.Service = service;
-            this.Server = new JaliServer(context, this.Service, options);
+            this.Server = new JaliServer(assignNewService, options);
 
             // TODO: JaliHttpMessageHandler.ctor: this should be handled lazily on first request.
+            this.Server.Initialize(context).Wait();
             this.Server.Run(context, CancellationToken.None).Wait();
         }
 

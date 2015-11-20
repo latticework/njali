@@ -12,7 +12,8 @@ namespace Jali.Serve.Samples.HelloServices
     {
         public const string Name = "hello";
 
-        public HelloResource(ServiceBase service, Resource resource) : base(service, resource)
+        public HelloResource(ServiceBase service, Resource definition, IResourceContext resourceContext) 
+            : base(service, definition, resourceContext)
         {
         }
 
@@ -111,7 +112,7 @@ namespace Jali.Serve.Samples.HelloServices
             return helloResource;
         }
 
-        protected override async Task<RoutineBase> CreateRoutine(string name)
+        protected override async Task<RoutineBase> CreateRoutine(string name, IRoutineContext routineContext)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
 
@@ -137,17 +138,17 @@ namespace Jali.Serve.Samples.HelloServices
                     $"Hello service has not implemented correctly specified requested routine '{name}'.");
             }
 
-            return await Task.FromResult(routineFactory(this, routine));
+            return await Task.FromResult(routineFactory(this, routine, routineContext));
         }
 
         static HelloResource()
         {
-            HelloResource._routineFactories = new Dictionary<string, Func<ResourceBase, Routine, RoutineBase>>
+            HelloResource._routineFactories = new Dictionary<string, Func<ResourceBase, Routine, IRoutineContext, RoutineBase>>
             {
-                [GetHelloRoutine.Name] = (s, r) => new GetHelloRoutine(s, r),
+                [GetHelloRoutine.Name] = (s, r, c) => new GetHelloRoutine(s, r, c),
             };
         }
 
-        private static IDictionary<string, Func<ResourceBase, Routine, RoutineBase>> _routineFactories;
+        private static IDictionary<string, Func<ResourceBase, Routine, IRoutineContext, RoutineBase>> _routineFactories;
     }
 }

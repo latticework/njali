@@ -8,26 +8,12 @@ namespace Jali.Serve
     /// <summary>
     ///     Represents a Jali resource routine.
     /// </summary>
-    public interface IRoutine
+    public interface IRoutine : IAsyncInitialized
     {
         /// <summary>
         ///     The routine definition.
         /// </summary>
         Routine Definition { get; }
-
-        /// <summary>
-        ///     Initializes the routine.
-        /// </summary>
-        /// <param name="context">
-        ///     The execution context.
-        /// </param>
-        /// <param name="routineContext">
-        ///     The routine context.
-        /// </param>
-        /// <returns>
-        ///     A <see cref="Task"/>.
-        /// </returns>
-        Task Init(IExecutionContext context, IRoutineContext routineContext);
 
         /// <summary>
         ///     Executes a Jali REST method.

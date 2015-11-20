@@ -1,5 +1,6 @@
 ﻿ // ReSharper disable once CheckNamespace
 
+using System.Threading.Tasks;
 using Jali;
 using Jali.Serve;
 using Jali.Serve.AspNet.Mvc;
@@ -14,7 +15,7 @@ namespace System.Web.Http
         public static void UseJaliService(
             this HttpConfiguration configuration, 
             IExecutionContext context, 
-            IService service, 
+            Func<IServiceContext, Task<IService>> assignNewService, 
             JaliServerOptions options)
         {
             if (configuration == null)
@@ -22,7 +23,7 @@ namespace System.Web.Http
                 throw new ArgumentNullException(nameof(configuration));
             }
 
-            var route = new JaliHttpRoute(context, service, options);
+            var route = new JaliHttpRoute(context, assignNewService, options);
 
             configuration.Routes.Add(RouteName, route);
         }

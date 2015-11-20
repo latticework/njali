@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Principal;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Jali;
 using Jali.Core;
@@ -18,8 +19,6 @@ namespace HelloJali.Web
 
             // Web API routes
 
-            var helloService = new HelloService();
-
             var claims = WindowsIdentity.GetCurrent()?.Claims.Select(c => new Jali.Secure.Claim(c.Type, c.Value));
 
             if (claims == null)
@@ -30,7 +29,7 @@ namespace HelloJali.Web
             var identity = new SecurityIdentity(claims);
             var context = new DefaultExecutionContext(identity);
 
-            config.UseJaliService(context, helloService, null);
+            config.UseJaliService(context, async ctx => await Task.FromResult(new HelloService(ctx)),  null);
 
             config.MapHttpAttributeRoutes();
 

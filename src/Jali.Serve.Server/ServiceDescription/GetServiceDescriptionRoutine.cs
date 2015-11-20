@@ -15,8 +15,9 @@ namespace Jali.Serve.Server.ServiceDescription
     {
         public const string Name = "get-servicedescription";
 
-        public GetServiceDescriptionRoutine(ResourceBase resource, JaliServerOptions options)
-            : base(resource, GetDescription(resource.Definition.Url), options)
+        public GetServiceDescriptionRoutine(
+            ResourceBase resource, IRoutineContext routineContext, JaliServerOptions options)
+            : base(resource, GetDescription(resource.Definition.Url), routineContext, options)
         {
             
         }

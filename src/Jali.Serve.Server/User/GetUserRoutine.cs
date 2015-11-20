@@ -12,8 +12,8 @@ namespace Jali.Serve.Server.User
     {
         public const string Name = "user";
 
-        public GetUserRoutine(ResourceBase resource, JaliServerOptions options) 
-            : base(resource, GetDefinition(resource.Definition.Url), options)
+        public GetUserRoutine(ResourceBase resource, IRoutineContext routineContext, JaliServerOptions options) 
+            : base(resource, GetDefinition(resource.Definition.Url), routineContext, options)
         {
         }
 

@@ -9,7 +9,8 @@ namespace Jali.Serve.Samples.HelloServices
     {
         public const string Name = "get-hello";
 
-        public GetHelloRoutine(ResourceBase resource, Routine routine) : base(resource, routine)
+        public GetHelloRoutine(ResourceBase resource, Routine definition, IRoutineContext routineContext) 
+            : base(resource, definition, routineContext)
         {
         }
 

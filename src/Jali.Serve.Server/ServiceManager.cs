@@ -6,25 +6,24 @@ using Jali.Core;
 
 namespace Jali.Serve.Server
 {
-    internal sealed class ServiceManager
+    internal sealed class ServiceManager : AsyncInitializedBase
     {
-        public ServiceManager(JaliServer server, IService service)
+        public ServiceManager(JaliServer server, Func<IServiceContext, Task<IService>> assignNewService)
         {
             if (server == null) throw new ArgumentNullException(nameof(server));
-            if (service == null) throw new ArgumentNullException(nameof(service));
+            if (assignNewService == null) throw new ArgumentNullException(nameof(assignNewService));
 
             this.Running = false;
 
+            this.Server = server;
             this._resourcesManagers = new Dictionary<string, ResourceManager>();
+
+            _assignNewService = assignNewService;
 
             this.Context = new ServiceContext
             {
                 Manager = this,
-                Definition = service.Definition,
             };
-
-            Server = server;
-            this.Service = service;
         }
 
         public bool Running { get; private set; }
@@ -32,16 +31,18 @@ namespace Jali.Serve.Server
         public ServiceContext Context { get; }
 
         public JaliServer Server { get; }
-        public IService Service { get; }
+        public IService Service { get; private set; }
 
         public async Task Run(IExecutionContext context)
         {
+            await EnsureInitialized();
+
             if (this.Running)
             {
                 throw new InvalidOperationException("'ServiceManager' is already running.");
             }
 
-            await this.Service.Init(context, this.Context);
+            await this.Service.Initialize(context);
 
             this.Running = true;
         }
@@ -70,10 +71,10 @@ namespace Jali.Serve.Server
 
             var result = await this._resourcesManagers.GetOrCreateValueAsync(resourceName, async () =>
             {
-                var resource = await this.Service.GetResource(context, resourceName);
+                var manager = new ResourceManager(this, async ctx => 
+                    await this.Service.GetResource(context, resourceName, ctx));
 
-                var manager = new ResourceManager(this, resource);
-
+                await manager.Initialize(context);
                 await manager.Run(context);
 
                 return manager;
@@ -87,7 +88,13 @@ namespace Jali.Serve.Server
 
             return result.Value;
         }
+        protected override async Task InitializeCore(IExecutionContext context)
+        {
+            this.Service = await this._assignNewService(this.Context);
+        }
 
         private readonly IDictionary<string, ResourceManager> _resourcesManagers;
+
+        private readonly Func<IServiceContext, Task<IService>> _assignNewService;
     }
 }

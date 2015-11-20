@@ -11,8 +11,9 @@ namespace Jali.Serve.Server.ServiceDescription
     {
         public const string Name = "servicedescription";
 
-        public ServiceDescriptionResource(ServiceBase service, JaliServerOptions serverOptions) 
-            : base(service, GetDefinition(service.Definition.Url), serverOptions)
+        public ServiceDescriptionResource(
+            ServiceBase service, IResourceContext resourceContext, JaliServerOptions serverOptions) 
+            : base(service, GetDefinition(service.Definition.Url), resourceContext, serverOptions)
         {
         }
 
@@ -70,7 +71,7 @@ namespace Jali.Serve.Server.ServiceDescription
             };
         }
 
-        protected override async Task<RoutineBase> CreateRoutine(string name)
+        protected override async Task<RoutineBase> CreateRoutine(string name, IRoutineContext routineContext)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
 
@@ -96,19 +97,20 @@ namespace Jali.Serve.Server.ServiceDescription
                     $"Jail server internal resource '{nameof(ServiceDescriptionResource)}' has not implemented correctly specified requested routine '{name}'.");
             }
 
-            return await Task.FromResult(routineFactory(this, this.ServerOptions));
+            return await Task.FromResult(routineFactory(this, routineContext, this.ServerOptions));
         }
 
         static ServiceDescriptionResource()
         {
             ServiceDescriptionResource._routineFactories = 
-                new Dictionary<string, Func<ResourceBase, JaliServerOptions, RoutineBase>>
+                new Dictionary<string, Func<ResourceBase, IRoutineContext, JaliServerOptions, RoutineBase>>
             {
                 [GetServiceDescriptionRoutine.Name] = 
-                    (resource, serverOptions) => new GetServiceDescriptionRoutine(resource, serverOptions),
+                    (r, c, o) => new GetServiceDescriptionRoutine(r, c, o),
             };
         }
 
-        private static IDictionary<string, Func<ResourceBase, JaliServerOptions, RoutineBase>> _routineFactories;
+        private static IDictionary<string, Func<ResourceBase, IRoutineContext, JaliServerOptions, RoutineBase>> 
+            _routineFactories;
     }
 }

@@ -3,12 +3,11 @@ using Jali.Serve.Definition;
 
 namespace Jali.Serve
 {
-    public interface IService
+    public interface IService : IAsyncInitialized
     {
         Service Definition { get; }
 
-        Task Init(IExecutionContext context, IServiceContext serviceContext);
-        Task<IResource> GetResource(IExecutionContext context, string name);
+        Task<IResource> GetResource(IExecutionContext context, string name, IResourceContext resourceContext);
     }
 
 }

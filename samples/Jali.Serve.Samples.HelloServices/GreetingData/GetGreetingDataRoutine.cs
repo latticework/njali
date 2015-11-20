@@ -10,7 +10,8 @@ namespace Jali.Serve.Samples.HelloServices.GreetingData
     {
         public const string Name = "get-greetingdata";
 
-        public GetGreetingDataRoutine(ResourceBase resource) : base(resource, GetDefinition(resource.Definition.Url))
+        public GetGreetingDataRoutine(ResourceBase resource, IRoutineContext routineContext)
+            : base(resource, GetDefinition(resource.Definition.Url), routineContext)
         {
         }
 

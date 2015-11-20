@@ -1,13 +1,13 @@
 using System.Threading.Tasks;
+using Jali.Core;
 using Jali.Serve.Definition;
 
 namespace Jali.Serve
 {
-    public interface IResource
+    public interface IResource : IAsyncInitialized
     {
         Resource Definition { get; }
 
-        Task Init(IExecutionContext context, IResourceContext resourceContext);
-        Task<IRoutine> GetRoutine(IExecutionContext context, string name);
+        Task<IRoutine> GetRoutine(IExecutionContext context, string name, IRoutineContext routineContext);
     }
 }
