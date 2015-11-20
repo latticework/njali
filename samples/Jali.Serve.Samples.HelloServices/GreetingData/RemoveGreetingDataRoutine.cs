@@ -47,7 +47,7 @@ namespace Jali.Serve.Samples.HelloServices.GreetingData
 
         public static Routine GetDefinition(Uri resourceUrl)
         {
-            var url = new Uri(resourceUrl, $"routines/{Name}");
+            var url = resourceUrl.Combine($"routines/{Name}");
             return new Routine
             {
                 Name = Name,

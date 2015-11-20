@@ -288,6 +288,7 @@
       <Link>TenantIdentity.cs</Link>
     </Compile>
     <Compile Include="Definition\RestMethodVerbs.cs" />
+    <Compile Include="JaliUriExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

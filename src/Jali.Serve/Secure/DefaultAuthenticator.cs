@@ -21,7 +21,7 @@ namespace Jali.Secure
         ///     Initializes a new instance of the <see cref="DefaultAuthenticator"/> class.
         /// </summary>
         /// <param name="key">
-        ///     A 256 byte encryption key.
+        ///     A 32 byte encryption key.
         /// </param>
         public DefaultAuthenticator(byte[] key)
         {

@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Jali.Serve;
 using System.Net.Http.Formatting;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http.ModelBinding;
 using Jali.Core;
@@ -96,10 +95,13 @@ namespace System.Net.Http
         /// <param name="request">
         ///     The http request.
         /// </param>
+        /// <param name="rootUrl">
+        ///     A relative URL that represents the service root.
+        /// </param>
         /// <returns>
         ///     The parse result.
         /// </returns>
-        public static async Task<HttpRequestParseResult> JaliParse(this HttpRequestMessage request)
+        public static async Task<HttpRequestParseResult> JaliParse(this HttpRequestMessage request, string rootUrl = null)
         {
             var messages = new NotificationMessageCollection();
 
@@ -125,26 +127,13 @@ namespace System.Net.Http
 
             var uri = request.RequestUri;
 
-            var components = uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
+            var partialResult = uri.JaliParse(rootUrl);
 
-
-            var resourceMatch = Regex.Match(
-                components,
-                @"^resources/(?<resourceName>[_a-zA-Z][_a-zA-Z0-9]*)(/(?<resourceKey>[_a-zA-Z0-9]+))?(/routines/(?<routineName>[_a-zA-Z][_a-zA-Z0-9]*)(?<messageAction>)[_a-zA-Z][_a-zA-Z0-9]*)?$");
-
-            if (!resourceMatch.Success)
+            if (partialResult.Messages.HasErrors())
             {
-                // TODO: JaliHttpRequestMessageExtensions.Parse: Change to Domain error.
-                var message =
-                    $"Jali Server cannot handle route HTTP {request.Method.Method} {request.RequestUri}. The request should not have been forwarded to it.";
-                messages.Append(new InternalErrorException(message).Messages);
-                return new HttpRequestParseResult(messages);
+                return partialResult;
             }
 
-            var resourceName = GetCaptureValue(resourceMatch, "resourceName");
-            var resourceKey = GetCaptureValue(resourceMatch, "resourceKey");
-            var routineName = GetCaptureValue(resourceMatch, "routineName");
-            var messageAction = GetCaptureValue(resourceMatch, "messageAction");
 
             // TODO: JaliHttpRequestMessageExtensions.JaliParse: Set Domain Errors if URL semantics incorrect.
 
@@ -178,19 +167,12 @@ namespace System.Net.Http
 
             return new HttpRequestParseResult(
                 method: method,
-                resourceName: resourceName,
+                resourceName: partialResult.ResourceName,
                 payload: payload,
-                resourceKey: resourceKey,
-                routineName: routineName,
-                messageAction: messageAction,
-                messages: messages);
-        }
-
-        private static string GetCaptureValue(Match match, string name)
-        {
-            var value = match.Groups[name].Value;
-
-            return (value == string.Empty) ? null : value;
+                resourceKey: partialResult.ResourceKey,
+                routineName: partialResult.RoutineName,
+                messageAction: partialResult.MessageAction,
+                messages: partialResult.Messages.Append(messages));
         }
     }
 }

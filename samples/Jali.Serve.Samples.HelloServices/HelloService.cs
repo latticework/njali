@@ -10,20 +10,19 @@ namespace Jali.Serve.Samples.HelloServices
 
     public class HelloService : ServiceBase
     {
-        public HelloService(IServiceContext serviceContext) : base(HelloService.GetDefinition(), serviceContext)
+        public HelloService(IServiceContext serviceContext, Uri url) : base(HelloService.GetDefinition(url), serviceContext)
         {
         }
 
-        public static Service GetDefinition()
+        public static Service GetDefinition(Uri serviceUrl)
         {
-            var helloServiceUrl = new Uri("http://jali.io/serve/v0.0.1/samples/hello");
-            var helloResource = HelloResource.GetDefinition(helloServiceUrl);
-            var greetingDataResource = GreetingDataResource.GetDefinition(helloServiceUrl);
+            var helloResource = HelloResource.GetDefinition(serviceUrl);
+            var greetingDataResource = GreetingDataResource.GetDefinition(serviceUrl);
 
             var helloService = new Service
             {
                 Name = "hello",
-                Url = helloServiceUrl,
+                Url = serviceUrl,
                 Version = "1.0.0",
                 Description = "Hello Jali service.",
                 Resources =

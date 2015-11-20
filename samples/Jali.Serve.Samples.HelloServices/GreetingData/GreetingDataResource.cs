@@ -19,7 +19,7 @@ namespace Jali.Serve.Samples.HelloServices.GreetingData
 
         public static Resource GetDefinition(Uri helloServiceUrl)
         {
-            var url = new Uri(helloServiceUrl, "resources/greetingdata/v1.0.0");
+            var url = helloServiceUrl.Combine("resources/greetingdata/v1.0.0");
             var schema = GetSchema();
             var keySchema = GetKeySchema();
 

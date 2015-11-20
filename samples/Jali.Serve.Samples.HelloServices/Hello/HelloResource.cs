@@ -19,7 +19,7 @@ namespace Jali.Serve.Samples.HelloServices
 
         public static Resource GetDefinition(Uri helloServiceUrl)
         {
-            var helloResourceUrl = new Uri(helloServiceUrl, "resources/hello/v1.0.0");
+            var helloResourceUrl = helloServiceUrl.Combine("resources/hello/v1.0.0");
 
             var resourceSchema = JSchema.Parse(@"{
   ""$schema"": ""http://json-schema.org/draft-04/schema#"",
@@ -52,7 +52,7 @@ namespace Jali.Serve.Samples.HelloServices
                     ["get-hello"] = new Routine
                     {
                         Name = "get-hello",
-                        Url = new Uri(helloResourceUrl, "routines/get-hello"),
+                        Url = helloResourceUrl.Combine("routines/get-hello"),
                         Description = "Retrieves the hello message.",
                         Messages =
                         {
