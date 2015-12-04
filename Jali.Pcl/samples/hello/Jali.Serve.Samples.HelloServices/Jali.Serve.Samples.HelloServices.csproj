@@ -13,7 +13,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -35,82 +35,78 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\..\src\Jali.Core.Pcl\Jali.Core.Pcl.csproj">
+    <ProjectReference Include="..\..\..\src\Jali.Core.Pcl\Jali.Core.Pcl.csproj">
       <Project>{53e9c750-56fd-481e-a4ca-f6fa687f4f79}</Project>
       <Name>Jali.Core.Pcl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Jali.Pcl\Jali.Pcl.csproj">
+    <ProjectReference Include="..\..\..\src\Jali.Pcl\Jali.Pcl.csproj">
       <Project>{8f365500-2edb-486f-be35-bf34d792874b}</Project>
       <Name>Jali.Pcl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Jali.Serve.Pcl\Jali.Serve.Pcl.csproj">
+    <ProjectReference Include="..\..\..\src\Jali.Serve.Pcl\Jali.Serve.Pcl.csproj">
       <Project>{a5a96225-6183-40e6-865c-4894f925f3c9}</Project>
       <Name>Jali.Serve.Pcl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\GreetingData\GetGreetingDataRequest.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\GreetingData\GetGreetingDataRequest.cs">
       <Link>GreetingData\GetGreetingDataRequest.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\GreetingData\GetGreetingDataRoutine.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\GreetingData\GetGreetingDataRoutine.cs">
       <Link>GreetingData\GetGreetingDataRoutine.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\GreetingData\GreetingData.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\GreetingData\GreetingData.cs">
       <Link>GreetingData\GreetingData.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\GreetingData\GreetingDataChangeResult.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\GreetingData\GreetingDataChangeResult.cs">
       <Link>GreetingData\GreetingDataChangeResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\GreetingData\GreetingDataKey.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\GreetingData\GreetingDataKey.cs">
       <Link>GreetingData\GreetingDataKey.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\GreetingData\GreetingDataResource.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\GreetingData\GreetingDataResource.cs">
       <Link>GreetingData\GreetingDataResource.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\GreetingData\NewGreetingDataRoutine.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\GreetingData\NewGreetingDataRoutine.cs">
       <Link>GreetingData\NewGreetingDataRoutine.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\GreetingData\RemoveGreetingDataRoutine.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\GreetingData\RemoveGreetingDataRoutine.cs">
       <Link>GreetingData\RemoveGreetingDataRoutine.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\GreetingData\SetGreetingDataRoutine.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\GreetingData\SetGreetingDataRoutine.cs">
       <Link>GreetingData\SetGreetingDataRoutine.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\HelloService.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\HelloService.cs">
       <Link>HelloService.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\Hello\GetHelloRequest.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\Hello\GetHelloRequest.cs">
       <Link>Hello\GetHelloRequest.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\Hello\GetHelloResponse.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\Hello\GetHelloResponse.cs">
       <Link>Hello\GetHelloResponse.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\Hello\GetHelloRoutine.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\Hello\GetHelloRoutine.cs">
       <Link>Hello\GetHelloRoutine.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\samples\Jali.Serve.Samples.HelloServices\Hello\HelloResource.cs">
+    <Compile Include="..\..\..\..\samples\hello\Jali.Serve.Samples.HelloServices\Hello\HelloResource.cs">
       <Link>Hello\HelloResource.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.1-beta1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json.Schema, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.Schema.1.0.11\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.Schema.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Collections.Concurrent">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETPortable\v4.5\System.Collections.Concurrent.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Schema, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.Schema.1.0.11\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.Schema.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
