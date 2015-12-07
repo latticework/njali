@@ -114,6 +114,7 @@ namespace System.Net.Http
                 case RestMethodVerbs.Post:
                 case RestMethodVerbs.Patch:
                 case RestMethodVerbs.Delete:
+                case RestMethodVerbs.Options:
                     method = requestMethod;
                     break;
 
