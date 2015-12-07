@@ -9,5 +9,6 @@
         public const string Post = "POST";
         public const string Patch = "PATCH";
         public const string Delete = "DELETE";
+        public const string Options = "OPTIONS";
     }
 }

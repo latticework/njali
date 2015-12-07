@@ -19,7 +19,7 @@ namespace Jali.Serve.Samples.HelloServices
             RoutineProcedureContext<GetHelloRequest, GetHelloResponse, JObject> procedureContext)
         {
             var greetingData = GreetingDataResource.GetGreetingDataByLanguage(
-                procedureContext.Request.Data.Lang ?? "en");
+                procedureContext.Request.Data?.Lang ?? "en");
 
             var name = procedureContext.Request.Data?.Name;
 

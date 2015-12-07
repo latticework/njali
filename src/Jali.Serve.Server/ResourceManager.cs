@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Jali.Core;
+using Jali.Serve.Definition;
 
 namespace Jali.Serve.Server
 {
@@ -60,6 +63,20 @@ namespace Jali.Serve.Server
             if (parseResult == null) throw new ArgumentNullException(nameof(parseResult));
             if (request == null) throw new ArgumentNullException(nameof(request));
 
+            if (parseResult.Method == RestMethodVerbs.Options)
+            {
+                var response = new HttpResponseMessage
+                {
+                    RequestMessage = request,
+                    StatusCode = HttpStatusCode.OK,
+                    ReasonPhrase = "OK",
+                };
+
+                AddCorsHeaders(request, response);
+
+                return response;
+            }
+
             var methodResult = this.Resource.Definition.Methods.GetValueOrDefault(parseResult.Method);
 
             if (!methodResult.Found)
@@ -100,7 +117,29 @@ namespace Jali.Serve.Server
             var result = await routineManager.ExecuteProcedure(
                 context, parseResult, request, requestAction, responseAction, resourceKey);
 
+            AddCorsHeaders(request, result);
+
             return result;
+        }
+
+        private void AddCorsHeaders(HttpRequestMessage request, HttpResponseMessage response)
+        {
+            var allowOrigin = request.Headers.Referrer.GetBaseUrl();
+            var methods = this.Resource.Definition.Methods.Keys.Concat(new[] {RestMethodVerbs.Options});
+            var headers = new[]
+            {
+                "Accept",
+                "Accept-Language",
+                "Authorization",
+                "Content-Language",
+                "Content-Type",
+            };
+
+            response.Headers.Add("Access-Control-Allow-Origin", allowOrigin);
+            response.Headers.Add("Access-Control-Allow-Methods", methods);
+            response.Headers.Add("Access-Control-Allow-Headers", headers);
+            //response.Headers.Add("Access-Control-Max-Age", "1728000");
+            response.Headers.Add("Access-Control-Max-Age", "600"); // Chrome maximum: http://stackoverflow.com/a/23549398
         }
 
         private readonly IDictionary<string, RoutineManager> _routineManagers;
