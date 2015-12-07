@@ -41,6 +41,7 @@ namespace Jali.Serve.Server
                 Authorizer = overrideOptions.Authorizer ?? new DefaultAuthorizor(),
                 MessageConverter = overrideOptions.MessageConverter ?? new CompositeServiceMessageConverter(),
                 KeyConverter = overrideOptions.KeyConverter ?? new DefaultResourceKeyConverter(),
+                CorsOptions = overrideOptions.CorsOptions ?? new CorsOptions(),
             };
 
             this._jaliServiceManager = new ServiceManager(this, async ctx =>

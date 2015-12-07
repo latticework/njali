@@ -124,9 +124,20 @@ namespace Jali.Serve.Server
 
         private void AddCorsHeaders(HttpRequestMessage request, HttpResponseMessage response)
         {
-            var allowOrigin = request.Headers.Referrer.GetBaseUrl();
+            var options = this.ServiceManager.Server.Options.CorsOptions;
+            if (!options.SupportsCors)
+            {
+                return;
+            }
+
+            var allowOrigin = (options.AllowAllOrigins)
+                ? ((options.SupportsCredentials)
+                    ? new[] { request.Headers.Referrer.GetBaseUrl() }
+                    : new[] { "*" })
+                : options.AllowedOrigins;
+
             var methods = this.Resource.Definition.Methods.Keys.Concat(new[] {RestMethodVerbs.Options});
-            var headers = new[]
+            var allowedHeaders = new[]
             {
                 "Accept",
                 "Accept-Language",
@@ -137,7 +148,11 @@ namespace Jali.Serve.Server
 
             response.Headers.Add("Access-Control-Allow-Origin", allowOrigin);
             response.Headers.Add("Access-Control-Allow-Methods", methods);
-            response.Headers.Add("Access-Control-Allow-Headers", headers);
+            response.Headers.Add("Access-Control-Allow-Headers", allowedHeaders);
+            if (options.SupportsCredentials)
+            {
+                response.Headers.Add("Access-Control-Allow-Credentials", "true");
+            }
             //response.Headers.Add("Access-Control-Max-Age", "1728000");
             response.Headers.Add("Access-Control-Max-Age", "600"); // Chrome maximum: http://stackoverflow.com/a/23549398
         }

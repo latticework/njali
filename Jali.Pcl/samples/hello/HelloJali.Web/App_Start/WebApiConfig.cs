@@ -27,7 +27,17 @@ namespace HelloJali.Web
             var absolutePath = VirtualPathUtility.ToAbsolute("~");
             var baseUri = new Uri(absolutePath, UriKind.Relative);
 
-            config.UseJaliService(context, async ctx => await Task.FromResult(new HelloService(ctx, baseUri)),  null);
+            var options = new JaliServerOptions
+            {
+                CorsOptions = new CorsOptions
+                {
+                    SupportsCors = true,
+                    AllowAllOrigins = true,
+                    SupportsCredentials = true,
+                },
+            };
+
+            config.UseJaliService(context, async ctx => await Task.FromResult(new HelloService(ctx, baseUri)), options);
 
             config.MapHttpAttributeRoutes();
 
