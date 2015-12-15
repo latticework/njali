@@ -2,8 +2,8 @@
 properties { 
   $zipFileName = "Jali00r1.zip"
   $majorVersion = "0.0"
-  $majorWithReleaseVersion = "0.0.1"
-  $nugetPrelease = "prealpha611"
+  $majorWithReleaseVersion = "0.1.0"
+  # $nugetPrelease = "prealpha611"
   $version = GetVersion $majorWithReleaseVersion
   $signAssemblies = $false
 #  $signKeyPath = "C:\Development\Releases\newtonsoft.snk"
